@@ -172,12 +172,19 @@ namespace ZuggerWpf
             lbTaskCount.Visibility = appconfig.ShowTask ? Visibility.Visible : Visibility.Collapsed;
             lbStoryCount.Visibility = appconfig.ShowStory ? Visibility.Visible : Visibility.Collapsed;
             lbOpenedByMeBugCount.Visibility = appconfig.ShowOpendByMe ? Visibility.Visible : Visibility.Collapsed;
+            lbUnclosedStoryCount.Visibility = appconfig.ShowUnclosedStory ? Visibility.Visible : Visibility.Collapsed;
+            lbUnclosedTaskCount.Visibility = appconfig.ShowUnclosedTask ? Visibility.Visible : Visibility.Collapsed;
+            lbUnclosedBugCount.Visibility = appconfig.ShowUnclosedBug ? Visibility.Visible : Visibility.Collapsed;
 
             //对于之前的版本因为已经存在配置了，所以默认的三个bool值都为false
             if (!appconfig.ShowOpendByMe
                 && !appconfig.ShowBug
                 && !appconfig.ShowTask
-                && !appconfig.ShowStory)
+                && !appconfig.ShowStory
+                && !appconfig.ShowUnclosedStory
+                && !appconfig.ShowUnclosedTask
+                && !appconfig.ShowUnclosedBug
+                )
             {
                 lbBugCount.Visibility = Visibility.Visible;
                 lbTaskCount.Visibility = Visibility.Visible;
@@ -223,6 +230,33 @@ namespace ZuggerWpf
                 GetOpenedByMeBug gobm = new GetOpenedByMeBug(openedByMeCollection);
                 lbOpenedByMeBugCount.DataContext = openedByMeCollection;
                 ActionList.Add(gobm);
+            }
+            #endregion
+            #region 未关闭的story
+            if (appconfig.ShowUnclosedStory)
+            {
+                ZuggerObservableCollection<StoryItem> UnclosedStoryCollection = new ZuggerObservableCollection<StoryItem>();
+                GetUnclosedStory gous = new GetUnclosedStory(UnclosedStoryCollection);
+                lbUnclosedStoryCount.DataContext = UnclosedStoryCollection;
+                ActionList.Add(gous);
+            }
+            #endregion
+            #region 未关闭的task
+            if (appconfig.ShowUnclosedTask)
+            {
+                ZuggerObservableCollection<TaskItem> UnclosedTaskCollection = new ZuggerObservableCollection<TaskItem>();
+                GetUnclosedTask gout = new GetUnclosedTask(UnclosedTaskCollection);
+                lbUnclosedTaskCount.DataContext = UnclosedTaskCollection;
+                ActionList.Add(gout);
+            }
+            #endregion
+            #region 未关闭的bug
+            if (appconfig.ShowUnclosedBug)
+            {
+                ZuggerObservableCollection<BugItem> UnclosedBugCollection = new ZuggerObservableCollection<BugItem>();
+                GetUnclosedBug goub = new GetUnclosedBug(UnclosedBugCollection);
+                lbUnclosedBugCount.DataContext = UnclosedBugCollection;
+                ActionList.Add(goub);
             }
             #endregion
 
@@ -391,6 +425,33 @@ namespace ZuggerWpf
         }
 
         #region 点击悬浮框
+        /// <summary>
+        /// 展开全部未关闭的story list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void lbUnclosedStoryCount_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DoubleClickFloatFrame(lbUnclosedStoryCount, unclosedStoryList);
+        }
+        /// <summary>
+        /// 展开全部未关闭的tast list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void lbUnclosedTaskCount_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DoubleClickFloatFrame(lbUnclosedTaskCount, unclosedTaskList);
+        }
+        /// <summary>
+        /// 展开全部未关闭的bug list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void lbUnclosedBugCount_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DoubleClickFloatFrame(lbUnclosedBugCount, unclosedBugList);
+        }
         /// <summary>
         /// 展开opened by me bug list
         /// </summary>

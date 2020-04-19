@@ -61,6 +61,9 @@ namespace ZuggerWpf
                 appconfigBack.ShowOpendByMe = appconfig.ShowOpendByMe;
                 appconfigBack.ShowTask = appconfig.ShowTask;
                 appconfigBack.ShowStory = appconfig.ShowStory;
+                appconfigBack.ShowUnclosedStory = appconfig.ShowUnclosedStory;
+                appconfigBack.ShowUnclosedTask = appconfig.ShowUnclosedTask;
+                appconfigBack.ShowUnclosedBug = appconfig.ShowUnclosedBug;
 
                 txtPwd.Password = appconfig.Password;
 
@@ -194,7 +197,10 @@ namespace ZuggerWpf
             appconfig.ShowBug = appconfigBack.ShowBug;
             appconfig.ShowOpendByMe = appconfigBack.ShowOpendByMe;
             appconfig.ShowTask = appconfigBack.ShowTask;
-            appconfig.ShowStory = appconfigBack.ShowStory;
+            appconfig.ShowStory = appconfigBack.ShowStory;//
+            appconfig.ShowUnclosedStory = appconfigBack.ShowUnclosedStory;
+            appconfig.ShowUnclosedTask = appconfigBack.ShowUnclosedTask;
+            appconfig.ShowUnclosedBug = appconfigBack.ShowUnclosedBug;
 
             IOHelper.SaveIsolatedData(appconfig);
 

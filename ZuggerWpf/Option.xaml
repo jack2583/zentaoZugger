@@ -93,8 +93,8 @@
                  Text="{Binding UserName}"/>
 
             <TextBlock Grid.Row="3" Grid.Column="0" Text="密码：" TextAlignment="Right"/>
-            <PasswordBox Name="txtPwd" PasswordChar="●" MinWidth="100" Grid.Row="3" Grid.Column="1" Margin="2"/>          
-            
+            <PasswordBox Name="txtPwd" PasswordChar="●" MinWidth="100" Grid.Row="3" Grid.Column="1" Margin="2"/>
+
             <GroupBox Grid.Row="4" Grid.ColumnSpan="2" Margin="5" Visibility="Collapsed">
                 <GroupBox.Header>
                     <Label Content="PMS访问方式" Background="WhiteSmoke" FontStyle="Italic" ToolTip="关于PMS访问方式请咨询管理员"/>
@@ -118,19 +118,33 @@
 
             <GroupBox Name="gbchooseMode" Grid.Row="6" Grid.ColumnSpan="2" Margin="5" >
                 <GroupBox.Header>
-                    <StackPanel Orientation="Horizontal">                        
+                    <StackPanel Orientation="Horizontal">
                         <Label Name="chooseModeTip" Content="请至少选择一种显示方式" Foreground="Red" Visibility="Collapsed"/>
                     </StackPanel>
                 </GroupBox.Header>
                 <StackPanel Name="pnDispalyMode" Orientation="Horizontal">
-                    <CheckBox Name="ckOpenedByMe" Margin="5" Content="我开的Bug" IsChecked="{Binding ShowOpendByMe}" Click="DisplayCheckBox_Click"/>
-                    <CheckBox Name="ckBug" Margin="5" Content="给我的Bug" IsChecked="{Binding ShowBug}" Click="DisplayCheckBox_Click"/>
+                    <CheckBox Name="ckOpenedByMe" Margin="5" Content="我提的Bug" IsChecked="{Binding ShowOpendByMe}" Click="DisplayCheckBox_Click"/>
+                    <CheckBox Name="ckBug" Margin="5" Content="Bug"  IsChecked="{Binding ShowBug}" Click="DisplayCheckBox_Click"/>
                     <CheckBox Name="ckTask" Margin="5" Content="任务" IsChecked="{Binding ShowTask}" Click="DisplayCheckBox_Click"/>
                     <CheckBox Name="ckStory" Margin="5" Content="需求" IsChecked="{Binding ShowStory}" Click="DisplayCheckBox_Click"/>
+                    <!--<CheckBox Name="ckToDo" Margin="5" Content="待办" IsChecked="{Binding ShowToDo}" Click="DisplayCheckBox_Click"/>-->
                 </StackPanel>
 
             </GroupBox>
-            <CheckBox Name="ckAutoRun" Grid.Row="7" Grid.ColumnSpan="2" Margin="5" IsChecked="{Binding IsAutoRun}" Content="开机时启动"/>
+            <GroupBox Name="gbchooseMode2" Grid.Row="7" Grid.ColumnSpan="2" Margin="5" >
+                <GroupBox.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Name="chooseModeTip2" Content="请至少选择一种显示方式" Foreground="Red" Visibility="Collapsed"/>
+                    </StackPanel>
+                </GroupBox.Header>
+                <StackPanel Name="pnDispalyMode2" Orientation="Horizontal">
+                    <CheckBox Name="ckUnclosedStory" Margin="5" Content="未关闭的需求" IsChecked="{Binding ShowUnclosedStory}" Click="DisplayCheckBox_Click"/>
+                    <CheckBox Name="ckclosedTask" Margin="5" Content="未关闭的任务" IsChecked="{Binding ShowUnclosedTask}" Click="DisplayCheckBox_Click"/>
+                    <CheckBox Name="ckclosedBug" Margin="5" Content="未关闭的BUG" IsChecked="{Binding ShowUnclosedBug}" Click="DisplayCheckBox_Click"/>
+                </StackPanel>
+
+            </GroupBox>
+            <CheckBox Name="ckAutoRun" Grid.Row="8" Margin="5" IsChecked="{Binding IsAutoRun}" Content="开机时启动" Grid.Column="1" Grid.RowSpan="2"/>
             <CheckBox Name="ckTaskNotify" Grid.Row="8" Grid.ColumnSpan="2" Margin="5" IsChecked="{Binding IsTaskNotify}" Content="显示任务栏消息提示"/>
 
             <Button Name="btnYes" Content="确定" Grid.Row="9" Grid.Column="0" Margin="2" Background="{StaticResource shinyBrush}" Click="btnYes_Click"/>

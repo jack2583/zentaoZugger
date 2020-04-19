@@ -50,9 +50,10 @@ namespace ZuggerWpf
 
                             foreach (var j in jsArray)
                             {
+                                int priID = int.Parse(j["pri"].Value<string>());
                                 StoryItem bi = new StoryItem()
                                 {
-                                    Priority = j["pri"].Value<string>()
+                                    Priority = Enum.GetName(typeof(CustomEnum.CustomPri), priID)
                                     ,
                                     ID = j["id"].Value<int>()
                                     ,
@@ -126,6 +127,9 @@ namespace ZuggerWpf
                     break;
                 case "released":
                     cword = "已发布";
+                    break;
+                default:
+                    eWord.ToLower().Trim();
                     break;
             }
 

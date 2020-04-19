@@ -80,7 +80,21 @@ namespace ZuggerWpf
                 return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "my-task.json?a=1" : "?m=my&f=task&t=json");
             }
         }
+        /// <summary>
+        /// 取unclosedtask 未关闭的全部任务
+        /// </summary>
+        public string GetUnclosedTaskUrl
+        {
+            get
+            {
+                //GET  GET  /zentao/project-task-[projectID]-[status]-             [orderBy]-[recTotal]-[recPerPage]-[pageID].json
+                //GET  /zentao/bug-browse-       [productID]-[branch]-[browseType]-[param]-[orderBy]-[recTotal]-[recPerPage]-[pageID].json
+                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "project-task-{0}-unclosed-id_desc-0-2147483647-2147483647.json?a=1"
+                    : "?m=project&f=task&productID={0}&status=unclosed&orderBy=id_desc&recTotal=0&recPerPage=2147483647&pageID=1&t=json");
 
+                // return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "my-task.json?a=1" : "?m=my&f=task&t=json");
+            }
+        }
         /// <summary>
         /// 取产品列表
         /// </summary>
@@ -88,11 +102,23 @@ namespace ZuggerWpf
         {
             get
             {
+                //GET  /zentao/product-browse-[productID]-[browseType]-[param]-[orderBy]-[recTotal]-[recPerPage]-[pageID].json
                 //return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "product-browse.json?a=1" : "?m=bug&f=browse&browseType=openedByMe&param=0&orderBy=id_desc&recTotal=0&recPerPage=2147483647&pageID=1&t=json");
+                //return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "product-browse.json?a=1" : "?m=bug&f=browse&browseType=openedByMe&t=json");
                 return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "product-browse.json?a=1" : "?m=bug&f=browse&browseType=openedByMe&t=json");
             }
         }
-
+        /// <summary>
+        /// 取项目列表
+        /// </summary>
+        public string GetProjectUrl
+        {
+            get
+            {
+                //GET  /zentao/project-browse-[projectID].json
+                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "product-project-all-{0}.json?a=1" : "?m=bug&f=browse&browseType=openedByMe&t=json");
+            }
+        }
         /// <summary>
         /// 取由我创建的bug
         /// </summary>
@@ -100,11 +126,25 @@ namespace ZuggerWpf
         {
             get
             {
-                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "bug-browse-{0}-openedByMe-1-id_desc-0-2147483647-1.json?a=1"
+                //GET  /zentao/bug-browse-[productID]-[branch]-[browseType]-[param]-[orderBy]-[recTotal]-[recPerPage]-[pageID].json
+                //GET  /zentao/bug-browse-[产品id]-[分支固定为0]-[视图类型unclosed或openedByMe]-[param]-[orderBy]-[recTotal]-[recPerPage]-[pageID].json
+                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "bug-browse-{0}-0-openedByMe-id_desc-0-2147483647.json?a=1"
                     : "?m=bug&f=browse&productID={0}&browseType=openedByMe&param=0&orderBy=id_desc&recTotal=0&recPerPage=2147483647&pageID=1&t=json");
             }          
         }
-
+        /// <summary>
+        /// 取未关闭的bug
+        /// </summary>
+        public string GetUnclosedBugUrl
+        {
+            get
+            {
+                //GET  /zentao/bug-browse-[productID]-[branch]-[browseType]-[param]-[orderBy]-[recTotal]-[recPerPage]-[pageID].json
+                //GET  /zentao/bug-browse-[产品id]-[分支固定为0]-[视图类型unclosed或openedByMe]-[param]-[orderBy]-[recTotal]-[recPerPage]-[pageID].json
+                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "bug-browse-{0}-0-unclosed-id_desc-0-2147483647.json?a=1"
+                    : "?m=bug&f=browse&productID={0}&browseType=unclosed&param=0&orderBy=id_desc&recTotal=0&recPerPage=2147483647&pageID=1&t=json");
+            }
+        }
         /// <summary>
         /// 取story 即 需求
         /// </summary>
@@ -115,7 +155,23 @@ namespace ZuggerWpf
                 return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "my-story.json?a=1" : "?m=my&f=story&t=json");
             }
         }
+        /// <summary>
+        /// 取unclosedstory 即 未关闭的全部需求
+        /// </summary>
+        public string GetUnclosedStoryUrl
+        {
+            get
+            {
+                // GET  /zentao/product-browse-[productID]-[browseType]-    [param]-[orderBy]-[recTotal]-[recPerPage]-[pageID].json
+                //GET  /zentao/bug-browse-[productID]-[branch]-[browseType]-[param]-[orderBy]-[recTotal]-[recPerPage]-[pageID].json
+                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "product-browse-{0}-0-unclosed-id_desc-0-2147483647.json?a=1"
+                   : "?m=product&f=browse&productID={0}&browseType=unclosed&param=0&orderBy=id_desc&recTotal=0&recPerPage=2147483647&pageID=1&t=json");
 
+                //return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "bug-browse-{0}-0-unclosed-id_desc-0-2147483647.json?a=1"
+                //   : "?m=bug&f=browse&productID={0}&browseType=unclosed&param=0&orderBy=id_desc&recTotal=0&recPerPage=2147483647&pageID=1&t=json");
+                //return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "my-story.json?a=1" : "?m=my&f=story&t=json");
+            }
+        }
         /// <summary>
         /// 查看bug的url
         /// </summary>
@@ -280,7 +336,15 @@ namespace ZuggerWpf
             get { return showOpendByMe; }
             set { showOpendByMe = value; }
         }
-
+        private bool showUnclosed = true;
+        /// <summary>
+        ///是否显示全部未关闭的BUG
+        /// </summary>
+        public bool ShowUnclosedBug
+        {
+            get { return showUnclosed; }
+            set { showUnclosed = value; }
+        }
         private bool showBug = true;
         /// <summary>
         ///是否显示bug
@@ -300,7 +364,15 @@ namespace ZuggerWpf
             get { return showTask; }
             set { showTask = value; }
         }
-
+        private bool showUnclosedTask = true;
+        /// <summary>
+        ///是否显示未关闭的全部task
+        /// </summary>
+        public bool ShowUnclosedTask
+        {
+            get { return showUnclosedTask; }
+            set { showUnclosedTask = value; }
+        }
         private bool showStory = true;
         /// <summary>
         ///是否显示需求
@@ -310,7 +382,15 @@ namespace ZuggerWpf
             get { return showStory; }
             set { showStory = value; }
         }
-
+        private bool showUnclosedStory = true;
+        /// <summary>
+        ///是否显示需求
+        /// </summary>
+        public bool ShowUnclosedStory
+        {
+            get { return showUnclosedStory; }
+            set { showUnclosedStory = value; }
+        }
         public bool IsConfigUpdated
         {
             get;

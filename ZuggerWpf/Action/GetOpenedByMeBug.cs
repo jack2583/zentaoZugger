@@ -71,11 +71,15 @@ namespace ZuggerWpf
                                 foreach (var j in jsArray)
                                 {
                                     //openedbyme 显示未关闭
-                                    if (j["status"].Value<string>() != "closed")
+                                    if (j["status"].Value<string>() != "closed" && j["status"].Value<string>() != "resolved")
                                     {
+                                        int priID = int.Parse(j["pri"].Value<string>());
+                                        int SeverityID = int.Parse(j["severity"].Value<string>());
                                         BugItem bi = new BugItem()
                                         {
-                                            Severity = j["severity"].Value<string>()
+                                            Priority = Enum.GetName(typeof(CustomEnum.CustomPri), priID)
+                                            ,
+                                            Severity = Enum.GetName(typeof(CustomEnum.customSeverity), SeverityID)
                                             ,
                                             ID = j["id"].Value<int>()
                                             ,

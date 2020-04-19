@@ -8,11 +8,11 @@ using System.Windows;
 // 控制。更改这些属性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("Zugger")]
-[assembly: AssemblyDescription("禅道 PMS桌面提醒工具")]
+[assembly: AssemblyDescription("禅道桌面提醒工具")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Zugger")]
-[assembly: AssemblyCopyright("Copyright © 鲍毅铭 2010 - 2011")]
+[assembly: AssemblyCopyright("Copyright © 红尘 2020 - 2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -51,5 +51,5 @@ using System.Windows;
 // 可以指定所有这些值，也可以使用“内部版本号”和“修订号”的默认值，
 // 方法是按如下所示使用“*”:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.5.1.0")]
-[assembly: AssemblyFileVersion("1.5.1.0")]
+[assembly: AssemblyVersion("2.0.1.0")]
+[assembly: AssemblyFileVersion("2.0.1.0")]
