@@ -70,16 +70,14 @@ namespace ZuggerWpf
 
                                 foreach (var j in jsArray)
                                 {
-                                    int priID = int.Parse(j["pri"].Value<string>());
-                                    int SeverityID = int.Parse(j["severity"].Value<string>());
                                     //unclosedBug 显示未关闭
-                                    if (j["status"].Value<string>() != "closed" && j["status"].Value<string>() != "resolved")
+                                    if (j["status"].Value<string>() != "closed")//&& j["status"].Value<string>() != "resolved"
                                     {
                                         BugItem bi = new BugItem()
                                         {
-                                            Priority = Enum.GetName(typeof(CustomEnum.CustomPri), priID)
-                                            ,
-                                            Severity = Enum.GetName(typeof(CustomEnum.customSeverity), SeverityID)
+                                            Priority = Convert.Pri(j["pri"].Value<string>())
+                                    ,
+                                            Severity = Convert.Severity(j["severity"].Value<string>())
                                             ,
                                             ID = j["id"].Value<int>()
                                             ,
@@ -90,6 +88,10 @@ namespace ZuggerWpf
                                             LastEdit = j["lastEditedDate"].Value<string>()
                                             ,
                                             Tip = "未关闭的Bug"
+                                            ,
+                                            Confirmed = Convert.Confirmed(j["confirmed"].Value<string>())
+                                            ,
+                                            Resolution = Convert.Resolution(j["resolution"].Value<string>())
                                         };
 
                                         if (!ItemCollectionBackup.Contains(bi.ID))
@@ -149,7 +151,7 @@ namespace ZuggerWpf
 
                             while (jp != null)
                             {
-                                productIds.Add(Convert.ToInt32(jp.Name));
+                                productIds.Add(System.Convert.ToInt32(jp.Name));
                                 jp = jp.Next as JProperty;
                             }
                         }
@@ -163,7 +165,64 @@ namespace ZuggerWpf
 
             return productIds;
         }
+        #region 任务枚举
+        private string ConvertResolution(string eWord)
+        {
+            string cword = string.Empty;
 
+            switch (eWord.ToLower().Trim())
+            {
+                case "bydesign":
+                    cword = "设计如此";
+                    break;
+                case "duplicate":
+                    cword = "重复BUG";
+                    break;
+                case "external":
+                    cword = "外部原因";
+                    break;
+                case "fixed":
+                    cword = "已解决";
+                    break;
+                case "notrepro":
+                    cword = "无法重现";
+                    break;
+                case "postponed":
+                    cword = "延期处理";
+                    break;
+                case "willnotfix":
+                    cword = "不予解决";
+                    break;
+                case "toshory":
+                    cword = "转为需求";
+                    break;
+                default:
+                    eWord.ToLower().Trim();
+                    break;
+            }
+
+            return cword;
+        }
+        private string ConvertConfirmed(string eWord)
+        {
+            string cword = string.Empty;
+
+            switch (eWord.ToLower().Trim())
+            {
+                case "0":
+                    cword = "未确认";
+                    break;
+                case "1":
+                    cword = "确认";
+                    break;
+                default:
+                    eWord.ToLower().Trim();
+                    break;
+            }
+
+            return cword;
+        }
+        #endregion
         #region ActionBaseInterface Members
 
         public event NewItemArrive OnNewItemArrive;

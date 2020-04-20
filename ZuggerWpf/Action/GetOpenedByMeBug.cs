@@ -71,15 +71,13 @@ namespace ZuggerWpf
                                 foreach (var j in jsArray)
                                 {
                                     //openedbyme 显示未关闭
-                                    if (j["status"].Value<string>() != "closed" && j["status"].Value<string>() != "resolved")
+                                    if (j["status"].Value<string>() != "closed")// && j["status"].Value<string>() != "resolved"
                                     {
-                                        int priID = int.Parse(j["pri"].Value<string>());
-                                        int SeverityID = int.Parse(j["severity"].Value<string>());
                                         BugItem bi = new BugItem()
                                         {
-                                            Priority = Enum.GetName(typeof(CustomEnum.CustomPri), priID)
-                                            ,
-                                            Severity = Enum.GetName(typeof(CustomEnum.customSeverity), SeverityID)
+                                            Priority = Convert.Pri(j["pri"].Value<string>())
+                                    ,
+                                            Severity = Convert.Severity(j["severity"].Value<string>())
                                             ,
                                             ID = j["id"].Value<int>()
                                             ,
@@ -90,6 +88,10 @@ namespace ZuggerWpf
                                             LastEdit = j["lastEditedDate"].Value<string>()
                                             ,
                                             Tip = "我开的Bug"
+                                            ,
+                                            Confirmed = Convert.Confirmed(j["confirmed"].Value<string>())
+                                            ,
+                                            Resolution = Convert.Resolution(j["resolution"].Value<string>())
                                         };
 
                                         if (!ItemCollectionBackup.Contains(bi.ID))
@@ -149,7 +151,7 @@ namespace ZuggerWpf
 
                             while (jp != null)
                             {
-                                productIds.Add(Convert.ToInt32(jp.Name));
+                                productIds.Add(System.Convert.ToInt32(jp.Name));
                                 jp = jp.Next as JProperty;
                             }
                         }
@@ -163,7 +165,6 @@ namespace ZuggerWpf
 
             return productIds;
         }
-
         #region ActionBaseInterface Members
 
         public event NewItemArrive OnNewItemArrive;

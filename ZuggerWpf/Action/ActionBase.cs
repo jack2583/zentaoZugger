@@ -69,7 +69,15 @@ namespace ZuggerWpf
             {
                 tip = value;
             }
-        }        
+        }
+        /// <summary>
+        /// 是否确认
+        /// </summary>
+        public string Confirmed { get; set; }
+        /// <summary>
+        /// 解决方案
+        /// </summary>
+        public string Resolution { get; set; }
     }
 
     #endregion

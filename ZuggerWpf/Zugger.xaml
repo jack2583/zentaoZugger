@@ -257,16 +257,30 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Label Content="{Binding Severity}" Grid.Row="0" Grid.Column="0"
                                    ToolTip="严重程度"
                                    MouseDoubleClick="Label_MouseDoubleClick" 
                                    Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
-                            <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="1" 
+
+                            <Label Content="{Binding Confirmed}" Grid.Row="0" Grid.Column="1" 
+                                   ToolTip="是否确认"
+                                   MouseDoubleClick="Label_MouseDoubleClick"                                    
+                                   Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
+
+                            <Label Content="{Binding Resolution}" Grid.Row="0" Grid.Column="2" 
+                                   ToolTip="解决方案"
+                                   MouseDoubleClick="Label_MouseDoubleClick"                                    
+                                   Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
+
+                            <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="3" 
                                    ToolTip="ID"
                                    MouseDoubleClick="Label_MouseDoubleClick"                                    
                                    Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
-                            <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="2"
+                            
+                            <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="4"
                                    ToolTip="标题"
                                    MouseDoubleClick="Label_MouseDoubleClick" 
                                    Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
@@ -312,16 +326,30 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Label Content="{Binding Severity}" Grid.Row="0" Grid.Column="0"
                                    ToolTip="严重程度"
                                    MouseDoubleClick="Label_MouseDoubleClick" 
                                    Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
-                            <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="1" 
+
+                            <Label Content="{Binding Confirmed}" Grid.Row="0" Grid.Column="1" 
+                                   ToolTip="是否确认"
+                                   MouseDoubleClick="Label_MouseDoubleClick"                                    
+                                   Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
+
+                            <Label Content="{Binding Resolution}" Grid.Row="0" Grid.Column="2" 
+                                   ToolTip="解决方案"
+                                   MouseDoubleClick="Label_MouseDoubleClick"                                    
+                                   Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
+
+                            <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="3" 
                                    ToolTip="ID"
                                    MouseDoubleClick="Label_MouseDoubleClick"                                    
                                    Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
-                            <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="2"
+
+                            <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="4"
                                    ToolTip="标题"
                                    MouseDoubleClick="Label_MouseDoubleClick" 
                                    Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
@@ -368,16 +396,30 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Label Content="{Binding Severity}" Grid.Row="0" Grid.Column="0"
                                    ToolTip="严重程度"
                                    MouseDoubleClick="Label_MouseDoubleClick" 
                                    Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
-                            <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="1" 
+
+                            <Label Content="{Binding Confirmed}" Grid.Row="0" Grid.Column="1" 
+                                   ToolTip="是否确认"
+                                   MouseDoubleClick="Label_MouseDoubleClick"                                    
+                                   Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
+
+                            <Label Content="{Binding Resolution}" Grid.Row="0" Grid.Column="2" 
+                                   ToolTip="解决方案"
+                                   MouseDoubleClick="Label_MouseDoubleClick"                                    
+                                   Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
+
+                            <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="3" 
                                    ToolTip="ID"
                                    MouseDoubleClick="Label_MouseDoubleClick"                                    
                                    Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
-                            <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="2"
+
+                            <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="4"
                                    ToolTip="标题"
                                    MouseDoubleClick="Label_MouseDoubleClick" 
                                    Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>

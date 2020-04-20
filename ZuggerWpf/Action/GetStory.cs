@@ -50,10 +50,9 @@ namespace ZuggerWpf
 
                             foreach (var j in jsArray)
                             {
-                                int priID = int.Parse(j["pri"].Value<string>());
                                 StoryItem bi = new StoryItem()
                                 {
-                                    Priority = Enum.GetName(typeof(CustomEnum.CustomPri), priID)
+                                    Priority = Convert.Pri(j["pri"].Value<string>())
                                     ,
                                     ID = j["id"].Value<int>()
                                     ,
@@ -61,7 +60,7 @@ namespace ZuggerWpf
                                     ,
                                     OpenDate = j["openedDate"].Value<string>()
                                     ,
-                                    Stage = ConvertStage(j["stage"].Value<string>())
+                                    Stage = Convert.Stage(j["stage"].Value<string>())
                                     ,
                                     Tip = "需求"
                                 };
@@ -94,49 +93,6 @@ namespace ZuggerWpf
 
             return isSuccess;
         }
-
-        private string ConvertStage(string eWord)
-        {
-            string cword = string.Empty;
-
-            switch (eWord.ToLower().Trim())
-            { 
-                case "wait":
-                    cword = "未开始";
-                    break;
-                case "planned":
-                    cword = "已计划";
-                    break;
-                case "projected":
-                    cword = "已立项";
-                    break;
-                case "developing":
-                    cword = "研发中";
-                    break;
-                case "developed":
-                    cword = "研发完毕";
-                    break;
-                case "testing":
-                    cword = "测试中";
-                    break;
-                case "tested":
-                    cword = "测试完毕";
-                    break;
-                case "verified":
-                    cword = "已验收";
-                    break;
-                case "released":
-                    cword = "已发布";
-                    break;
-                default:
-                    eWord.ToLower().Trim();
-                    break;
-            }
-
-            return cword;
-        }
-
-
         #region ActionBaseInterface Members
 
         public event NewItemArrive OnNewItemArrive;

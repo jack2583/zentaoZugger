@@ -82,11 +82,9 @@ namespace ZuggerWpf
                                     var taskp = jp.First;
                                     if (taskp["status"].Value<string>() != "cancel")
                                     {
-                                        int priID =int.Parse(taskp["pri"].Value<string>());
-
                                         TaskItem ti = new TaskItem()
                                         {
-                                            Priority = Enum.GetName(typeof(CustomEnum.CustomPri), priID)
+                                            Priority = Convert.Pri(taskp["pri"].Value<string>())
                                             ,
                                             ID = taskp["id"].Value<int>()
                                             ,
@@ -96,9 +94,9 @@ namespace ZuggerWpf
                                             ,
                                             Tip = "Task"
                                             ,
-                                            Type= ConvertType(taskp["type"].Value<string>())
+                                            Type= Convert.Type(taskp["type"].Value<string>())
                                             ,
-                                            Status= ConvertType(taskp["status"].Value<string>())
+                                            Status= Convert.Status(taskp["status"].Value<string>())
                                         };
 
                                         if (!ItemCollectionBackup.Contains(ti.ID))
@@ -155,7 +153,7 @@ namespace ZuggerWpf
 
                             while (jp != null)
                             {
-                                productIds.Add(Convert.ToInt32(jp.Name));
+                                productIds.Add(System.Convert.ToInt32(jp.Name));
                                 jp = jp.Next as JProperty;
                             }
                         }
@@ -213,96 +211,7 @@ namespace ZuggerWpf
 
             return projectIds;
         }
-        #region 任务枚举
-        /// <summary>
-        /// 任务状态
-        /// </summary>
-        /// <param name="eWord"></param>
-        /// <returns></returns>
-        private string ConvertStatus(string eWord)
-        {
-            string cword = string.Empty;
 
-            switch (eWord.ToLower().Trim())
-            {
-                case "wait":
-                    cword = "未开始";
-                    break;
-                case "doing":
-                    cword = "进行中";
-                    break;
-                case "done":
-                    cword = "已完成";
-                    break;
-                case "pause":
-                    cword = "已暂停";
-                    break;
-                case "cancel":
-                    cword = "已取消";
-                    break;
-                case "closed":
-                    cword = "已关闭";
-                    break;
-                default:
-                    eWord.ToLower().Trim();
-                    break;
-            }
-
-            return cword;
-        }
-        private string ConvertType(string eWord)
-        {
-            string cword = string.Empty;
-
-            switch (eWord.ToLower().Trim())
-            {
-                case "design":
-                    cword = "设计";
-                    break;
-                case "document":
-                    cword = "文档";
-                    break;
-                case "devel":
-                    cword = "开发";
-                    break;
-                case "server":
-                    cword = "服务端";
-                    break;
-                case "client":
-                    cword = "客户端";
-                    break;
-                case "cinfig":
-                    cword = "配置";
-                    break;
-                case "numerical":
-                    cword = "数值";
-                    break;
-                case "art":
-                    cword = "美术";
-                    break;
-                case "test":
-                    cword = "测试";
-                    break;
-                case "discuss":
-                    cword = "讨论";
-                    break;
-                case "ui":
-                    cword = "UI界面";
-                    break;
-                case "affair":
-                    cword = "事务";
-                    break;
-                case "misc":
-                    cword = "其他";
-                    break;
-                default:
-                    eWord.ToLower().Trim();
-                    break;
-            }
-
-            return cword;
-        }
-        #endregion
         #region ActionBaseInterface Members
 
         public event NewItemArrive OnNewItemArrive;

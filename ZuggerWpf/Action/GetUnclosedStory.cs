@@ -73,10 +73,9 @@ namespace ZuggerWpf
                                     //unclosedStory 显示未关闭
                                     if (j["status"].Value<string>() != "closed" && j["status"].Value<string>() != "resolved")
                                     {
-                                        int priID = int.Parse(j["pri"].Value<string>());
                                         StoryItem bi = new StoryItem()
                                         {
-                                            Priority = Enum.GetName(typeof(CustomEnum.CustomPri), priID)
+                                            Priority = Convert.Pri(j["pri"].Value<string>())
                                         ,
                                             ID = j["id"].Value<int>()
                                         ,
@@ -84,7 +83,7 @@ namespace ZuggerWpf
                                         ,
                                             OpenDate = j["openedDate"].Value<string>()
                                         ,
-                                            Stage = ConvertStage(j["stage"].Value<string>())
+                                            Stage = Convert.Stage(j["stage"].Value<string>())
                                         ,
                                             Tip = "未关闭的全部需求"
                                         };
@@ -186,7 +185,7 @@ namespace ZuggerWpf
 
                             while (jp != null)
                             {
-                                productIds.Add(Convert.ToInt32(jp.Name));
+                                productIds.Add(System.Convert.ToInt32(jp.Name));
                                 jp = jp.Next as JProperty;
                             }
                         }

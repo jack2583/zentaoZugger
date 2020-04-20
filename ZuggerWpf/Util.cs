@@ -47,7 +47,7 @@ namespace ZuggerWpf
 
             latestVersion = null;
 
-            string content = WebTools.Download("https://github.com/iwteih/zugger/releases");
+            string content = WebTools.Download("https://github.com/jack2583/zentaoZugger/releases");
 
             if (!string.IsNullOrEmpty(content))
             {

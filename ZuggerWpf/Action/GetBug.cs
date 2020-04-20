@@ -50,15 +50,13 @@ namespace ZuggerWpf
 
                             foreach (var j in jsArray)
                             {
-                                if (j["status"].Value<string>() != "closed" && j["status"].Value<string>() != "resolved")
+                                if (j["status"].Value<string>() != "closed")// && j["status"].Value<string>() != "resolved"
                                 {
-                                    int priID = int.Parse(j["pri"].Value<string>());
-                                    int SeverityID = int.Parse(j["severity"].Value<string>());
                                     BugItem bi = new BugItem()
                                     {
-                                        Priority = Enum.GetName(typeof(CustomEnum.CustomPri), priID)
+                                        Priority = Convert.Pri(j["pri"].Value<string>())
                                     ,
-                                        Severity = Enum.GetName(typeof(CustomEnum.customSeverity), SeverityID)
+                                        Severity = Convert.Severity(j["severity"].Value<string>())
                                     ,
                                         ID = j["id"].Value<int>()
                                     ,
@@ -69,6 +67,10 @@ namespace ZuggerWpf
                                         LastEdit = j["lastEditedDate"].Value<string>()
                                     ,
                                         Tip = "Bug"
+                                    ,
+                                        Confirmed = Convert.Confirmed(j["confirmed"].Value<string>())
+                                    ,
+                                        Resolution = Convert.Resolution(j["resolution"].Value<string>())
                                     };
 
                                     if (!ItemCollectionBackup.Contains(bi.ID))
@@ -100,7 +102,7 @@ namespace ZuggerWpf
 
             return isSuccess;
         }
-
+     
         #region ActionBaseInterface Members
 
         public event NewItemArrive OnNewItemArrive;
