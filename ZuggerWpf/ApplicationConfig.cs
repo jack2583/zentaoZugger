@@ -109,7 +109,7 @@ namespace ZuggerWpf
             }
         }
         /// <summary>
-        /// 取项目列表
+        /// 取项目列表  
         /// </summary>
         public string GetProjectUrl
         {
@@ -117,6 +117,17 @@ namespace ZuggerWpf
             {
                 //GET  /zentao/project-browse-[projectID].json
                 return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "product-project-all-{0}.json?a=1" : "?m=bug&f=browse&browseType=openedByMe&t=json");
+            }
+        }
+        /// <summary>
+        /// 取所有项目列表  
+        /// </summary>
+        public string GetAllProjectUrl
+        {
+            get
+            {
+                //project-all-all.html
+                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "project-all-all.json?a=1" : "?m=bug&f=browse&browseType=openedByMe&t=json");
             }
         }
         /// <summary>

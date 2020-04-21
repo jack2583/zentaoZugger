@@ -34,9 +34,9 @@ namespace ZuggerWpf
             {
                 ApplicationConfig appconfig = IOHelper.LoadIsolatedData();
 
-                for (int i = 0; i < productIds.Count; i++)
-                {
-                    List<int> projectIds = GetProjectId(productIds[i]);
+                //for (int i = 0; i < productIds.Count; i++)
+                //{
+                    List<int> projectIds = GetProjectId();
                     //string[] projectList = new string[productIds.Count];
 
                     for (int j = 0; j < projectIds.Count; j++)
@@ -46,7 +46,7 @@ namespace ZuggerWpf
 
                         jsonList.Add(json);
                     }                    
-                }
+                //}
 
                 bool isNewJson = IsNewJson(string.Concat(jsonList));
 
@@ -71,9 +71,12 @@ namespace ZuggerWpf
                             json = jsObj["data"].Value<string>();
                             jsObj = JsonConvert.DeserializeObject(json) as JObject;
 
-                            if (jsObj["tasks"] != null)
+                            if (jsObj["tasks"] != null )
                             {
                                 json = jsObj["tasks"].ToString();
+                                if (json == "[]")
+                                    continue;
+
                                 jsObj = JsonConvert.DeserializeObject(json) as JObject;
 
                                 JToken record = jsObj as JToken;
@@ -211,7 +214,50 @@ namespace ZuggerWpf
 
             return projectIds;
         }
+        private List<int> GetProjectId()
+        {
+            List<int> projectIds = new List<int>();
+            try
+            {
+                ApplicationConfig appconfig = IOHelper.LoadIsolatedData();
 
+                //string json = string.Format(appconfig.GetProjectUrl, productId);
+
+                string json = WebTools.Download(string.Format("{0}&{1}={2}", appconfig.GetAllProjectUrl, SessionName, SessionID));
+
+                if (!string.IsNullOrEmpty(json))
+                {
+                    var jsObj = JsonConvert.DeserializeObject(json) as JObject;
+
+                    if (jsObj != null && jsObj["status"].Value<string>() == "success")
+                    {
+                        json = jsObj["data"].Value<string>();
+
+                        jsObj = JsonConvert.DeserializeObject(json) as JObject;
+
+                        if (jsObj["projectStats"] != null)
+                        {
+                            JArray jsArray = (JArray)JsonConvert.DeserializeObject(jsObj["projectStats"].ToString());
+
+                            foreach (var j in jsArray)
+                            {
+                                //显示未关闭
+                                if (j["status"].Value<string>() != "closed" && j["status"].Value<string>() != "resolved")
+                                {
+                                    projectIds.Add(j["id"].Value<int>());
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception exp)
+            {
+                logger.Error(string.Format("GetProjectId Error: {0}", exp.ToString()));
+            }
+
+            return projectIds;
+        }
         #region ActionBaseInterface Members
 
         public event NewItemArrive OnNewItemArrive;
