@@ -172,18 +172,22 @@ namespace ZuggerWpf
             lbTaskCount.Visibility = appconfig.ShowTask ? Visibility.Visible : Visibility.Collapsed;
             lbStoryCount.Visibility = appconfig.ShowStory ? Visibility.Visible : Visibility.Collapsed;
             lbOpenedByMeBugCount.Visibility = appconfig.ShowOpendByMe ? Visibility.Visible : Visibility.Collapsed;
+            lbUnclosedProjectCount.Visibility = appconfig.ShowUnclosedProject ? Visibility.Visible : Visibility.Collapsed;
             lbUnclosedStoryCount.Visibility = appconfig.ShowUnclosedStory ? Visibility.Visible : Visibility.Collapsed;
             lbUnclosedTaskCount.Visibility = appconfig.ShowUnclosedTask ? Visibility.Visible : Visibility.Collapsed;
             lbUnclosedBugCount.Visibility = appconfig.ShowUnclosedBug ? Visibility.Visible : Visibility.Collapsed;
+            lbUnclosedToDoCount.Visibility = appconfig.ShowUnclosedToDo ? Visibility.Visible : Visibility.Collapsed;
 
             //对于之前的版本因为已经存在配置了，所以默认的三个bool值都为false
             if (!appconfig.ShowOpendByMe
                 && !appconfig.ShowBug
                 && !appconfig.ShowTask
                 && !appconfig.ShowStory
+                && !appconfig.ShowUnclosedProject
                 && !appconfig.ShowUnclosedStory
                 && !appconfig.ShowUnclosedTask
                 && !appconfig.ShowUnclosedBug
+                && !appconfig.ShowUnclosedToDo
                 )
             {
                 lbBugCount.Visibility = Visibility.Visible;
@@ -232,6 +236,15 @@ namespace ZuggerWpf
                 ActionList.Add(gobm);
             }
             #endregion
+            #region 未关闭的项目
+            if (appconfig.ShowUnclosedProject)
+            {
+                ZuggerObservableCollection<ProjectItem> UnclosedProjectCollection = new ZuggerObservableCollection<ProjectItem>();
+                GetUnclosedProject goup = new GetUnclosedProject(UnclosedProjectCollection);
+                lbUnclosedProjectCount.DataContext = UnclosedProjectCollection;
+                ActionList.Add(goup);
+            }
+            #endregion
             #region 未关闭的story
             if (appconfig.ShowUnclosedStory)
             {
@@ -259,7 +272,15 @@ namespace ZuggerWpf
                 ActionList.Add(goub);
             }
             #endregion
-
+            #region 未关闭的ToDo
+            if (appconfig.ShowUnclosedToDo)
+            {
+                ZuggerObservableCollection<ToDoItem> UnclosedToDoCollection = new ZuggerObservableCollection<ToDoItem>();
+                GetUnclosedToDo gout = new GetUnclosedToDo(UnclosedToDoCollection);
+                lbUnclosedToDoCount.DataContext = UnclosedToDoCollection;
+                ActionList.Add(gout);
+            }
+            #endregion
             #region 需求
             if (appconfig.ShowStory)
             {
@@ -451,6 +472,24 @@ namespace ZuggerWpf
         private void lbUnclosedBugCount_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             DoubleClickFloatFrame(lbUnclosedBugCount, unclosedBugList);
+        }
+        /// <summary>
+        /// 展开全部未关闭的Project list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void lbUnclosedProjectCount_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DoubleClickFloatFrame(lbUnclosedProjectCount, unclosedProjectList);
+        }
+        /// <summary>
+        /// 展开全部未关闭的ToDo list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void lbUnclosedToDoCount_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DoubleClickFloatFrame(lbUnclosedToDoCount, unclosedToDoList);
         }
         /// <summary>
         /// 展开opened by me bug list

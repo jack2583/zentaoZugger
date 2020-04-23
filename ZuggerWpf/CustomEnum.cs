@@ -214,8 +214,26 @@ namespace ZuggerWpf
                 case "affair":
                     cword = "事务";
                     break;
-                case "misc":
-                    cword = "其他";
+                case "testcase":
+                    cword = "测试用例";
+                    break;
+                case "case":
+                    cword = "用例";
+                    break;
+                case "custom":
+                    cword = "自定义";
+                    break;
+                case "cycle":
+                    cword = "周期";
+                    break;
+                case "bug":
+                    cword = "Bug";
+                    break;
+                case "task":
+                    cword = "项目任务";
+                    break;
+                case "story":
+                    cword = "项目需求";
                     break;
                 default:
                     eWord.ToLower().Trim();

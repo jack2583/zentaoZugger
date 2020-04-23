@@ -60,6 +60,12 @@
         </Grid.ColumnDefinitions>
         <StackPanel Name="pnItems" Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
             <StackPanel Orientation="Vertical">
+                <Label Name="lbUnclosedProjectCount" Content="{Binding Count}" Background="Orange" 
+                   FontSize="18" FontWeight="Bold" ToolTip="全部未关闭项目数" MouseDoubleClick="lbUnclosedProjectCount_MouseDoubleClick"/>
+                <Line X1="0" Y1="0" X2="{Binding ElementName=lbUnclosedProjectCount, Path=ActualWidth}" Y2="0" StrokeThickness="3" 
+                      Stroke="OrangeRed" Visibility="{Binding ElementName=unclosedProjectList, Path=Visibility}"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
                 <Label Name="lbUnclosedStoryCount" Content="{Binding Count}" Background="Orange" 
                    FontSize="18" FontWeight="Bold" ToolTip="全部未关闭Story数" MouseDoubleClick="lbUnclosedStoryCount_MouseDoubleClick"/>
                 <Line X1="0" Y1="0" X2="{Binding ElementName=lbUnclosedStoryCount, Path=ActualWidth}" Y2="0" StrokeThickness="3" 
@@ -101,9 +107,73 @@
                 <Line X1="0" Y1="0" X2="{Binding ElementName=lbStoryCount, Path=ActualWidth}" Y2="0" StrokeThickness="3" 
                       Stroke="OrangeRed" Visibility="{Binding ElementName=storyList, Path=Visibility}"/>
             </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <Label Name="lbUnclosedToDoCount" Content="{Binding Count}" Background="LightGoldenrodYellow" 
+                   FontSize="18" FontWeight="Bold" ToolTip="待办数" MouseDoubleClick="lbUnclosedToDoCount_MouseDoubleClick" MouseUp="Label_MouseUp"/>
+                <Line X1="0" Y1="0" X2="{Binding ElementName=lbUnclosedToDoCount, Path=ActualWidth}" Y2="0" StrokeThickness="3" 
+                      Stroke="OrangeRed" Visibility="{Binding ElementName=ToDoList, Path=Visibility}"/>
+            </StackPanel>
         </StackPanel>
 
         <Grid Name="listview" Grid.Row="1" Grid.Column="1" >
+            <!--unclosedProjectList列表-->
+            <ListBox Name="unclosedProjectList" ItemsSource="{Binding}" ItemContainerStyle="{StaticResource listBoxItemMouseOver}"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto" MaxHeight="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Height, Converter={StaticResource heightconvert}, ConverterParameter=0.7}"
+                     Visibility="{Binding Converter={StaticResource datasource2Visible}}" KeyUp="ListBox_KeyUp">
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="编辑" Click="ItemEdit_Click"/>
+                        <MenuItem Header="复制" Click="CopyItem_Click"/>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+                <ListBox.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="Black" BorderThickness="1">
+                                </Border>
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                    </GroupStyle>
+                </ListBox.GroupStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition>
+                                </RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="{Binding Priority}" Grid.Row="0" Grid.Column="0"  
+                                   MouseDoubleClick="Label_MouseDoubleClick"
+                                   ToolTip="优先级"/>
+                            <Label Content="{Binding Status}" Grid.Row="0" Grid.Column="1"  
+                                   MouseDoubleClick="Label_MouseDoubleClick" 
+                                   ToolTip="状态"/>
+                            <Label Content="{Binding Progress}" Grid.Row="0" Grid.Column="2"  
+                                   MouseDoubleClick="Label_MouseDoubleClick" 
+                                   ToolTip="进度"/>
+                            <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="3" 
+                                   MouseDoubleClick="Label_MouseDoubleClick" 
+                                   ToolTip="ID"/>
+                            <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="4" 
+                                   MouseDoubleClick="Label_MouseDoubleClick"  
+                                   ToolTip="标题"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
             <!--unclosedStoryList列表-->
             <ListBox Name="unclosedStoryList" ItemsSource="{Binding}" ItemContainerStyle="{StaticResource listBoxItemMouseOver}"
                      ScrollViewer.VerticalScrollBarVisibility="Auto" MaxHeight="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Height, Converter={StaticResource heightconvert}, ConverterParameter=0.7}"
@@ -158,7 +228,6 @@
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
             </ListBox>
-
             <!--unclosedTaskList列表-->
             <ListBox Name="unclosedTaskList" ItemsSource="{Binding}" ItemContainerStyle="{StaticResource listBoxItemMouseOver}"
                      ScrollViewer.VerticalScrollBarVisibility="Auto" MaxHeight="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Height, Converter={StaticResource heightconvert}, ConverterParameter=0.7}"
@@ -191,6 +260,7 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
+                                <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Label Content="{Binding Priority}" Grid.Row="0" Grid.Column="0"  
                                    MouseDoubleClick="Label_MouseDoubleClick" 
@@ -206,13 +276,17 @@
                                    MouseDoubleClick="Label_MouseDoubleClick" 
                                    ToolTip="状态"
                                    Foreground="{Binding Deadline, Converter={StaticResource taskdate2color}}"/>
+
+                            <Label Content="{Binding Progress}" Grid.Row="0" Grid.Column="3"  
+                                   MouseDoubleClick="Label_MouseDoubleClick" 
+                                   ToolTip="进度"/>
                             
-                            <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="3" 
+                            <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="4" 
                                    MouseDoubleClick="Label_MouseDoubleClick" 
                                    ToolTip="ID"
                                    Foreground="{Binding Deadline, Converter={StaticResource taskdate2color}}"/>
                             
-                            <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="4" 
+                            <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="5" 
                                    MouseDoubleClick="Label_MouseDoubleClick"  
                                    ToolTip="标题"
                                    Foreground="{Binding Deadline, Converter={StaticResource taskdate2color}}"/>
@@ -465,6 +539,7 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
+                                <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Label Content="{Binding Priority}" Grid.Row="0" Grid.Column="0"  
                                    MouseDoubleClick="Label_MouseDoubleClick" 
@@ -480,13 +555,17 @@
                                    MouseDoubleClick="Label_MouseDoubleClick" 
                                    ToolTip="状态"
                                    Foreground="{Binding Deadline, Converter={StaticResource taskdate2color}}"/>
+
+                            <Label Content="{Binding Progress}" Grid.Row="0" Grid.Column="3"  
+                                   MouseDoubleClick="Label_MouseDoubleClick" 
+                                   ToolTip="进度"/>
                             
-                            <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="3" 
+                            <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="4" 
                                    MouseDoubleClick="Label_MouseDoubleClick" 
                                    ToolTip="ID"
                                    Foreground="{Binding Deadline, Converter={StaticResource taskdate2color}}"/>
                             
-                            <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="4" 
+                            <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="5" 
                                    MouseDoubleClick="Label_MouseDoubleClick"  
                                    ToolTip="标题"
                                    Foreground="{Binding Deadline, Converter={StaticResource taskdate2color}}"/>
@@ -554,7 +633,64 @@
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
             </ListBox>
-
+            <!--unclosedToDoList列表-->
+            <ListBox Name="unclosedToDoList" ItemsSource="{Binding}" ItemContainerStyle="{StaticResource listBoxItemMouseOver}"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto" MaxHeight="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Height, Converter={StaticResource heightconvert}, ConverterParameter=0.7}"
+                     Visibility="{Binding Converter={StaticResource datasource2Visible}}" KeyUp="ListBox_KeyUp">
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="编辑" Click="ItemEdit_Click"/>
+                        <MenuItem Header="复制" Click="CopyItem_Click"/>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+                <ListBox.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="Black" BorderThickness="1">
+                                </Border>
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                    </GroupStyle>
+                </ListBox.GroupStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition>
+                                </RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="{Binding Priority}" Grid.Row="0" Grid.Column="0"  
+                                   MouseDoubleClick="Label_MouseDoubleClick"
+                                   ToolTip="优先级"/>
+                            <Label Content="{Binding Type}" Grid.Row="0" Grid.Column="1"  
+                                   MouseDoubleClick="Label_MouseDoubleClick" 
+                                   ToolTip="类型"/>
+                            <Label Content="{Binding Status}" Grid.Row="0" Grid.Column="2"  
+                                   MouseDoubleClick="Label_MouseDoubleClick" 
+                                   ToolTip="状态"/>
+                            <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="3" 
+                                   MouseDoubleClick="Label_MouseDoubleClick" 
+                                   ToolTip="ID"/>
+                            <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="4" 
+                                   MouseDoubleClick="Label_MouseDoubleClick"  
+                                   ToolTip="标题"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
         </Grid>
     </Grid>
 </Window>

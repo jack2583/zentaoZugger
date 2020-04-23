@@ -120,7 +120,7 @@ namespace ZuggerWpf
             }
         }
         /// <summary>
-        /// 取所有项目列表  
+        /// 取所有项目列表
         /// </summary>
         public string GetAllProjectUrl
         {
@@ -128,6 +128,17 @@ namespace ZuggerWpf
             {
                 //project-all-all.html
                 return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "project-all-all.json?a=1" : "?m=bug&f=browse&browseType=openedByMe&t=json");
+            }
+        }
+        /// <summary>
+        /// 取所有ToDo列表  
+        /// </summary>
+        public string GetAllToDoUrl
+        {
+            get
+            {
+                //my-todo-all
+                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "my-todo.json?a=1" : "?m=bug&f=browse&browseType=openedByMe&t=json");
             }
         }
         /// <summary>
@@ -395,12 +406,30 @@ namespace ZuggerWpf
         }
         private bool showUnclosedStory = true;
         /// <summary>
-        ///是否显示需求
+        ///是否显示全部未关闭的需求
         /// </summary>
         public bool ShowUnclosedStory
         {
             get { return showUnclosedStory; }
             set { showUnclosedStory = value; }
+        }
+        private bool showUnclosedProject = true;
+        /// <summary>
+        ///是否显示全部未关闭的需求
+        /// </summary>
+        public bool ShowUnclosedProject
+        {
+            get { return showUnclosedProject; }
+            set { showUnclosedProject = value; }
+        }
+        private bool showUnclosedToDo = true;
+        /// <summary>
+        ///是否显示全部未关闭的需求
+        /// </summary>
+        public bool ShowUnclosedToDo
+        {
+            get { return showUnclosedToDo; }
+            set { showUnclosedToDo = value; }
         }
         public bool IsConfigUpdated
         {

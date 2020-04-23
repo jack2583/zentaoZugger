@@ -136,6 +136,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CustomEnum.cs" />
+    <Compile Include="Action\GetUnclosedProject.cs" />
+    <Compile Include="Action\GetUnclosedToDo.cs" />
     <Compile Include="Zugger.xaml.cs">
       <DependentUpon>Zugger.xaml</DependentUpon>
       <SubType>Code</SubType>

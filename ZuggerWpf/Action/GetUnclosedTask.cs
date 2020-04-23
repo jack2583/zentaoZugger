@@ -100,6 +100,8 @@ namespace ZuggerWpf
                                             Type= Convert.Type(taskp["type"].Value<string>())
                                             ,
                                             Status= Convert.Status(taskp["status"].Value<string>())
+                                            ,
+                                            Progress = taskp["progress"].Value<string>() + "%"
                                         };
 
                                         if (!ItemCollectionBackup.Contains(ti.ID))

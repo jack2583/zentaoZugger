@@ -132,11 +132,12 @@
                         <CheckBox Name="ckTask" Margin="5" Content="任务" IsChecked="{Binding ShowTask}" Click="DisplayCheckBox_Click"/>
                         <CheckBox Name="ckBug" Margin="5" Content="Bug"  IsChecked="{Binding ShowBug}" Click="DisplayCheckBox_Click"/>
                         <CheckBox Name="ckOpenedByMe" Margin="5" Content="我提的Bug" IsChecked="{Binding ShowOpendByMe}" Click="DisplayCheckBox_Click"/>
-                        <!--<CheckBox Name="ckToDo" Margin="5" Content="待办" IsChecked="{Binding ShowToDo}" Click="DisplayCheckBox_Click"/>-->
+                        <CheckBox Name="ckToDo" Margin="5" Content="待办" IsChecked="{Binding ShowUnclosedToDo}" Click="DisplayCheckBox_Click"/>
                     </StackPanel>
                     <StackPanel Name="pnDispalyMode2" Grid.Row="1" Orientation="Horizontal">
-                        <CheckBox Name="ckUnclosedStory" Margin="5" Content="全部需求" IsChecked="{Binding ShowUnclosedStory}" Click="DisplayCheckBox_Click"/>
-                        <CheckBox Name="ckclosedTask" Margin="5" Content="全部任务" IsChecked="{Binding ShowUnclosedTask}" Click="DisplayCheckBox_Click"/>
+                        <CheckBox Name="ckclosedProject" Margin="5" Content="all项目" IsChecked="{Binding ShowUnclosedProject}" Click="DisplayCheckBox_Click"/>
+                        <CheckBox Name="ckUnclosedStory" Margin="5" Content="all需求" IsChecked="{Binding ShowUnclosedStory}" Click="DisplayCheckBox_Click"/>
+                        <CheckBox Name="ckclosedTask" Margin="5" Content="all任务" IsChecked="{Binding ShowUnclosedTask}" Click="DisplayCheckBox_Click"/>
                         <CheckBox Name="ckclosedBug" Margin="5" Content="全部BUG" IsChecked="{Binding ShowUnclosedBug}" Click="DisplayCheckBox_Click"/>
                     </StackPanel>
                 </Grid>

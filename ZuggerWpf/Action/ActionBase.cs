@@ -39,7 +39,7 @@ namespace ZuggerWpf
     }
 
 
-    #region Bug
+    #region Bug BUG
     struct BugItem : ItemBase
     {
         #region ItemBase 成员
@@ -82,7 +82,7 @@ namespace ZuggerWpf
 
     #endregion
 
-    #region Task
+    #region Task 任务
     struct TaskItem : ItemBase
     {
         #region ItemBase 成员
@@ -111,11 +111,15 @@ namespace ZuggerWpf
         }
         public string Type { get; set; }
         public string Status { get; set; }
+        /// <summary>
+        /// 项目进度百分比值
+        /// </summary>
+        public string Progress { get; set; }
     }
 
     #endregion
 
-    #region Story
+    #region Story 需求
     struct StoryItem : ItemBase
     {
         #region ItemBase 成员
@@ -143,6 +147,83 @@ namespace ZuggerWpf
         }
 
         public string Stage { get; set; }
+    }
+    #endregion
+    #region Project 项目
+    struct ProjectItem : ItemBase
+    {
+        #region ItemBase 成员
+
+        public int ID { get; set; }
+        /// <summary>
+        /// 标题
+        /// </summary>
+        public string Title { get; set; }
+
+        #endregion
+        /// <summary>
+        /// 优先级 
+        /// </summary>
+        public string Priority { get; set; }
+
+        public string OpenDate { get; set; }
+
+        private string tip;
+        public string Tip
+        {
+            get
+            {
+                return string.IsNullOrEmpty(tip) ? "Project" : tip;
+            }
+            set
+            {
+                tip = value;
+            }
+        }
+
+        public string Status { get; set; }
+        /// <summary>
+        /// 项目进度百分比值
+        /// </summary>
+        public string Progress { get; set; }
+
+
+    }
+    #endregion
+    #region ToDo 待办
+    struct ToDoItem : ItemBase
+    {
+        #region ItemBase 成员
+
+        public int ID { get; set; }
+        /// <summary>
+        /// 标题
+        /// </summary>
+        public string Title { get; set; }
+
+        #endregion
+        /// <summary>
+        /// 优先级 
+        /// </summary>
+        public string Priority { get; set; }
+
+        public string OpenDate { get; set; }
+
+        private string tip;
+        public string Tip
+        {
+            get
+            {
+                return string.IsNullOrEmpty(tip) ? "ToDo" : tip;
+            }
+            set
+            {
+                tip = value;
+            }
+        }
+
+        public string Type { get; set; }
+        public string Status { get; set; }
     }
     #endregion
 

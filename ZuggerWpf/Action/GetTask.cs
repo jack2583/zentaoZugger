@@ -65,8 +65,10 @@ namespace ZuggerWpf
                                         Tip = "Task"
                                          ,
                                         Type = Convert.Type(j["type"].Value<string>())
-                                            ,
+                                         ,
                                         Status = Convert.Status(j["status"].Value<string>())
+                                         ,
+                                        Progress = j["hours"]["progress"].Value<string>() + "%"
                                     };
 
                                     if (!ItemCollectionBackup.Contains(ti.ID))
