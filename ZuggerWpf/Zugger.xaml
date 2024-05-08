@@ -2,11 +2,12 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:ZuggerWpf"
+    
     Name="frmzugger"
     Title="Zugger"  SizeToContent="WidthAndHeight" AllowsTransparency="True" WindowStyle="None"
     FontFamily="微软雅黑"
     ResizeMode="NoResize"
-    WindowStartupLocation="Manual" Opacity=".7" ShowInTaskbar="False"
+    WindowStartupLocation="Manual" Opacity="1" ShowInTaskbar="False"
     Left="{Binding Source={x:Static local:Properties.Settings.Default}, Path=MainWndLeft, Mode=TwoWay}"    
     Top="{Binding Source={x:Static local:Properties.Settings.Default}, Path=MainWndTop, Mode=TwoWay}" 
     Topmost="True" MouseLeftButtonDown="Window_MouseLeftButtonDown" Loaded="Window_Loaded" Closed="Window_Closed"
@@ -67,13 +68,13 @@
             </StackPanel>
             <StackPanel Orientation="Vertical">
                 <Label Name="lbUnclosedStoryCount" Content="{Binding Count}" Background="Orange" 
-                   FontSize="18" FontWeight="Bold" ToolTip="全部未关闭Story数" MouseDoubleClick="lbUnclosedStoryCount_MouseDoubleClick"/>
+                   FontSize="18" FontWeight="Bold" ToolTip="全部未关闭需求数" MouseDoubleClick="lbUnclosedStoryCount_MouseDoubleClick"/>
                 <Line X1="0" Y1="0" X2="{Binding ElementName=lbUnclosedStoryCount, Path=ActualWidth}" Y2="0" StrokeThickness="3" 
                       Stroke="OrangeRed" Visibility="{Binding ElementName=unclosedStoryList, Path=Visibility}"/>
             </StackPanel>
             <StackPanel Orientation="Vertical">
                 <Label Name="lbUnclosedTaskCount" Content="{Binding Count}" Background="Orange" 
-                   FontSize="18" FontWeight="Bold" ToolTip="全部未关闭Task数" MouseDoubleClick="lbUnclosedTaskCount_MouseDoubleClick"/>
+                   FontSize="18" FontWeight="Bold" ToolTip="全部未关闭任务数" MouseDoubleClick="lbUnclosedTaskCount_MouseDoubleClick"/>
                 <Line X1="0" Y1="0" X2="{Binding ElementName=lbUnclosedTaskCount, Path=ActualWidth}" Y2="0" StrokeThickness="3" 
                       Stroke="OrangeRed" Visibility="{Binding ElementName=unclosedTaskList, Path=Visibility}"/>
             </StackPanel>
@@ -91,25 +92,25 @@
             </StackPanel>
             <StackPanel Orientation="Vertical">
                 <Label Name="lbBugCount" Content="{Binding Count}" Background="{Binding Count, Converter={StaticResource count2color}}" 
-                   FontSize="18" FontWeight="Bold" ToolTip="Bug数" MouseDoubleClick="lbBugCount_MouseDoubleClick" MouseUp="Label_MouseUp"/>
+                   FontSize="18" FontWeight="Bold" ToolTip="指给我的Bug数" MouseDoubleClick="lbBugCount_MouseDoubleClick" MouseUp="Label_MouseUp"/>
                 <Line X1="0" Y1="0" X2="{Binding ElementName=lbBugCount, Path=ActualWidth}" Y2="0" StrokeThickness="3" 
                       Stroke="OrangeRed" Visibility="{Binding ElementName=bugList, Path=Visibility}"/>
             </StackPanel>
             <StackPanel Orientation="Vertical">
                 <Label Name="lbTaskCount" Content="{Binding Count}" Background="LightBlue" 
-                   FontSize="18" FontWeight="Bold" ToolTip="Task数" MouseDoubleClick="lbTaskCount_MouseDoubleClick" MouseUp="Label_MouseUp"/>
+                   FontSize="18" FontWeight="Bold" ToolTip="指给我的任务数" MouseDoubleClick="lbTaskCount_MouseDoubleClick" MouseUp="Label_MouseUp"/>
                 <Line X1="0" Y1="0" X2="{Binding ElementName=lbTaskCount, Path=ActualWidth}" Y2="0" StrokeThickness="3" 
                       Stroke="OrangeRed" Visibility="{Binding ElementName=taskList, Path=Visibility}"/>
             </StackPanel>
             <StackPanel Orientation="Vertical">
                 <Label Name="lbStoryCount" Content="{Binding Count}" Background="LightGoldenrodYellow" 
-                   FontSize="18" FontWeight="Bold" ToolTip="Story数" MouseDoubleClick="lbStoryCount_MouseDoubleClick" MouseUp="Label_MouseUp"/>
+                   FontSize="18" FontWeight="Bold" ToolTip="指给我的需求数" MouseDoubleClick="lbStoryCount_MouseDoubleClick" MouseUp="Label_MouseUp"/>
                 <Line X1="0" Y1="0" X2="{Binding ElementName=lbStoryCount, Path=ActualWidth}" Y2="0" StrokeThickness="3" 
                       Stroke="OrangeRed" Visibility="{Binding ElementName=storyList, Path=Visibility}"/>
             </StackPanel>
             <StackPanel Orientation="Vertical">
                 <Label Name="lbUnclosedToDoCount" Content="{Binding Count}" Background="LightGoldenrodYellow" 
-                   FontSize="18" FontWeight="Bold" ToolTip="待办数" MouseDoubleClick="lbUnclosedToDoCount_MouseDoubleClick" MouseUp="Label_MouseUp"/>
+                   FontSize="18" FontWeight="Bold" ToolTip="我的个人待办数" MouseDoubleClick="lbUnclosedToDoCount_MouseDoubleClick" MouseUp="Label_MouseUp"/>
                 <Line X1="0" Y1="0" X2="{Binding ElementName=lbUnclosedToDoCount, Path=ActualWidth}" Y2="0" StrokeThickness="3" 
                       Stroke="OrangeRed" Visibility="{Binding ElementName=ToDoList, Path=Visibility}"/>
             </StackPanel>
@@ -206,17 +207,21 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
+                                <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Label Content="{Binding Priority}" Grid.Row="0" Grid.Column="0"  
+                            <Label Content="{Binding Execution}" Grid.Row="0" Grid.Column="0"  
+                                   MouseDoubleClick="Label_MouseDoubleClick"
+                                   ToolTip="所属项目"/>
+                            <Label Content="{Binding Priority}" Grid.Row="0" Grid.Column="1"  
                                    MouseDoubleClick="Label_MouseDoubleClick"
                                    ToolTip="优先级"/>
-                            <Label Content="{Binding Stage}" Grid.Row="0" Grid.Column="1"  
+                            <Label Content="{Binding Stage}" Grid.Row="0" Grid.Column="2"  
                                    MouseDoubleClick="Label_MouseDoubleClick" 
                                    ToolTip="阶段"/>
-                            <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="2" 
+                            <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="3" 
                                    MouseDoubleClick="Label_MouseDoubleClick" 
                                    ToolTip="ID"/>
-                            <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="3" 
+                            <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="4" 
                                    MouseDoubleClick="Label_MouseDoubleClick"  
                                    ToolTip="标题"/>
                         </Grid>
@@ -261,32 +266,37 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
+                                <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Label Content="{Binding Priority}" Grid.Row="0" Grid.Column="0"  
+                            <Label Content="{Binding ProjectName}" Grid.Row="0" Grid.Column="0"  
+                                   MouseDoubleClick="Label_MouseDoubleClick" 
+                                   ToolTip="所属项目"/>
+                            <Label Content="{Binding Priority}" Grid.Row="0" Grid.Column="1"  
                                    MouseDoubleClick="Label_MouseDoubleClick" 
                                    ToolTip="优先级"
                                    Foreground="{Binding Deadline, Converter={StaticResource taskdate2color}}"/>
 
-                            <Label Content="{Binding Type}" Grid.Row="0" Grid.Column="1"  
+                            <Label Content="{Binding Type}" Grid.Row="0" Grid.Column="2"  
                                    MouseDoubleClick="Label_MouseDoubleClick" 
                                    ToolTip="类型"
                                    Foreground="{Binding Deadline, Converter={StaticResource taskdate2color}}"/>
 
-                            <Label Content="{Binding Status}" Grid.Row="0" Grid.Column="2"  
+                            <Label Content="{Binding Status}" Grid.Row="0" Grid.Column="3"  
                                    MouseDoubleClick="Label_MouseDoubleClick" 
                                    ToolTip="状态"
                                    Foreground="{Binding Deadline, Converter={StaticResource taskdate2color}}"/>
 
-                            <Label Content="{Binding Progress}" Grid.Row="0" Grid.Column="3"  
+                            <Label Content="{Binding Progress}" Grid.Row="0" Grid.Column="4"  
                                    MouseDoubleClick="Label_MouseDoubleClick" 
                                    ToolTip="进度"/>
-                            
-                            <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="4" 
+
+
+                            <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="5" 
                                    MouseDoubleClick="Label_MouseDoubleClick" 
                                    ToolTip="ID"
                                    Foreground="{Binding Deadline, Converter={StaticResource taskdate2color}}"/>
                             
-                            <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="5" 
+                            <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="6" 
                                    MouseDoubleClick="Label_MouseDoubleClick"  
                                    ToolTip="标题"
                                    Foreground="{Binding Deadline, Converter={StaticResource taskdate2color}}"/>
@@ -333,28 +343,32 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
+                                <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Label Content="{Binding Severity}" Grid.Row="0" Grid.Column="0"
+                            <Label Content="{Binding Product}" Grid.Row="0" Grid.Column="0"
+                                   ToolTip="所属产品"
+                                   MouseDoubleClick="Label_MouseDoubleClick" 
+                                   Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
+                            <Label Content="{Binding Severity}" Grid.Row="0" Grid.Column="1"
                                    ToolTip="严重程度"
                                    MouseDoubleClick="Label_MouseDoubleClick" 
                                    Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
-
-                            <Label Content="{Binding Confirmed}" Grid.Row="0" Grid.Column="1" 
+                            <Label Content="{Binding Confirmed}" Grid.Row="0" Grid.Column="2" 
                                    ToolTip="是否确认"
                                    MouseDoubleClick="Label_MouseDoubleClick"                                    
                                    Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
 
-                            <Label Content="{Binding Resolution}" Grid.Row="0" Grid.Column="2" 
+                            <Label Content="{Binding Resolution}" Grid.Row="0" Grid.Column="3" 
                                    ToolTip="解决方案"
                                    MouseDoubleClick="Label_MouseDoubleClick"                                    
                                    Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
 
-                            <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="3" 
+                            <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="4" 
                                    ToolTip="ID"
                                    MouseDoubleClick="Label_MouseDoubleClick"                                    
                                    Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
                             
-                            <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="4"
+                            <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="5"
                                    ToolTip="标题"
                                    MouseDoubleClick="Label_MouseDoubleClick" 
                                    Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
@@ -402,29 +416,35 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
+                                <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Label Content="{Binding Severity}" Grid.Row="0" Grid.Column="0"
-                                   ToolTip="严重程度"
+                            <Label Content="{Binding Product}" Grid.Row="0" Grid.Column="0"
+                                   ToolTip="BUG-所属产品"
                                    MouseDoubleClick="Label_MouseDoubleClick" 
                                    Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
 
-                            <Label Content="{Binding Confirmed}" Grid.Row="0" Grid.Column="1" 
-                                   ToolTip="是否确认"
+                            <Label Content="{Binding Severity}" Grid.Row="0" Grid.Column="1"
+                                   ToolTip="BUG-严重程度"
+                                   MouseDoubleClick="Label_MouseDoubleClick" 
+                                   Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
+
+                            <Label Content="{Binding Confirmed}" Grid.Row="0" Grid.Column="2" 
+                                   ToolTip="BUG-是否确认"
                                    MouseDoubleClick="Label_MouseDoubleClick"                                    
                                    Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
 
-                            <Label Content="{Binding Resolution}" Grid.Row="0" Grid.Column="2" 
-                                   ToolTip="解决方案"
+                            <Label Content="{Binding Resolution}" Grid.Row="0" Grid.Column="3" 
+                                   ToolTip="BUG-解决方案"
                                    MouseDoubleClick="Label_MouseDoubleClick"                                    
                                    Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
 
-                            <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="3" 
-                                   ToolTip="ID"
+                            <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="4" 
+                                   ToolTip="BUG-ID"
                                    MouseDoubleClick="Label_MouseDoubleClick"                                    
                                    Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
 
-                            <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="4"
-                                   ToolTip="标题"
+                            <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="5"
+                                   ToolTip="BUG-标题"
                                    MouseDoubleClick="Label_MouseDoubleClick" 
                                    Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
                         </Grid>
@@ -472,29 +492,35 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                
                             </Grid.ColumnDefinitions>
-                            <Label Content="{Binding Severity}" Grid.Row="0" Grid.Column="0"
-                                   ToolTip="严重程度"
+                            <Label Content="{Binding Product}" Grid.Row="0" Grid.Column="0"
+                                   ToolTip="BUG-所属产品"
+                                   MouseDoubleClick="Label_MouseDoubleClick" 
+                                   Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
+                            <Label Content="{Binding Severity}" Grid.Row="0" Grid.Column="1"
+                                   ToolTip="BUG-严重程度"
                                    MouseDoubleClick="Label_MouseDoubleClick" 
                                    Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
 
-                            <Label Content="{Binding Confirmed}" Grid.Row="0" Grid.Column="1" 
-                                   ToolTip="是否确认"
+                            <Label Content="{Binding Confirmed}" Grid.Row="0" Grid.Column="2" 
+                                   ToolTip="BUG-是否确认"
                                    MouseDoubleClick="Label_MouseDoubleClick"                                    
                                    Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
 
-                            <Label Content="{Binding Resolution}" Grid.Row="0" Grid.Column="2" 
-                                   ToolTip="解决方案"
+                            <Label Content="{Binding Resolution}" Grid.Row="0" Grid.Column="3" 
+                                   ToolTip="BUG-解决方案"
                                    MouseDoubleClick="Label_MouseDoubleClick"                                    
                                    Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
 
-                            <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="3" 
-                                   ToolTip="ID"
+                            <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="4" 
+                                   ToolTip="BUG-ID"
                                    MouseDoubleClick="Label_MouseDoubleClick"                                    
                                    Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
 
-                            <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="4"
-                                   ToolTip="标题"
+                            <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="5"
+                                   ToolTip="BUG-标题"
                                    MouseDoubleClick="Label_MouseDoubleClick" 
                                    Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
                         </Grid>
@@ -540,34 +566,39 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
+                                <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Label Content="{Binding Priority}" Grid.Row="0" Grid.Column="0"  
+                            <Label Content="{Binding ProjectName}" Grid.Row="0" Grid.Column="0"  
                                    MouseDoubleClick="Label_MouseDoubleClick" 
-                                   ToolTip="优先级"
+                                   ToolTip="任务所属迭代"
+                                   Foreground="{Binding Deadline, Converter={StaticResource taskdate2color}}"/>
+                            <Label Content="{Binding Priority}" Grid.Row="0" Grid.Column="1"  
+                                   MouseDoubleClick="Label_MouseDoubleClick" 
+                                   ToolTip="任务优先级"
                                    Foreground="{Binding Deadline, Converter={StaticResource taskdate2color}}"/>
 
-                            <Label Content="{Binding Type}" Grid.Row="0" Grid.Column="1"  
+                            <Label Content="{Binding Type}" Grid.Row="0" Grid.Column="2"  
                                    MouseDoubleClick="Label_MouseDoubleClick" 
-                                   ToolTip="类型"
+                                   ToolTip="任务类型"
                                    Foreground="{Binding Deadline, Converter={StaticResource taskdate2color}}"/>
 
-                            <Label Content="{Binding Status}" Grid.Row="0" Grid.Column="2"  
+                            <Label Content="{Binding Status}" Grid.Row="0" Grid.Column="3"  
                                    MouseDoubleClick="Label_MouseDoubleClick" 
-                                   ToolTip="状态"
+                                   ToolTip="任务状态"
                                    Foreground="{Binding Deadline, Converter={StaticResource taskdate2color}}"/>
 
-                            <Label Content="{Binding Progress}" Grid.Row="0" Grid.Column="3"  
+                            <Label Content="{Binding Progress}" Grid.Row="0" Grid.Column="4"  
                                    MouseDoubleClick="Label_MouseDoubleClick" 
-                                   ToolTip="进度"/>
+                                   ToolTip="任务进度"/>
                             
-                            <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="4" 
+                            <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="5" 
                                    MouseDoubleClick="Label_MouseDoubleClick" 
-                                   ToolTip="ID"
+                                   ToolTip="任务ID"
                                    Foreground="{Binding Deadline, Converter={StaticResource taskdate2color}}"/>
                             
-                            <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="5" 
+                            <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="6" 
                                    MouseDoubleClick="Label_MouseDoubleClick"  
-                                   ToolTip="标题"
+                                   ToolTip="任务标题"
                                    Foreground="{Binding Deadline, Converter={StaticResource taskdate2color}}"/>
                         </Grid>
                     </DataTemplate>
@@ -611,19 +642,23 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
+                                <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Label Content="{Binding Priority}" Grid.Row="0" Grid.Column="0"  
+                            <Label Content="{Binding Execution}" Grid.Row="0" Grid.Column="0"  
                                    MouseDoubleClick="Label_MouseDoubleClick"
-                                   ToolTip="优先级"/>
-                            <Label Content="{Binding Stage}" Grid.Row="0" Grid.Column="1"  
+                                   ToolTip="需求所属产品"/>
+                            <Label Content="{Binding Priority}" Grid.Row="0" Grid.Column="1"  
+                                   MouseDoubleClick="Label_MouseDoubleClick"
+                                   ToolTip="需求优先级"/>
+                            <Label Content="{Binding Stage}" Grid.Row="0" Grid.Column="2"  
                                    MouseDoubleClick="Label_MouseDoubleClick" 
-                                   ToolTip="阶段"/>
-                            <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="2" 
+                                   ToolTip="需求阶段"/>
+                            <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="3" 
                                    MouseDoubleClick="Label_MouseDoubleClick" 
-                                   ToolTip="ID"/>
-                            <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="3" 
+                                   ToolTip="需求ID"/>
+                            <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="4" 
                                    MouseDoubleClick="Label_MouseDoubleClick"  
-                                   ToolTip="标题"/>
+                                   ToolTip="需求标题"/>
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

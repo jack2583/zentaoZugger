@@ -57,12 +57,13 @@
                     </Hyperlink>
                 </Label>
             </StackPanel>
-            <Label VerticalAlignment="Top" FontFamily="Bradley Hand ITC" FontSize="16" Foreground="WhiteSmoke" Content="Zugger">
+            <Label VerticalAlignment="Top" FontFamily="Bradley Hand ITC" FontSize="16" Foreground="WhiteSmoke" Content="Zugger" Visibility="Collapsed">
                 <Label.Effect>
                     <DropShadowEffect/>
                 </Label.Effect>
             </Label>
             <Image Name="btnClose"  HorizontalAlignment="Right" Margin="0,5,5,0" VerticalAlignment="Top" Width="16" Height="16" Stretch="Fill" Opacity="0.4" MouseUp="Close_Up" Source="/Zugger;component/Resources/closepic.png" />
+            <Label Content="Zugger" HorizontalAlignment="Left" Margin="10,3.813,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF005BB6"/>
         </Grid>
     </Border>
 </Window>

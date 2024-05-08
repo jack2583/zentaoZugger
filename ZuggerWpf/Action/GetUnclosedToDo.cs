@@ -50,34 +50,34 @@ namespace ZuggerWpf
 
                         if (jsObj["todos"] != null)
                         {
-                            JArray jsArray = (JArray)JsonConvert.DeserializeObject(jsObj["todos"].ToString());
+                            JArray todosArray = (JArray)JsonConvert.DeserializeObject(jsObj["todos"].ToString());
 
-                            foreach (var j in jsArray)
+                            foreach (var todo in todosArray)
                             {
                                 //显示未关闭
-                                if (j["status"].Value<string>() != "closed" && j["status"].Value<string>() != "done")
+                                if (todo["status"].Value<string>() != "closed" && todo["status"].Value<string>() != "done")
                                 {
-                                    ToDoItem ti = new ToDoItem()
+                                    ToDoItem todoItem = new ToDoItem()
                                     {
-                                        Priority = Convert.Pri(j["pri"].Value<string>())
+                                        Priority = Convert.Pri(todo["pri"].Value<string>())
                                             ,
-                                        ID = j["id"].Value<int>()
+                                        ID = todo["id"].Value<int>()
                                             ,
-                                        Title = Util.EscapeXmlTag(j["name"].Value<string>())
+                                        Title = Util.EscapeXmlTag(todo["name"].Value<string>())
                                             ,
                                         Tip = "Project"
                                             ,
-                                        Type = Convert.Status(j["type"].Value<string>())
+                                        Type = Convert.Status(todo["type"].Value<string>())
                                             ,
-                                        Status = Convert.Status(j["status"].Value<string>())
+                                        Status = Convert.Status(todo["status"].Value<string>())
                                     };
 
-                                    if (!ItemCollectionBackup.Contains(ti.ID))
+                                    if (!ItemCollectionBackup.Contains(todoItem.ID))
                                     {
-                                        NewItemCount = NewItemCount == 0 ? ti.ID : (NewItemCount > 0 ? -2 : NewItemCount - 1);
+                                        NewItemCount = NewItemCount == 0 ? todoItem.ID : (NewItemCount > 0 ? -2 : NewItemCount - 1);
                                     }
 
-                                    itemsList.Add(ti);
+                                    itemsList.Add(todoItem);
                                 }
                             }
                         }

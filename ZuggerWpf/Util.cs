@@ -228,6 +228,10 @@ namespace ZuggerWpf
                 {
                     url = GetStoryOperationUrl(operation, item);
                 }
+                else if (item is ProjectItem)
+                {
+                    url = GetProjectOperationUrl(operation, item);
+                }
 
                 OpenWebBrowser(url);
             }
@@ -343,11 +347,38 @@ namespace ZuggerWpf
 
             return url;
         }
-
         private static string GetStoryOperationUrl(ItemOperation operation, ItemBase item)
         {
             return GetStoryOperationUrl(operation, item.ID);
         }
+
+        private static string GetProjectOperationUrl(ItemOperation operation, ItemBase item)
+        {
+            return GetProjectOperationUrl(operation, item.ID);
+        }
+
+        private static string GetProjectOperationUrl(ItemOperation operation, int itemId)
+        {
+            ApplicationConfig appconfig = IOHelper.LoadIsolatedData();
+
+            string url = string.Empty;
+            switch (operation)
+            {
+                case ItemOperation.View:
+                    url = string.Format(appconfig.ViewProjectUrl, itemId);
+                    break;
+                //case ItemOperation.Edit:
+                //    url = string.Format(appconfig.EditProjectUrl, itemId);
+                //    break;
+                default:
+                    break;
+            }
+
+            return url;
+        }
+
+
+
 
         [DllImport("user32")]
         static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, SetWindowPosFlags uFlags);

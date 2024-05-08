@@ -47,36 +47,38 @@ namespace ZuggerWpf
 
                         if (jsObj["tasks"] != null)
                         {
-                            JArray jsArray = (JArray)JsonConvert.DeserializeObject(jsObj["tasks"].ToString());
-                            foreach (var j in jsArray)
+                            JArray tasksArray = (JArray)JsonConvert.DeserializeObject(jsObj["tasks"].ToString());
+                            foreach (var task in tasksArray)
                             {
-                                if (j["status"].Value<string>() != "done" && j["status"].Value<string>() != "cancel")
+                                if (task["status"].Value<string>() != "cancel")
                                 {
-                                    TaskItem ti = new TaskItem()
+                                    TaskItem taskItem = new TaskItem()
                                     {
-                                        Priority = Convert.Pri(j["pri"].Value<string>())
+                                        Priority = Convert.Pri(task["pri"].Value<string>())
                                         ,
-                                        ID = j["id"].Value<int>()
+                                        ID = task["id"].Value<int>()
                                         ,
-                                        Title = Util.EscapeXmlTag(j["name"].Value<string>())
+                                        Title = Util.EscapeXmlTag(task["name"].Value<string>())
                                         ,
-                                        Deadline = j["deadline"].Value<string>()
+                                        Deadline = task["deadline"].Value<string>()
                                         ,
                                         Tip = "Task"
                                          ,
-                                        Type = Convert.Type(j["type"].Value<string>())
+                                        Type = Convert.Type(task["type"].Value<string>())
                                          ,
-                                        Status = Convert.Status(j["status"].Value<string>())
+                                        Status = Convert.Status(task["status"].Value<string>())
                                          ,
-                                        Progress = j["hours"]["progress"].Value<string>() + "%"
+                                        Progress = task["progress"].Value<string>() + "%"
+                                        ,
+                                        ProjectName= task["executionName"].Value<string>()
                                     };
 
-                                    if (!ItemCollectionBackup.Contains(ti.ID))
+                                    if (!ItemCollectionBackup.Contains(taskItem.ID))
                                     {
-                                        NewItemCount = NewItemCount == 0 ? ti.ID : (NewItemCount > 0 ? -2 : NewItemCount - 1);
+                                        NewItemCount = NewItemCount == 0 ? taskItem.ID : (NewItemCount > 0 ? -2 : NewItemCount - 1);
                                     }
 
-                                    itemsList.Add(ti);
+                                    itemsList.Add(taskItem);
                                 }
                             }
 

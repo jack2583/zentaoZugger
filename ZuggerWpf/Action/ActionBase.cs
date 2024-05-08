@@ -78,6 +78,8 @@ namespace ZuggerWpf
         /// 解决方案
         /// </summary>
         public string Resolution { get; set; }
+
+        public string Product { get; set; }
     }
 
     #endregion
@@ -115,6 +117,8 @@ namespace ZuggerWpf
         /// 项目进度百分比值
         /// </summary>
         public string Progress { get; set; }
+
+        public string ProjectName { get; set; }
     }
 
     #endregion
@@ -147,6 +151,10 @@ namespace ZuggerWpf
         }
 
         public string Stage { get; set; }
+        /// <summary>
+        /// 所属执行
+        /// </summary>
+        public string Execution { get; set; }
     }
     #endregion
     #region Project 项目

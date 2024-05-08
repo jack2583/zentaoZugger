@@ -66,7 +66,7 @@ namespace ZuggerWpf
         {
             get
             {
-                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "my-bug.json?a=1" : "?m=my&f=bug&t=json");
+                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "my-work-bug.json?a=1" : "?m=my&f=bug&t=json");
             }
         }
 
@@ -77,22 +77,27 @@ namespace ZuggerWpf
         {
             get
             {
-                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "my-task.json?a=1" : "?m=my&f=task&t=json");
+                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "my-work-task.json?a=1" : "?m=my&f=task&t=json");
             }
         }
         /// <summary>
-        /// 取unclosedtask 未关闭的全部任务
+        /// 取全部执行
+        /// </summary>
+        public string GetExecutionUrl
+        {
+            get
+            {
+                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "execution-all-undone-order_asc-0.json?a=1" : "?m=execution&f=all&t=json");
+            }
+        }
+        /// <summary>
+        /// 取unclosedtask 未关闭的全部任务 
         /// </summary>
         public string GetUnclosedTaskUrl
         {
             get
             {
-                //GET  GET  /zentao/project-task-[projectID]-[status]-             [orderBy]-[recTotal]-[recPerPage]-[pageID].json
-                //GET  /zentao/bug-browse-       [productID]-[branch]-[browseType]-[param]-[orderBy]-[recTotal]-[recPerPage]-[pageID].json
-                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "project-task-{0}-unclosed-id_desc-0-2147483647-2147483647.json?a=1"
-                    : "?m=project&f=task&productID={0}&status=unclosed&orderBy=id_desc&recTotal=0&recPerPage=2147483647&pageID=1&t=json");
-
-                // return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "my-task.json?a=1" : "?m=my&f=task&t=json");
+                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "execution-task-{0}.json?a=1" : "?m=execution&f=task&executionID={0}&t=json");
             }
         }
         /// <summary>
@@ -108,6 +113,18 @@ namespace ZuggerWpf
                 return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "product-browse.json?a=1" : "?m=bug&f=browse&browseType=openedByMe&t=json");
             }
         }
+  
+        /// <summary>
+        /// 取所有项目集列表
+        /// </summary>
+        public string GetAllProgramUrl
+        {
+            get
+            {
+                //GET  /zentao/program-browse-[status]-[orderBy]-[recTotal]-[recPerPage]-[pageID]-[param].json
+                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "program-browse.json?a=1" : "?m=program&f=browse&t=json");
+            }
+        }
         /// <summary>
         /// 取项目列表  
         /// </summary>
@@ -116,7 +133,7 @@ namespace ZuggerWpf
             get
             {
                 //GET  /zentao/project-browse-[projectID].json
-                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "product-project-all-{0}.json?a=1" : "?m=bug&f=browse&browseType=openedByMe&t=json");
+                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "project-browse.json?a=1" : "?m=bug&f=browse&browseType=openedByMe&t=json");
             }
         }
         /// <summary>
@@ -127,7 +144,7 @@ namespace ZuggerWpf
             get
             {
                 //project-all-all.html
-                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "project-all-all.json?a=1" : "?m=bug&f=browse&browseType=openedByMe&t=json");
+                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "project-browse-0-doing.json?a=1" : "?m=project&f=browse&t=json");
             }
         }
         /// <summary>
@@ -174,7 +191,7 @@ namespace ZuggerWpf
         {
             get
             {
-                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "my-story.json?a=1" : "?m=my&f=story&t=json");
+                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "my-work-story.json?a=1" : "?m=my&f=story&t=json");
             }
         }
         /// <summary>
@@ -186,12 +203,12 @@ namespace ZuggerWpf
             {
                 // GET  /zentao/product-browse-[productID]-[browseType]-    [param]-[orderBy]-[recTotal]-[recPerPage]-[pageID].json
                 //GET  /zentao/bug-browse-[productID]-[branch]-[browseType]-[param]-[orderBy]-[recTotal]-[recPerPage]-[pageID].json
-                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "product-browse-{0}-0-unclosed-id_desc-0-2147483647.json?a=1"
-                   : "?m=product&f=browse&productID={0}&browseType=unclosed&param=0&orderBy=id_desc&recTotal=0&recPerPage=2147483647&pageID=1&t=json");
+                //return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "product-browse-{0}-0-unclosed-id_desc-0-2147483647.json?a=1"
+                 //  : "?m=product&f=browse&productID={0}&browseType=unclosed&param=0&orderBy=id_desc&recTotal=0&recPerPage=2147483647&pageID=1&t=json");
 
                 //return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "bug-browse-{0}-0-unclosed-id_desc-0-2147483647.json?a=1"
                 //   : "?m=bug&f=browse&productID={0}&browseType=unclosed&param=0&orderBy=id_desc&recTotal=0&recPerPage=2147483647&pageID=1&t=json");
-                //return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "my-story.json?a=1" : "?m=my&f=story&t=json");
+                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "execution-story-{0}-story-order_desc-unclosed.json?a=1" : "?m=execution&f=story&executionID={0}&t=json");
             }
         }
         /// <summary>
@@ -238,6 +255,16 @@ namespace ZuggerWpf
             get
             {
                 return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "story-view-{0}.html" : "?m=story&f=view&storyID={0}");
+            }
+        }
+        /// <summary>
+        /// 查看项目的url
+        /// </summary>
+        public string ViewProjectUrl
+        {
+            get
+            {
+                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "project-view-{0}.html" : "?m=project&f=view&storyID={0}");
             }
         }
 

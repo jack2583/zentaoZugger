@@ -52,34 +52,34 @@ namespace ZuggerWpf
 
                         if (jsObj["projectStats"] != null)
                         {
-                            JArray jsArray = (JArray)JsonConvert.DeserializeObject(jsObj["projectStats"].ToString());
+                            jsObj = JsonConvert.DeserializeObject(jsObj["projectStats"].ToString()) as JObject;
 
-                            foreach (var j in jsArray)
+                            JToken record = jsObj as JToken;
+                            foreach (JProperty jp in record)
                             {
-                                //显示未关闭
-                                if (j["status"].Value<string>() != "closed" && j["status"].Value<string>() != "resolved")
+                                var ProjectJp = jp.First;
+                                if (ProjectJp["status"].Value<string>() != "cancel")
                                 {
-                                    ProjectItem pi = new ProjectItem()
+                                    ProjectItem projectItem = new ProjectItem()
                                     {
-                                        Priority = Convert.Pri(j["pri"].Value<string>())
+                                        Priority = Convert.Pri(ProjectJp["pri"].Value<string>())
                                             ,
-                                        ID = j["id"].Value<int>()
+                                        ID = ProjectJp["id"].Value<int>()
                                             ,
-                                        Title = Util.EscapeXmlTag(j["name"].Value<string>())
+                                        Title = Util.EscapeXmlTag(ProjectJp["name"].Value<string>())
                                             ,
                                         Tip = "Project"
                                             ,
-                                        Status = Convert.Status(j["status"].Value<string>())
-                                            ,
-                                        Progress =j["hours"]["progress"].Value<string>() + "%"
+                                        Status = Convert.Status(ProjectJp["status"].Value<string>())
+                                          
                                     };
 
-                                    if (!ItemCollectionBackup.Contains(pi.ID))
+                                    if (!ItemCollectionBackup.Contains(projectItem.ID))
                                     {
-                                        NewItemCount = NewItemCount == 0 ? pi.ID : (NewItemCount > 0 ? -2 : NewItemCount - 1);
+                                        NewItemCount = NewItemCount == 0 ? projectItem.ID : (NewItemCount > 0 ? -2 : NewItemCount - 1);
                                     }
 
-                                    itemsList.Add(pi);
+                                    itemsList.Add(projectItem);
                                 }
                             }
                         }

@@ -63,43 +63,43 @@ namespace ZuggerWpf
                             json = jsObj["data"].Value<string>();
 
                             jsObj = JsonConvert.DeserializeObject(json) as JObject;
-
+                            string ProductName = jsObj["title"].ToString().Substring(0, jsObj["title"].ToString().Length - 4);
                             if (jsObj["bugs"] != null)
                             {
-                                JArray jsArray = (JArray)JsonConvert.DeserializeObject(jsObj["bugs"].ToString());
+                                JArray BugsArray = (JArray)JsonConvert.DeserializeObject(jsObj["bugs"].ToString());
 
-                                foreach (var j in jsArray)
+                                foreach (var bug in BugsArray)
                                 {
                                     //unclosedBug 显示未关闭
-                                    if (j["status"].Value<string>() != "closed")//&& j["status"].Value<string>() != "resolved"
+                                    if (bug["status"].Value<string>() != "closed")//&& j["status"].Value<string>() != "resolved"
                                     {
-                                        BugItem bi = new BugItem()
+                                        BugItem bugItem = new BugItem()
                                         {
-                                            Priority = Convert.Pri(j["pri"].Value<string>())
+                                            Priority = Convert.Pri(bug["pri"].Value<string>())
                                     ,
-                                            Severity = Convert.Severity(j["severity"].Value<string>())
+                                            Severity = Convert.Severity(bug["severity"].Value<string>())
                                             ,
-                                            ID = j["id"].Value<int>()
+                                            ID = bug["id"].Value<int>()
                                             ,
-                                            Title = Util.EscapeXmlTag(j["title"].Value<string>())
+                                            Title = Util.EscapeXmlTag(bug["title"].Value<string>())
                                             ,
-                                            OpenDate = j["openedDate"].Value<string>()
+                                            OpenDate = bug["openedDate"].Value<string>()
                                             ,
-                                            LastEdit = j["lastEditedDate"].Value<string>()
+                                            LastEdit = bug["lastEditedDate"].Value<string>()
                                             ,
                                             Tip = "未关闭的Bug"
                                             ,
-                                            Confirmed = Convert.Confirmed(j["confirmed"].Value<string>())
+                                            Confirmed = Convert.Confirmed(bug["confirmed"].Value<string>())
                                             ,
-                                            Resolution = Convert.Resolution(j["resolution"].Value<string>())
+                                            Resolution = Convert.Resolution(bug["resolution"].Value<string>())
                                         };
 
-                                        if (!ItemCollectionBackup.Contains(bi.ID))
+                                        if (!ItemCollectionBackup.Contains(bugItem.ID))
                                         {
-                                            NewItemCount = NewItemCount == 0 ? bi.ID : (NewItemCount > 0 ? -2 : NewItemCount - 1);
+                                            NewItemCount = NewItemCount == 0 ? bugItem.ID : (NewItemCount > 0 ? -2 : NewItemCount - 1);
                                         }
-
-                                        itemsList.Add(bi);
+                                        bugItem.Product = ProductName;
+                                        itemsList.Add(bugItem);
                                     }
                                 }
                             }

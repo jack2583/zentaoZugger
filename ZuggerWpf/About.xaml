@@ -57,7 +57,7 @@
                     <ColumnDefinition Width="6*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Name="lbVer" Grid.Row="0" Grid.Column="1" Foreground="DarkBlue">Zugger 2.0.1</TextBlock>
+                <TextBlock Name="lbVer" Grid.Row="0" Grid.Column="1" Foreground="DarkBlue">Zugger 3.0.0</TextBlock>
                 <TextBlock Grid.Row="1" Grid.Column="1" ToolTip="有好的建议请与我联系">
                     <Hyperlink NavigateUri="mailto:mowenming@hotmail.com" RequestNavigate="Hyperlink_RequestNavigate">374763655@qq.com</Hyperlink>
                 </TextBlock>

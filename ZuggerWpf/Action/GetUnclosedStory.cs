@@ -25,16 +25,16 @@ namespace ZuggerWpf
             bool isSuccess = false;
             NewItemCount = 0;
 
-            List<int> productIds = GetProductId();
-            string[] jsonList = new string[productIds.Count];
+            List<int> executionIds = GetExecutionId();
+            string[] jsonList = new string[executionIds.Count];
 
             try
             {
                 ApplicationConfig appconfig = IOHelper.LoadIsolatedData();
 
-                for (int i = 0; i < productIds.Count; i++)
+                for (int i = 0; i < executionIds.Count; i++)
                 {
-                    string json = string.Format(appconfig.GetUnclosedStoryUrl, productIds[i]);
+                    string json = string.Format(appconfig.GetUnclosedStoryUrl, executionIds[i]);
                     json = WebTools.Download(string.Format("{0}&{1}={2}", json, SessionName, SessionID));
 
                     jsonList[i] = json;
@@ -63,37 +63,39 @@ namespace ZuggerWpf
                             json = jsObj["data"].Value<string>();
 
                             jsObj = JsonConvert.DeserializeObject(json) as JObject;
-
+                            string ExecutionName= jsObj["title"].ToString().Substring(0, jsObj["title"].ToString().Length - 7);
                             if (jsObj["stories"] != null)
                             {
-                                JArray jsArray = (JArray)JsonConvert.DeserializeObject(jsObj["stories"].ToString());
+                                jsObj = JsonConvert.DeserializeObject(jsObj["stories"].ToString()) as JObject;
 
-                                foreach (var j in jsArray)
+                                JToken record = jsObj as JToken;
+                                if(record != null)
                                 {
-                                    //unclosedStory 显示未关闭
-                                    if (j["status"].Value<string>() != "closed" && j["status"].Value<string>() != "resolved")
+                                    foreach (JProperty jp in record)
                                     {
-                                        StoryItem bi = new StoryItem()
+                                        var jpFirst = jp.First;
+                                        if (jpFirst["status"].Value<string>() != "cancel")
                                         {
-                                            Priority = Convert.Pri(j["pri"].Value<string>())
-                                        ,
-                                            ID = j["id"].Value<int>()
-                                        ,
-                                            Title = Util.EscapeXmlTag(j["title"].Value<string>())
-                                        ,
-                                            OpenDate = j["openedDate"].Value<string>()
-                                        ,
-                                            Stage = Convert.Stage(j["stage"].Value<string>())
-                                        ,
-                                            Tip = "未关闭的全部需求"
-                                        };
+                                            StoryItem storyItem = new StoryItem()
+                                            {
+                                                Priority = Convert.Pri(jpFirst["pri"].Value<string>())
+                                                ,
+                                                ID = jpFirst["id"].Value<int>()
+                                                ,
+                                                Title = jpFirst["title"].Value<string>()
+                                                ,
+                                                OpenDate = jpFirst["openedDate"].Value<string>()
+                                                ,
+                                                Stage = Convert.Stage(jpFirst["stage"].Value<string>())
+                                            };
 
-                                        if (!ItemCollectionBackup.Contains(bi.ID))
-                                        {
-                                            NewItemCount = NewItemCount == 0 ? bi.ID : (NewItemCount > 0 ? -2 : NewItemCount - 1);
+                                            if (!ItemCollectionBackup.Contains(storyItem.ID))
+                                            {
+                                                NewItemCount = NewItemCount == 0 ? storyItem.ID : (NewItemCount > 0 ? -2 : NewItemCount - 1);
+                                            }
+                                            storyItem.Execution = ExecutionName;
+                                            itemsList.Add(storyItem);
                                         }
-
-                                        itemsList.Add(bi);
                                     }
                                 }
                             }
@@ -158,7 +160,44 @@ namespace ZuggerWpf
 
             return cword;
         }
+        private List<int> GetExecutionId()
+        {
+            List<int> executionIds = new List<int>();
+            try
+            {
+                ApplicationConfig appconfig = IOHelper.LoadIsolatedData();
 
+                string json = WebTools.Download(string.Format("{0}&{1}={2}", appconfig.GetExecutionUrl, SessionName, SessionID));
+
+                if (!string.IsNullOrEmpty(json))
+                {
+                    var jsObj = JsonConvert.DeserializeObject(json) as JObject;
+
+                    if (jsObj != null && jsObj["status"].Value<string>() == "success")
+                    {
+                        json = jsObj["data"].Value<string>();
+
+                        jsObj = JsonConvert.DeserializeObject(json) as JObject;
+
+                        if (jsObj["executionStats"] != null)
+                        {
+                            JArray jsArray = (JArray)JsonConvert.DeserializeObject(jsObj["executionStats"].ToString());
+                            foreach (var j in jsArray)
+                            {
+                                executionIds.Add(System.Convert.ToInt32(j["id"].ToString()));
+                            }
+
+                        }
+                    }
+                }
+            }
+            catch (Exception exp)
+            {
+                logger.Error(string.Format("GetProductId Error: {0}", exp.ToString()));
+            }
+
+            return executionIds;
+        }
         private List<int> GetProductId()
         {
             List<int> productIds = new List<int>();

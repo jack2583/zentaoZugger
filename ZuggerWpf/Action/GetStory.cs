@@ -6,6 +6,7 @@ using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using log4net;
+using System.CodeDom.Compiler;
 
 namespace ZuggerWpf
 {
@@ -46,32 +47,38 @@ namespace ZuggerWpf
 
                         if (jsObj["stories"] != null)
                         {
-                            JArray jsArray = (JArray)JsonConvert.DeserializeObject(jsObj["stories"].ToString());
+	                        jsObj = JsonConvert.DeserializeObject(jsObj["stories"].ToString()) as JObject;
 
-                            foreach (var j in jsArray)
+                            JToken record = jsObj as JToken;
+                            foreach (JProperty jp in record)
                             {
-                                StoryItem bi = new StoryItem()
+                                var jpFirst = jp.First;
+                                if (jpFirst["status"].Value<string>() != "cancel")
                                 {
-                                    Priority = Convert.Pri(j["pri"].Value<string>())
-                                    ,
-                                    ID = j["id"].Value<int>()
-                                    ,
-                                    Title = Util.EscapeXmlTag(j["title"].Value<string>())
-                                    ,
-                                    OpenDate = j["openedDate"].Value<string>()
-                                    ,
-                                    Stage = Convert.Stage(j["stage"].Value<string>())
-                                    ,
-                                    Tip = "需求"
-                                };
+                                    StoryItem stroryItem = new StoryItem()
+                                    {
+                                        Priority = Convert.Pri(jpFirst["pri"].Value<string>())
+                                        ,
+                                        ID = jpFirst["id"].Value<int>()
+                                        ,
+                                        Title = jpFirst["title"].Value<string>()
+                                        ,
+                                        OpenDate = jpFirst["openedDate"].Value<string>()
+                                        ,
+                                        Stage = Convert.Stage(jpFirst["stage"].Value<string>())
+                                        ,
+                                        Execution= jpFirst["productTitle"].Value<string>()
+                                    };
 
-                                if (!ItemCollectionBackup.Contains(bi.ID))
-                                {
-                                    NewItemCount = NewItemCount == 0 ? bi.ID : (NewItemCount > 0 ? -2 : NewItemCount - 1);
+                                    if (!ItemCollectionBackup.Contains(stroryItem.ID))
+                                    {
+                                        NewItemCount = NewItemCount == 0 ? stroryItem.ID : (NewItemCount > 0 ? -2 : NewItemCount - 1);
+                                    }
+
+                                    itemsList.Add(stroryItem);
                                 }
-
-                                itemsList.Add(bi);                                
                             }
+
 
                             if (OnNewItemArrive != null
                                 && NewItemCount != 0)

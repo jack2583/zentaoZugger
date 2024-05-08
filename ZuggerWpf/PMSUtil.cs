@@ -70,6 +70,8 @@ namespace ZuggerWpf
                     string postData = string.Format("account={0}&password={1}", Util.UrlEncode(username), Util.UrlEncode(pwd));
                     byte[] byteArray = Encoding.UTF8.GetBytes(postData);
 
+                    loginurl = loginurl + string.Format("account={0}&password={1}&zentaosid={2}", username, password, sessonid);
+
                     HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(new Uri(loginurl));
                     cc.Add(new Uri(loginurl), new Cookie(sessoinname, sessonid));
                     webRequest.CookieContainer = cc;
