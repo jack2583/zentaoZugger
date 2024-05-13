@@ -356,7 +356,7 @@ namespace ZuggerWpf
         /// </summary>
         public bool IsPATH_INFORequest { get; set; }
 
-        private bool isTaskNotify = true;
+        private bool isTaskNotify = false;
         /// <summary>
         /// 是否显示任务栏消息通知
         /// </summary>
@@ -385,14 +385,14 @@ namespace ZuggerWpf
             get { return showOpendByMe; }
             set { showOpendByMe = value; }
         }
-        private bool showUnclosed = true;
+        private bool showUnclosedBug = false;
         /// <summary>
         ///是否显示全部未关闭的BUG
         /// </summary>
         public bool ShowUnclosedBug
         {
-            get { return showUnclosed; }
-            set { showUnclosed = value; }
+            get { return showUnclosedBug; }
+            set { showUnclosedBug = value; }
         }
         private bool showBug = true;
         /// <summary>
@@ -413,7 +413,7 @@ namespace ZuggerWpf
             get { return showTask; }
             set { showTask = value; }
         }
-        private bool showUnclosedTask = true;
+        private bool showUnclosedTask = false;
         /// <summary>
         ///是否显示未关闭的全部task
         /// </summary>
@@ -431,7 +431,7 @@ namespace ZuggerWpf
             get { return showStory; }
             set { showStory = value; }
         }
-        private bool showUnclosedStory = true;
+        private bool showUnclosedStory = false;
         /// <summary>
         ///是否显示全部未关闭的需求
         /// </summary>
@@ -440,7 +440,7 @@ namespace ZuggerWpf
             get { return showUnclosedStory; }
             set { showUnclosedStory = value; }
         }
-        private bool showUnclosedProject = true;
+        private bool showUnclosedProject = false;
         /// <summary>
         ///是否显示全部未关闭的需求
         /// </summary>
@@ -449,7 +449,7 @@ namespace ZuggerWpf
             get { return showUnclosedProject; }
             set { showUnclosedProject = value; }
         }
-        private bool showUnclosedToDo = true;
+        private bool showUnclosedToDo = false;
         /// <summary>
         ///是否显示全部未关闭的需求
         /// </summary>
