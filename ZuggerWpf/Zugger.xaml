@@ -4,7 +4,7 @@
     xmlns:local="clr-namespace:ZuggerWpf"
     
     Name="frmzugger"
-    Title="Zugger"  SizeToContent="WidthAndHeight" AllowsTransparency="True" WindowStyle="None"
+    Title="Zugger"  SizeToContent="WidthAndHeight" AllowsTransparency="True" WindowStyle="None" Height="450"
     FontFamily="微软雅黑"
     ResizeMode="NoResize"
     WindowStartupLocation="Manual" Opacity="1" ShowInTaskbar="False"
@@ -29,7 +29,7 @@
             <!-- 在这个样式中定义了一些资源，这些资源是该样式的局部资源 -->
             <Style.Resources>
                 <!-- 定义了一个有焦点的选中项的背景刷子，颜色为 #40BF4D -->
-                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#D65A08"/>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FFD700"/>
                 <!-- 注释掉的一个无焦点的选中项的背景刷子，颜色为 LightBlue，透明度为 0.4 -->
                 <!--<SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="LightBlue" Opacity=".4"/>-->
             </Style.Resources>
