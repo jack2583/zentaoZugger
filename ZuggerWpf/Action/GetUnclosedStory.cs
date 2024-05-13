@@ -66,6 +66,19 @@ namespace ZuggerWpf
                             string ExecutionName= jsObj["title"].ToString().Substring(0, jsObj["title"].ToString().Length - 7);
                             if (jsObj["stories"] != null)
                             {
+                                //获取用户字典
+                                Dictionary<string, string> usersDic = new Dictionary<string, string>();
+                                var jsObjUsers = JsonConvert.DeserializeObject(jsObj["users"].ToString()) as JObject;
+                                
+                                JToken recordUser = jsObjUsers as JToken;
+                                if (recordUser != null)
+                                {
+                                    foreach (JProperty jp in recordUser)
+                                    {
+                                        usersDic.Add(jp.Name, jp.Value.ToString());
+                                    }
+                                }
+
                                 jsObj = JsonConvert.DeserializeObject(jsObj["stories"].ToString()) as JObject;
 
                                 JToken record = jsObj as JToken;
@@ -87,6 +100,8 @@ namespace ZuggerWpf
                                                 OpenDate = jpFirst["openedDate"].Value<string>()
                                                 ,
                                                 Stage = Convert.Stage(jpFirst["stage"].Value<string>())
+                                                ,
+                                                AssignedToName = usersDic[jpFirst["assignedTo"].Value<string>()]
                                             };
 
                                             if (!ItemCollectionBackup.Contains(storyItem.ID))

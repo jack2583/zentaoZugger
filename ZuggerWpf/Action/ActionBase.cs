@@ -40,7 +40,7 @@ namespace ZuggerWpf
 
 
     #region Bug BUG
-    struct BugItem : ItemBase
+    class BugItem : ItemBase
     {
         #region ItemBase 成员
 
@@ -55,8 +55,9 @@ namespace ZuggerWpf
         public string Severity { get; set; }
 
         public string OpenDate { get; set; }
+        public string AssignedToName { get; set; }
 
-        public string LastEdit { get; set; }
+        public string LastEditDate { get; set; }
 
         private string tip;
         public string Tip
@@ -65,7 +66,7 @@ namespace ZuggerWpf
             {
                 return string.IsNullOrEmpty(tip) ? "Bug" : tip;
             }
-            set 
+            set
             {
                 tip = value;
             }
@@ -80,12 +81,56 @@ namespace ZuggerWpf
         public string Resolution { get; set; }
 
         public string Product { get; set; }
-    }
+        public string Status { get; set; }
+        public int ColorInt
+        {
+            get
+            {
+                if (Status == "激活")
+                {
+                    if (Severity == "优化" || Severity == "轻微" || Severity == "普通")
+                    {
+                        if (Confirmed == "未确认")
+                        {
+                            return 0;//蓝
+                        }
+                        else
+                        {
+                            return 1; //灰
 
+                        }
+                    }
+                    else
+                    {
+                        if (Confirmed == "未确认")
+                        {
+                            return 2;//橙
+                        }
+                        else
+                        {
+                            return 3; //红
+
+                        }
+                    }
+                }
+                else
+                {
+                    if (Resolution == "已解决")
+                    {
+                        return 4; //绿；
+                    }
+                    else
+                    {
+                        return 5; //深绿色
+                    }
+                }
+            }
+        }
+    }
     #endregion
 
     #region Task 任务
-    struct TaskItem : ItemBase
+    class TaskItem : ItemBase
     {
         #region ItemBase 成员
 
@@ -97,8 +142,8 @@ namespace ZuggerWpf
 
         public string Priority { get; set; }
 
-        public string Deadline { get; set; }        
-
+        public string Deadline { get; set; }
+        public string AssignedToName { get; set; }
         private string tip;
         public string Tip
         {
@@ -112,19 +157,33 @@ namespace ZuggerWpf
             }
         }
         public string Type { get; set; }
-        public string Status { get; set; }
+        private string status;
+        public string Status 
+        {
+            get { 
+                return status+"("+ Progress +"%)"; 
+            }
+            set { status = value; }
+        }
         /// <summary>
         /// 项目进度百分比值
         /// </summary>
         public string Progress { get; set; }
 
         public string ProjectName { get; set; }
+       // public float? Estimate { get; set; } // 最初预计工时
+       //// public DateTime? Deadline { get; set; } // 任务截止日期
+       // public DateTime? EstStarted { get; set; } // 预计开始日期
+       // public DateTime? RealStarted { get; set; } // 实际开始日期
+       // public int PlanDuration { get; set; } // 计划持续天数
+       // public int RealDuration { get; set; } // 实际持续天数
+       // public DateTime OpenedDate { get; set; } // 创建日期
     }
 
     #endregion
 
     #region Story 需求
-    struct StoryItem : ItemBase
+    class StoryItem : ItemBase
     {
         #region ItemBase 成员
 
@@ -136,6 +195,7 @@ namespace ZuggerWpf
         public string Priority { get; set; }
 
         public string OpenDate { get; set; }
+        public string AssignedToName { get; set; }
 
         private string tip;
         public string Tip
@@ -158,7 +218,7 @@ namespace ZuggerWpf
     }
     #endregion
     #region Project 项目
-    struct ProjectItem : ItemBase
+    class ProjectItem : ItemBase
     {
         #region ItemBase 成员
 
@@ -199,7 +259,7 @@ namespace ZuggerWpf
     }
     #endregion
     #region ToDo 待办
-    struct ToDoItem : ItemBase
+    class ToDoItem : ItemBase
     {
         #region ItemBase 成员
 

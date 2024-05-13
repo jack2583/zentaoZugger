@@ -66,6 +66,19 @@ namespace ZuggerWpf
                             string ProductName = jsObj["title"].ToString().Substring(0, jsObj["title"].ToString().Length - 4);
                             if (jsObj["bugs"] != null)
                             {
+                                //获取用户字典
+                                Dictionary<string, string> usersDic = new Dictionary<string, string>();
+                                var jsObjUsers = JsonConvert.DeserializeObject(jsObj["users"].ToString()) as JObject;
+
+                                JToken recordUser = jsObjUsers as JToken;
+                                if (recordUser != null)
+                                {
+                                    foreach (JProperty jp in recordUser)
+                                    {
+                                        usersDic.Add(jp.Name, jp.Value.ToString());
+                                    }
+                                }
+
                                 JArray BugsArray = (JArray)JsonConvert.DeserializeObject(jsObj["bugs"].ToString());
 
                                 foreach (var bug in BugsArray)
@@ -85,13 +98,15 @@ namespace ZuggerWpf
                                             ,
                                             OpenDate = bug["openedDate"].Value<string>()
                                             ,
-                                            LastEdit = bug["lastEditedDate"].Value<string>()
+                                            LastEditDate = bug["lastEditedDate"].Value<string>()
                                             ,
                                             Tip = "未关闭的Bug"
                                             ,
                                             Confirmed = Convert.Confirmed(bug["confirmed"].Value<string>())
                                             ,
                                             Resolution = Convert.Resolution(bug["resolution"].Value<string>())
+                                            ,
+                                            AssignedToName = usersDic[bug["assignedTo"].Value<string>()]
                                         };
 
                                         if (!ItemCollectionBackup.Contains(bugItem.ID))

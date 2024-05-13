@@ -25,10 +25,13 @@ namespace ZuggerWpf
                     cword = "严重";
                     break;
                 case "3":
-                    cword = "中等";
+                    cword = "普通";
                     break;
                 case "4":
                     cword = "轻微";
+                    break;
+                case "5":
+                    cword = "优化";
                     break;
                 default:
                     eWord.ToLower().Trim();
@@ -48,7 +51,7 @@ namespace ZuggerWpf
             switch (eWord.ToLower().Trim())
             {
                 case "1":
-                    cword = "紧急";
+                    cword = "极";
                     break;
                 case "2":
                     cword = "高";
@@ -122,7 +125,7 @@ namespace ZuggerWpf
                     cword = "未确认";
                     break;
                 case "1":
-                    cword = "确认";
+                    cword = "已确认";
                     break;
                 default:
                     eWord.ToLower().Trim();
@@ -160,6 +163,12 @@ namespace ZuggerWpf
                 case "closed":
                     cword = "已关闭";
                     break;
+                case "active":
+                    cword = "激活";
+                    break;
+                case "resolved":
+                    cword = "已解决";
+                    break;
                 default:
                     eWord.ToLower().Trim();
                     break;
@@ -179,10 +188,10 @@ namespace ZuggerWpf
             switch (eWord.ToLower().Trim())
             {
                 case "design":
-                    cword = "设计";
+                    cword = "写策划案";//设计
                     break;
                 case "document":
-                    cword = "文档";
+                    cword = "写文档";
                     break;
                 case "devel":
                     cword = "开发";
@@ -199,17 +208,23 @@ namespace ZuggerWpf
                 case "numerical":
                     cword = "数值";
                     break;
+                case "shuzhi":
+                    cword = "数值设定";
+                    break;
                 case "art":
-                    cword = "非UI美术";
+                    cword = "美术";
                     break;
                 case "test":
                     cword = "测试";
+                    break;
+                case "peibiao":
+                    cword = "配表";
                     break;
                 case "discuss":
                     cword = "讨论";
                     break;
                 case "ui":
-                    cword = "UI美术";
+                    cword = "UI需求";
                     break;
                 case "affair":
                     cword = "事务";
@@ -230,10 +245,13 @@ namespace ZuggerWpf
                     cword = "Bug";
                     break;
                 case "task":
-                    cword = "项目任务";
+                    cword = "任务";
                     break;
                 case "story":
-                    cword = "项目需求";
+                    cword = "需求";
+                    break;
+                case "other":
+                    cword = "其它";
                     break;
                 default:
                     eWord.ToLower().Trim();

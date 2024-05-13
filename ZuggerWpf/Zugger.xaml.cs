@@ -51,7 +51,35 @@ namespace ZuggerWpf
 
             log4net.Config.XmlConfigurator.Configure();
         }
+        #region 依赖项属性定义
+        // Left="{Binding Source={x:Static local:Properties.Settings.Default}, Path=MainWndLeft, Mode=TwoWay}"    
+        //Top="{Binding Source={x:Static local:Properties.Settings.Default}, Path=MainWndTop, Mode=TwoWay}" 
 
+        //    Left="{Binding Path=MainWndLeft, RelativeSource={RelativeSource Mode=Self}}"  
+        //    Top="{Binding Path=MainWndTop, RelativeSource={RelativeSource Mode=Self}}"
+
+        // 依赖项属性用于窗口的左边距
+        public static readonly DependencyProperty MainWndLeftProperty =
+            DependencyProperty.Register("MainWndLeft", typeof(double), typeof(Zugger), new PropertyMetadata(600.0));
+
+        // 依赖项属性用于窗口的顶部边距
+        public static readonly DependencyProperty MainWndTopProperty =
+            DependencyProperty.Register("MainWndTop", typeof(double), typeof(Zugger), new PropertyMetadata(10.0));
+
+        // 提供设置的访问器
+        public double MainWndLeft
+        {
+            get { return (double)GetValue(MainWndLeftProperty); }
+            set { SetValue(MainWndLeftProperty, value); }
+        }
+
+        public double MainWndTop
+        {
+            get { return (double)GetValue(MainWndTopProperty); }
+            set { SetValue(MainWndTopProperty, value); }
+        }
+
+        #endregion
         private List<ActionBase> ActionList = new List<ActionBase>();
 
         private int ShownNotifyFormCount = 0;
@@ -424,12 +452,12 @@ namespace ZuggerWpf
                 }
                 else if (type == ItemType.Story)
                 {
-                    if (storyList.Visibility != Visibility.Visible)
+                    if (unclosedToDoList.Visibility != Visibility.Visible)
                     {
-                        DoubleClickFloatFrame(lbStoryCount, storyList);
+                        DoubleClickFloatFrame(lbStoryCount, unclosedToDoList);
                     }
 
-                    storyList.ScrollIntoView(storyList.Items[storyList.Items.Count - 1]);
+                    unclosedToDoList.ScrollIntoView(unclosedToDoList.Items[unclosedToDoList.Items.Count - 1]);
                 }
                 
             }
@@ -736,6 +764,10 @@ namespace ZuggerWpf
             else if (storyList.SelectedItem != null)
             {
                 item = storyList.SelectedItem;
+            }
+            else if (unclosedToDoList.SelectedItem != null)
+            {
+                item = unclosedToDoList.SelectedItem;
             }
 
             ItemBase ib = item as ItemBase;

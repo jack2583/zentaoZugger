@@ -68,7 +68,7 @@ namespace ZuggerWpf
                                          ,
                                         Status = Convert.Status(task["status"].Value<string>())
                                          ,
-                                        Progress = task["progress"].Value<string>() + "%"
+                                        Progress = task["progress"].Value<string>()
                                         ,
                                         ProjectName= task["executionName"].Value<string>()
                                     };

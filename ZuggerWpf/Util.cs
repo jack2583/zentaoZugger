@@ -265,8 +265,8 @@ namespace ZuggerWpf
             if (!string.IsNullOrEmpty(url))
             {
                 ApplicationConfig config = IOHelper.LoadIsolatedData();
-
-                url = string.Concat(url, string.Format("{0}{1}={2}", config.IsPATH_INFORequest ? "?" : "&", ActionBase.SessionName, ActionBase.SessionID));
+                //不需要SessionID也可以
+                // url = string.Concat(url, string.Format("{0}{1}={2}", config.IsPATH_INFORequest ? "?" : "&", ActionBase.SessionName, ActionBase.SessionID));
 
                 System.Diagnostics.Process.Start(url);
             }

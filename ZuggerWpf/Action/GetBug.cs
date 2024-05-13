@@ -64,7 +64,7 @@ namespace ZuggerWpf
                                     ,
                                         OpenDate = bug["openedDate"].Value<string>()
                                     ,
-                                        LastEdit = bug["lastEditedDate"].Value<string>()
+                                        LastEditDate = bug["lastEditedDate"].Value<string>()
                                     ,
                                         Tip = "Bug"
                                     ,

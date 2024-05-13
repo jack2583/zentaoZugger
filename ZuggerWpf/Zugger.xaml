@@ -12,22 +12,30 @@
     Top="{Binding Source={x:Static local:Properties.Settings.Default}, Path=MainWndTop, Mode=TwoWay}" 
     Topmost="True" MouseLeftButtonDown="Window_MouseLeftButtonDown" Loaded="Window_Loaded" Closed="Window_Closed"
     KeyUp="frmzugger_KeyUp">
+    
     <Window.Resources>
+        <!-- 定义了几个资源，这些资源可能是用于数据绑定的转换器或自定义控件 -->
         <local:Count2Background x:Key="count2color"/>
-        <local:Date2Color x:Key="date2color"/>
-        <local:TaskDate2Color x:Key="taskdate2color"/>
+        <local:BugConfirmed2Color x:Key="bugConfirmed2Color"/>
+        <local:Bug2Color x:Key="bug2color"/>
+        <local:TaskProgress2Color x:Key="taskProgress2Color"/>
+        <local:StoryStage2Color x:Key="storyStage2color"/>
         <local:Datasource2Visible x:Key="datasource2Visible"/>
         <local:HeightConverter x:Key="heightconvert"/>
         <local:Bool2Visible x:Key="bool2vis"/>
 
+        <!-- 定义了一个ListBoxItem的样式，这个样式可以被ListBoxItem控件使用 -->
         <Style x:Key="listBoxItemMouseOver" TargetType="ListBoxItem">
+            <!-- 在这个样式中定义了一些资源，这些资源是该样式的局部资源 -->
             <Style.Resources>
-                <!--SelectedItem with focus-->
-                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#40BF4D"/>
-                <!--SelectedItem without focus-->
+                <!-- 定义了一个有焦点的选中项的背景刷子，颜色为 #40BF4D -->
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#D65A08"/>
+                <!-- 注释掉的一个无焦点的选中项的背景刷子，颜色为 LightBlue，透明度为 0.4 -->
                 <!--<SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="LightBlue" Opacity=".4"/>-->
             </Style.Resources>
+            <!-- 定义了触发器，用于在特定条件下改变控件的外观 -->
             <Style.Triggers>
+                <!-- 当 ListBoxItem 鼠标悬停时，背景渐变为从 #DDEFBA 到 #94CD54 -->
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Background">
                         <Setter.Value>
@@ -38,6 +46,7 @@
                         </Setter.Value>
                     </Setter>
                 </Trigger>
+                <!-- 当 ListBoxItem 被选中时，背景变为红色 -->
                 <Trigger Property="IsSelected" Value="True">
                     <Setter Property="Background" Value ="Red" />
                 </Trigger>
@@ -61,7 +70,7 @@
         </Grid.ColumnDefinitions>
         <StackPanel Name="pnItems" Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
             <StackPanel Orientation="Vertical">
-                <Label Name="lbUnclosedProjectCount" Content="{Binding Count}" Background="Orange" 
+                <Label Name="lbUnclosedProjectCount" Content="{Binding Count}" Background="goldenrod" 
                    FontSize="18" FontWeight="Bold" ToolTip="全部未关闭项目数" MouseDoubleClick="lbUnclosedProjectCount_MouseDoubleClick"/>
                 <Line X1="0" Y1="0" X2="{Binding ElementName=lbUnclosedProjectCount, Path=ActualWidth}" Y2="0" StrokeThickness="3" 
                       Stroke="OrangeRed" Visibility="{Binding ElementName=unclosedProjectList, Path=Visibility}"/>
@@ -73,7 +82,7 @@
                       Stroke="OrangeRed" Visibility="{Binding ElementName=unclosedStoryList, Path=Visibility}"/>
             </StackPanel>
             <StackPanel Orientation="Vertical">
-                <Label Name="lbUnclosedTaskCount" Content="{Binding Count}" Background="Orange" 
+                <Label Name="lbUnclosedTaskCount" Content="{Binding Count}" Background="goldenrod" 
                    FontSize="18" FontWeight="Bold" ToolTip="全部未关闭任务数" MouseDoubleClick="lbUnclosedTaskCount_MouseDoubleClick"/>
                 <Line X1="0" Y1="0" X2="{Binding ElementName=lbUnclosedTaskCount, Path=ActualWidth}" Y2="0" StrokeThickness="3" 
                       Stroke="OrangeRed" Visibility="{Binding ElementName=unclosedTaskList, Path=Visibility}"/>
@@ -85,14 +94,15 @@
                       Stroke="OrangeRed" Visibility="{Binding ElementName=unclosedBugList, Path=Visibility}"/>
             </StackPanel>
             <StackPanel Orientation="Vertical">
-                <Label Name="lbOpenedByMeBugCount" Content="{Binding Count}" Background="LightPink" 
+                <Label Name="lbOpenedByMeBugCount" Content="{Binding Count}" Background="#FFDDDD" 
                    FontSize="18" FontWeight="Bold" ToolTip="我开的Bug数" MouseDoubleClick="lbOpenedByMeBugCount_MouseDoubleClick"/>
                 <Line X1="0" Y1="0" X2="{Binding ElementName=lbOpenedByMeBugCount, Path=ActualWidth}" Y2="0" StrokeThickness="3" 
                       Stroke="OrangeRed" Visibility="{Binding ElementName=openedBymeList, Path=Visibility}"/>
             </StackPanel>
             <StackPanel Orientation="Vertical">
                 <Label Name="lbBugCount" Content="{Binding Count}" Background="{Binding Count, Converter={StaticResource count2color}}" 
-                   FontSize="18" FontWeight="Bold" ToolTip="指给我的Bug数" MouseDoubleClick="lbBugCount_MouseDoubleClick" MouseUp="Label_MouseUp"/>
+                       
+                    FontSize="18" FontWeight="Bold" ToolTip="指给我的Bug数" MouseDoubleClick="lbBugCount_MouseDoubleClick" MouseUp="Label_MouseUp"/>
                 <Line X1="0" Y1="0" X2="{Binding ElementName=lbBugCount, Path=ActualWidth}" Y2="0" StrokeThickness="3" 
                       Stroke="OrangeRed" Visibility="{Binding ElementName=bugList, Path=Visibility}"/>
             </StackPanel>
@@ -103,22 +113,22 @@
                       Stroke="OrangeRed" Visibility="{Binding ElementName=taskList, Path=Visibility}"/>
             </StackPanel>
             <StackPanel Orientation="Vertical">
-                <Label Name="lbStoryCount" Content="{Binding Count}" Background="LightGoldenrodYellow" 
+                <Label Name="lbStoryCount" Content="{Binding Count}" Background="skyblue" 
                    FontSize="18" FontWeight="Bold" ToolTip="指给我的需求数" MouseDoubleClick="lbStoryCount_MouseDoubleClick" MouseUp="Label_MouseUp"/>
                 <Line X1="0" Y1="0" X2="{Binding ElementName=lbStoryCount, Path=ActualWidth}" Y2="0" StrokeThickness="3" 
                       Stroke="OrangeRed" Visibility="{Binding ElementName=storyList, Path=Visibility}"/>
             </StackPanel>
             <StackPanel Orientation="Vertical">
-                <Label Name="lbUnclosedToDoCount" Content="{Binding Count}" Background="LightGoldenrodYellow" 
+                <Label Name="lbUnclosedToDoCount" Content="{Binding Count}" Background="LightBlue" 
                    FontSize="18" FontWeight="Bold" ToolTip="我的个人待办数" MouseDoubleClick="lbUnclosedToDoCount_MouseDoubleClick" MouseUp="Label_MouseUp"/>
                 <Line X1="0" Y1="0" X2="{Binding ElementName=lbUnclosedToDoCount, Path=ActualWidth}" Y2="0" StrokeThickness="3" 
-                      Stroke="OrangeRed" Visibility="{Binding ElementName=ToDoList, Path=Visibility}"/>
+                      Stroke="OrangeRed" Visibility="{Binding ElementName=unclosedToDoList, Path=Visibility}"/>
             </StackPanel>
         </StackPanel>
 
         <Grid Name="listview" Grid.Row="1" Grid.Column="1" >
             <!--unclosedProjectList列表-->
-            <ListBox Name="unclosedProjectList" ItemsSource="{Binding}" ItemContainerStyle="{StaticResource listBoxItemMouseOver}"
+            <ListBox Name="unclosedProjectList" ItemsSource="{Binding}" ItemContainerStyle="{StaticResource listBoxItemMouseOver}" Background="#fbfbfb"
                      ScrollViewer.VerticalScrollBarVisibility="Auto" MaxHeight="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Height, Converter={StaticResource heightconvert}, ConverterParameter=0.7}"
                      Visibility="{Binding Converter={StaticResource datasource2Visible}}" KeyUp="ListBox_KeyUp">
                 <ListBox.ContextMenu>
@@ -131,7 +141,7 @@
                     <GroupStyle>
                         <GroupStyle.HeaderTemplate>
                             <DataTemplate>
-                                <Border BorderBrush="Black" BorderThickness="1">
+                                <Border BorderBrush="Black" BorderThickness="1" Background="#90EE90">
                                 </Border>
                             </DataTemplate>
                         </GroupStyle.HeaderTemplate>
@@ -176,7 +186,7 @@
                 </ListBox.ItemsPanel>
             </ListBox>
             <!--unclosedStoryList列表-->
-            <ListBox Name="unclosedStoryList" ItemsSource="{Binding}" ItemContainerStyle="{StaticResource listBoxItemMouseOver}"
+            <ListBox Name="unclosedStoryList" ItemsSource="{Binding}" ItemContainerStyle="{StaticResource listBoxItemMouseOver}" Background="#fbfbfb"
                      ScrollViewer.VerticalScrollBarVisibility="Auto" MaxHeight="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Height, Converter={StaticResource heightconvert}, ConverterParameter=0.7}"
                      Visibility="{Binding Converter={StaticResource datasource2Visible}}" KeyUp="ListBox_KeyUp">
                 <ListBox.ContextMenu>
@@ -208,22 +218,26 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
+                                <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Label Content="{Binding Execution}" Grid.Row="0" Grid.Column="0"  
                                    MouseDoubleClick="Label_MouseDoubleClick"
-                                   ToolTip="所属项目"/>
+                                   ToolTip="所属项目" Foreground="{Binding Stage, Converter={StaticResource storyStage2color}}"/>
                             <Label Content="{Binding Priority}" Grid.Row="0" Grid.Column="1"  
                                    MouseDoubleClick="Label_MouseDoubleClick"
-                                   ToolTip="优先级"/>
+                                   ToolTip="需求优先级"  Foreground="{Binding Stage, Converter={StaticResource storyStage2color}}"/>
                             <Label Content="{Binding Stage}" Grid.Row="0" Grid.Column="2"  
                                    MouseDoubleClick="Label_MouseDoubleClick" 
-                                   ToolTip="阶段"/>
-                            <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="3" 
+                                   ToolTip="需求阶段"  Foreground="{Binding Stage, Converter={StaticResource storyStage2color}}"/>
+                            <Label Content="{Binding AssignedToName}" Grid.Row="0" Grid.Column="3"  
                                    MouseDoubleClick="Label_MouseDoubleClick" 
-                                   ToolTip="ID"/>
-                            <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="4" 
+                                   ToolTip="指派给"  Foreground="{Binding Stage, Converter={StaticResource storyStage2color}}"/>
+                            <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="4" 
+                                   MouseDoubleClick="Label_MouseDoubleClick" 
+                                   ToolTip="需求ID"  Foreground="{Binding Stage, Converter={StaticResource storyStage2color}}"/>
+                            <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="5" 
                                    MouseDoubleClick="Label_MouseDoubleClick"  
-                                   ToolTip="标题"/>
+                                   ToolTip="需求标题"  Foreground="{Binding Stage, Converter={StaticResource storyStage2color}}"/>
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -234,7 +248,7 @@
                 </ListBox.ItemsPanel>
             </ListBox>
             <!--unclosedTaskList列表-->
-            <ListBox Name="unclosedTaskList" ItemsSource="{Binding}" ItemContainerStyle="{StaticResource listBoxItemMouseOver}"
+            <ListBox Name="unclosedTaskList" ItemsSource="{Binding}" ItemContainerStyle="{StaticResource listBoxItemMouseOver}" Background="#fbfbfb"
                      ScrollViewer.VerticalScrollBarVisibility="Auto" MaxHeight="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Height, Converter={StaticResource heightconvert}, ConverterParameter=0.7}"
                      Visibility="{Binding Converter={StaticResource datasource2Visible}}" KeyUp="ListBox_KeyUp">
                 <ListBox.ContextMenu>
@@ -270,36 +284,30 @@
                             </Grid.ColumnDefinitions>
                             <Label Content="{Binding ProjectName}" Grid.Row="0" Grid.Column="0"  
                                    MouseDoubleClick="Label_MouseDoubleClick" 
-                                   ToolTip="所属项目"/>
+                                   ToolTip="所属项目" Foreground="{Binding Progress, Converter={StaticResource taskProgress2Color}}"/>
                             <Label Content="{Binding Priority}" Grid.Row="0" Grid.Column="1"  
                                    MouseDoubleClick="Label_MouseDoubleClick" 
-                                   ToolTip="优先级"
-                                   Foreground="{Binding Deadline, Converter={StaticResource taskdate2color}}"/>
+                                   ToolTip="任务优先级" Foreground="{Binding Progress, Converter={StaticResource taskProgress2Color}}"/>
 
                             <Label Content="{Binding Type}" Grid.Row="0" Grid.Column="2"  
                                    MouseDoubleClick="Label_MouseDoubleClick" 
-                                   ToolTip="类型"
-                                   Foreground="{Binding Deadline, Converter={StaticResource taskdate2color}}"/>
+                                   ToolTip="任务类型" Foreground="{Binding Progress, Converter={StaticResource taskProgress2Color}}"/>
 
                             <Label Content="{Binding Status}" Grid.Row="0" Grid.Column="3"  
                                    MouseDoubleClick="Label_MouseDoubleClick" 
-                                   ToolTip="状态"
-                                   Foreground="{Binding Deadline, Converter={StaticResource taskdate2color}}"/>
+                                   ToolTip="任务状态" Foreground="{Binding Progress, Converter={StaticResource taskProgress2Color}}"/>
 
-                            <Label Content="{Binding Progress}" Grid.Row="0" Grid.Column="4"  
+                            <Label Content="{Binding AssignedToName}" Grid.Row="0" Grid.Column="4"  
                                    MouseDoubleClick="Label_MouseDoubleClick" 
-                                   ToolTip="进度"/>
-
+                                   ToolTip="指派给" Foreground="{Binding Progress, Converter={StaticResource taskProgress2Color}}"/>
 
                             <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="5" 
                                    MouseDoubleClick="Label_MouseDoubleClick" 
-                                   ToolTip="ID"
-                                   Foreground="{Binding Deadline, Converter={StaticResource taskdate2color}}"/>
-                            
+                                   ToolTip="任务ID" Foreground="{Binding Progress, Converter={StaticResource taskProgress2Color}}"/>
+
                             <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="6" 
                                    MouseDoubleClick="Label_MouseDoubleClick"  
-                                   ToolTip="标题"
-                                   Foreground="{Binding Deadline, Converter={StaticResource taskdate2color}}"/>
+                                   ToolTip="任务标题" Foreground="{Binding Progress, Converter={StaticResource taskProgress2Color}}"/>
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -311,7 +319,7 @@
             </ListBox>
 
             <!--unclosedBugList列表-->
-            <ListBox Name="unclosedBugList" ItemsSource="{Binding}" ItemContainerStyle="{StaticResource listBoxItemMouseOver}"
+            <ListBox Name="unclosedBugList" ItemsSource="{Binding}" ItemContainerStyle="{StaticResource listBoxItemMouseOver}" Background="#fbfbfb"
                      ScrollViewer.VerticalScrollBarVisibility="Auto" MaxHeight="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Height, Converter={StaticResource heightconvert}, ConverterParameter=0.7}"
                      Visibility="{Binding Converter={StaticResource datasource2Visible}}" KeyUp="ListBox_KeyUp">
 
@@ -344,34 +352,41 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
+                                <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Label Content="{Binding Product}" Grid.Row="0" Grid.Column="0"
-                                   ToolTip="所属产品"
+                                   ToolTip="Bug-所属产品"
                                    MouseDoubleClick="Label_MouseDoubleClick" 
-                                   Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
+                                   Foreground="{Binding ColorInt, Converter={StaticResource bug2color}}"/>
+                            
                             <Label Content="{Binding Severity}" Grid.Row="0" Grid.Column="1"
-                                   ToolTip="严重程度"
+                                   ToolTip="Bug-严重程度"
                                    MouseDoubleClick="Label_MouseDoubleClick" 
-                                   Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
+                                   Foreground="{Binding ColorInt, Converter={StaticResource bug2color}}"/>
                             <Label Content="{Binding Confirmed}" Grid.Row="0" Grid.Column="2" 
-                                   ToolTip="是否确认"
+                                   ToolTip="Bug-是否确认"
                                    MouseDoubleClick="Label_MouseDoubleClick"                                    
-                                   Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
+                                   Foreground="{Binding Confirmed, Converter={StaticResource bugConfirmed2Color}}"/>
 
                             <Label Content="{Binding Resolution}" Grid.Row="0" Grid.Column="3" 
-                                   ToolTip="解决方案"
+                                   ToolTip="Bug-解决方案"
                                    MouseDoubleClick="Label_MouseDoubleClick"                                    
-                                   Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
-
-                            <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="4" 
-                                   ToolTip="ID"
-                                   MouseDoubleClick="Label_MouseDoubleClick"                                    
-                                   Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
+                                   Foreground="{Binding ColorInt, Converter={StaticResource bug2color}}"/>
                             
-                            <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="5"
-                                   ToolTip="标题"
+                            <Label Content="{Binding AssignedToName}" Grid.Row="0" Grid.Column="4"  
                                    MouseDoubleClick="Label_MouseDoubleClick" 
-                                   Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
+                                   ToolTip="指派给"
+                                   Foreground="{Binding ColorInt, Converter={StaticResource bug2color}}"/>
+                            
+                            <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="5" 
+                                   ToolTip="Bug-ID"
+                                   MouseDoubleClick="Label_MouseDoubleClick"                                    
+                                   Foreground="{Binding ColorInt, Converter={StaticResource bug2color}}"/>
+                            
+                            <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="6"
+                                   ToolTip="Bug-标题"
+                                   MouseDoubleClick="Label_MouseDoubleClick" 
+                                   Foreground="{Binding ColorInt, Converter={StaticResource bug2color}}"/>
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -384,7 +399,7 @@
 
 
             <!--openedBymeList列表-->
-            <ListBox Name="openedBymeList" ItemsSource="{Binding}" ItemContainerStyle="{StaticResource listBoxItemMouseOver}"
+            <ListBox Name="openedBymeList" ItemsSource="{Binding}" ItemContainerStyle="{StaticResource listBoxItemMouseOver}" Background="#fbfbfb"
                      ScrollViewer.VerticalScrollBarVisibility="Auto" MaxHeight="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Height, Converter={StaticResource heightconvert}, ConverterParameter=0.7}"
                      Visibility="{Binding Converter={StaticResource datasource2Visible}}" KeyUp="ListBox_KeyUp">
 
@@ -417,36 +432,42 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
+                                <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Label Content="{Binding Product}" Grid.Row="0" Grid.Column="0"
                                    ToolTip="BUG-所属产品"
                                    MouseDoubleClick="Label_MouseDoubleClick" 
-                                   Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
+                                    Foreground="{Binding ColorInt, Converter={StaticResource bug2color}}"/>
 
                             <Label Content="{Binding Severity}" Grid.Row="0" Grid.Column="1"
                                    ToolTip="BUG-严重程度"
                                    MouseDoubleClick="Label_MouseDoubleClick" 
-                                   Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
+                                    Foreground="{Binding ColorInt, Converter={StaticResource bug2color}}"/>
 
                             <Label Content="{Binding Confirmed}" Grid.Row="0" Grid.Column="2" 
                                    ToolTip="BUG-是否确认"
                                    MouseDoubleClick="Label_MouseDoubleClick"                                    
-                                   Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
+                                   Foreground="{Binding Confirmed, Converter={StaticResource bugConfirmed2Color}}"/>
 
                             <Label Content="{Binding Resolution}" Grid.Row="0" Grid.Column="3" 
                                    ToolTip="BUG-解决方案"
                                    MouseDoubleClick="Label_MouseDoubleClick"                                    
-                                   Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
-
-                            <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="4" 
+                                    Foreground="{Binding ColorInt, Converter={StaticResource bug2color}}"/>
+                            
+                            <Label Content="{Binding AssignedToName}" Grid.Row="0" Grid.Column="4"  
+                                   MouseDoubleClick="Label_MouseDoubleClick" 
+                                   ToolTip="指派给"
+                                    Foreground="{Binding ColorInt, Converter={StaticResource bug2color}}"/>
+                            
+                            <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="5" 
                                    ToolTip="BUG-ID"
                                    MouseDoubleClick="Label_MouseDoubleClick"                                    
-                                   Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
+                                   Foreground="{Binding ColorInt, Converter={StaticResource bug2color}}"/>
 
-                            <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="5"
+                            <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="6"
                                    ToolTip="BUG-标题"
                                    MouseDoubleClick="Label_MouseDoubleClick" 
-                                   Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
+                                   Foreground="{Binding ColorInt, Converter={StaticResource bug2color}}"/>
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -459,7 +480,7 @@
             
             
             <!--bug列表-->
-            <ListBox Name="bugList" ItemsSource="{Binding}" ItemContainerStyle="{StaticResource listBoxItemMouseOver}"
+            <ListBox Name="bugList" ItemsSource="{Binding}" ItemContainerStyle="{StaticResource listBoxItemMouseOver}" Background="#fbfbfb"
                      ScrollViewer.VerticalScrollBarVisibility="Auto" MaxHeight="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Height, Converter={StaticResource heightconvert}, ConverterParameter=0.7}"
                      Visibility="{Binding Converter={StaticResource datasource2Visible}}" KeyUp="ListBox_KeyUp">
 
@@ -496,33 +517,33 @@
                                 
                             </Grid.ColumnDefinitions>
                             <Label Content="{Binding Product}" Grid.Row="0" Grid.Column="0"
-                                   ToolTip="BUG-所属产品"
+                                   ToolTip="Bug-所属产品"
                                    MouseDoubleClick="Label_MouseDoubleClick" 
                                    Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
                             <Label Content="{Binding Severity}" Grid.Row="0" Grid.Column="1"
-                                   ToolTip="BUG-严重程度"
+                                   ToolTip="Bug-严重程度"
                                    MouseDoubleClick="Label_MouseDoubleClick" 
-                                   Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
+                                    Foreground="{Binding ColorInt, Converter={StaticResource bug2color}}"/>
 
                             <Label Content="{Binding Confirmed}" Grid.Row="0" Grid.Column="2" 
-                                   ToolTip="BUG-是否确认"
+                                   ToolTip="Bug-是否确认"
                                    MouseDoubleClick="Label_MouseDoubleClick"                                    
-                                   Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
+                                   Foreground="{Binding Confirmed, Converter={StaticResource bugConfirmed2Color}}"/>
 
                             <Label Content="{Binding Resolution}" Grid.Row="0" Grid.Column="3" 
-                                   ToolTip="BUG-解决方案"
+                                   ToolTip="Bug-解决方案"
                                    MouseDoubleClick="Label_MouseDoubleClick"                                    
-                                   Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
+                                    Foreground="{Binding ColorInt, Converter={StaticResource bug2color}}"/>
 
                             <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="4" 
-                                   ToolTip="BUG-ID"
+                                   ToolTip="Bug-ID"
                                    MouseDoubleClick="Label_MouseDoubleClick"                                    
-                                   Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
+                                   Foreground="{Binding ColorInt, Converter={StaticResource bug2color}}"/>
 
                             <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="5"
-                                   ToolTip="BUG-标题"
+                                   ToolTip="Bug-标题"
                                    MouseDoubleClick="Label_MouseDoubleClick" 
-                                   Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
+                                    Foreground="{Binding ColorInt, Converter={StaticResource bug2color}}"/>
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -534,7 +555,7 @@
             </ListBox>
 
             <!--task列表-->
-            <ListBox Name="taskList" ItemsSource="{Binding}" ItemContainerStyle="{StaticResource listBoxItemMouseOver}"
+            <ListBox Name="taskList" ItemsSource="{Binding}" ItemContainerStyle="{StaticResource listBoxItemMouseOver}" Background="#fbfbfb"
                      ScrollViewer.VerticalScrollBarVisibility="Auto" MaxHeight="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Height, Converter={StaticResource heightconvert}, ConverterParameter=0.7}"
                      Visibility="{Binding Converter={StaticResource datasource2Visible}}" KeyUp="ListBox_KeyUp">
                 <ListBox.ContextMenu>
@@ -566,40 +587,31 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
-                                <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Label Content="{Binding ProjectName}" Grid.Row="0" Grid.Column="0"  
                                    MouseDoubleClick="Label_MouseDoubleClick" 
-                                   ToolTip="任务所属迭代"
-                                   Foreground="{Binding Deadline, Converter={StaticResource taskdate2color}}"/>
+                                   ToolTip="任务所属迭代" Foreground="{Binding Progress, Converter={StaticResource taskProgress2Color}}"/>
+
                             <Label Content="{Binding Priority}" Grid.Row="0" Grid.Column="1"  
                                    MouseDoubleClick="Label_MouseDoubleClick" 
-                                   ToolTip="任务优先级"
-                                   Foreground="{Binding Deadline, Converter={StaticResource taskdate2color}}"/>
+                                   ToolTip="任务优先级" Foreground="{Binding Progress, Converter={StaticResource taskProgress2Color}}"/>
 
                             <Label Content="{Binding Type}" Grid.Row="0" Grid.Column="2"  
                                    MouseDoubleClick="Label_MouseDoubleClick" 
-                                   ToolTip="任务类型"
-                                   Foreground="{Binding Deadline, Converter={StaticResource taskdate2color}}"/>
+                                   ToolTip="任务类型" Foreground="{Binding Progress, Converter={StaticResource taskProgress2Color}}"/>
 
                             <Label Content="{Binding Status}" Grid.Row="0" Grid.Column="3"  
                                    MouseDoubleClick="Label_MouseDoubleClick" 
-                                   ToolTip="任务状态"
-                                   Foreground="{Binding Deadline, Converter={StaticResource taskdate2color}}"/>
+                                   ToolTip="任务状态" Foreground="{Binding Progress, Converter={StaticResource taskProgress2Color}}"/>
 
-                            <Label Content="{Binding Progress}" Grid.Row="0" Grid.Column="4"  
-                                   MouseDoubleClick="Label_MouseDoubleClick" 
-                                   ToolTip="任务进度"/>
-                            
                             <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="5" 
                                    MouseDoubleClick="Label_MouseDoubleClick" 
-                                   ToolTip="任务ID"
-                                   Foreground="{Binding Deadline, Converter={StaticResource taskdate2color}}"/>
-                            
+                                   ToolTip="任务ID" Foreground="{Binding Progress, Converter={StaticResource taskProgress2Color}}"/>
+
                             <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="6" 
                                    MouseDoubleClick="Label_MouseDoubleClick"  
-                                   ToolTip="任务标题"
-                                   Foreground="{Binding Deadline, Converter={StaticResource taskdate2color}}"/>
+                                   ToolTip="任务标题" Foreground="{Binding Progress, Converter={StaticResource taskProgress2Color}}"/>
+
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -611,7 +623,7 @@
             </ListBox>
 
             <!--需求列表-->
-            <ListBox Name="storyList" ItemsSource="{Binding}" ItemContainerStyle="{StaticResource listBoxItemMouseOver}"
+            <ListBox Name="storyList" ItemsSource="{Binding}" ItemContainerStyle="{StaticResource listBoxItemMouseOver}" Background="#fbfbfb"
                      ScrollViewer.VerticalScrollBarVisibility="Auto" MaxHeight="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Height, Converter={StaticResource heightconvert}, ConverterParameter=0.7}"
                      Visibility="{Binding Converter={StaticResource datasource2Visible}}" KeyUp="ListBox_KeyUp">
                 <ListBox.ContextMenu>
@@ -646,19 +658,19 @@
                             </Grid.ColumnDefinitions>
                             <Label Content="{Binding Execution}" Grid.Row="0" Grid.Column="0"  
                                    MouseDoubleClick="Label_MouseDoubleClick"
-                                   ToolTip="需求所属产品"/>
+                                   ToolTip="需求所属产品"  Foreground="{Binding Stage, Converter={StaticResource storyStage2color}}"/>
                             <Label Content="{Binding Priority}" Grid.Row="0" Grid.Column="1"  
                                    MouseDoubleClick="Label_MouseDoubleClick"
-                                   ToolTip="需求优先级"/>
+                                   ToolTip="需求优先级"  Foreground="{Binding Stage, Converter={StaticResource storyStage2color}}"/>
                             <Label Content="{Binding Stage}" Grid.Row="0" Grid.Column="2"  
                                    MouseDoubleClick="Label_MouseDoubleClick" 
-                                   ToolTip="需求阶段"/>
+                                   ToolTip="需求阶段"  Foreground="{Binding Stage, Converter={StaticResource storyStage2color}}"/>
                             <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="3" 
                                    MouseDoubleClick="Label_MouseDoubleClick" 
-                                   ToolTip="需求ID"/>
+                                   ToolTip="需求ID"  Foreground="{Binding Stage, Converter={StaticResource storyStage2color}}"/>
                             <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="4" 
                                    MouseDoubleClick="Label_MouseDoubleClick"  
-                                   ToolTip="需求标题"/>
+                                   ToolTip="需求标题"  Foreground="{Binding Stage, Converter={StaticResource storyStage2color}}"/>
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -669,7 +681,7 @@
                 </ListBox.ItemsPanel>
             </ListBox>
             <!--unclosedToDoList列表-->
-            <ListBox Name="unclosedToDoList" ItemsSource="{Binding}" ItemContainerStyle="{StaticResource listBoxItemMouseOver}"
+            <ListBox Name="unclosedToDoList" ItemsSource="{Binding}" ItemContainerStyle="{StaticResource listBoxItemMouseOver}" Background="#fbfbfb"
                      ScrollViewer.VerticalScrollBarVisibility="Auto" MaxHeight="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Height, Converter={StaticResource heightconvert}, ConverterParameter=0.7}"
                      Visibility="{Binding Converter={StaticResource datasource2Visible}}" KeyUp="ListBox_KeyUp">
                 <ListBox.ContextMenu>

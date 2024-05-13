@@ -264,7 +264,7 @@ namespace ZuggerWpf
         {
             get
             {
-                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "project-view-{0}.html" : "?m=project&f=view&storyID={0}");
+                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "projectstory-story-{0}.html" : "?m=projectstory&f=story");
             }
         }
 

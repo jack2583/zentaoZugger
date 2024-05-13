@@ -78,7 +78,7 @@ namespace ZuggerWpf
                                                  ,
                                             Title = Util.EscapeXmlTag(jpFirst["name"].Value<string>())
                                                  ,
-                                            Deadline = jpFirst["deadline"].Value<string>()
+                                            Deadline =  jpFirst["deadline"].Value<string>()
                                                  ,
                                             Tip = "Task"
                                                   ,
@@ -86,7 +86,9 @@ namespace ZuggerWpf
                                                   ,
                                             Status = Convert.Status(jpFirst["status"].Value<string>())
                                                   ,
-                                            Progress = jpFirst["progress"].Value<string>() + "%"
+                                            Progress = jpFirst["progress"].Value<string>()
+                                                 ,
+                                            AssignedToName = jpFirst["assignedToRealName"].Value<string>()
 
                                         };
 

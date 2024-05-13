@@ -81,6 +81,19 @@ namespace ZuggerWpf
                                     }
                                 }
 
+                                //获取用户字典
+                                Dictionary<string, string> usersDic = new Dictionary<string, string>();
+                                var jsObjUsers = JsonConvert.DeserializeObject(jsObj["users"].ToString()) as JObject;
+
+                                JToken recordUser = jsObjUsers as JToken;
+                                if (recordUser != null)
+                                {
+                                    foreach (JProperty jp in recordUser)
+                                    {
+                                        usersDic.Add(jp.Name, jp.Value.ToString());
+                                    }
+                                }
+
                                 JArray BugsArray = (JArray)JsonConvert.DeserializeObject(jsObj["bugs"].ToString());
 
                                 foreach (var bug in BugsArray)
@@ -100,7 +113,7 @@ namespace ZuggerWpf
                                             ,
                                             OpenDate = bug["openedDate"].Value<string>()
                                             ,
-                                            LastEdit = bug["lastEditedDate"].Value<string>()
+                                            LastEditDate = bug["lastEditedDate"].Value<string>()
                                             ,
                                             Tip = "我开的Bug"
                                             ,
@@ -109,6 +122,8 @@ namespace ZuggerWpf
                                             Resolution = Convert.Resolution(bug["resolution"].Value<string>())
                                             ,
                                             Product= productDic[bug["product"].Value<string>()]
+                                            ,
+                                            AssignedToName = usersDic[bug["assignedTo"].Value<string>()]
                                         };
 
                                         if (!ItemCollectionBackup.Contains(bugItem.ID))
