@@ -66,6 +66,7 @@ namespace ZuggerWpf
                 appconfigBack.ShowUnclosedBug = appconfig.ShowUnclosedBug;
                 appconfigBack.ShowUnclosedProject = appconfig.ShowUnclosedProject;
                 appconfigBack.ShowUnclosedToDo = appconfig.ShowUnclosedToDo;
+                appconfigBack.ShowUndoneExecution = true;
 
                 txtPwd.Password = appconfig.Password;
 
@@ -205,6 +206,7 @@ namespace ZuggerWpf
             appconfig.ShowUnclosedBug = appconfigBack.ShowUnclosedBug;
             appconfig.ShowUnclosedProject = appconfigBack.ShowUnclosedProject;
             appconfig.ShowUnclosedToDo = appconfigBack.ShowUnclosedToDo;
+            appconfig.ShowUndoneExecution = appconfigBack.ShowUndoneExecution;
 
             IOHelper.SaveIsolatedData(appconfig);
 

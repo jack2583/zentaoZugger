@@ -232,6 +232,10 @@ namespace ZuggerWpf
                 {
                     url = GetProjectOperationUrl(operation, item);
                 }
+                else if (item is ExecutionItem)
+                {
+                    url = GetExecutionOperationUrl(operation, item);
+                }
 
                 OpenWebBrowser(url);
             }
@@ -376,7 +380,29 @@ namespace ZuggerWpf
 
             return url;
         }
+        private static string GetExecutionOperationUrl(ItemOperation operation, ItemBase item)
+        {
+            return GetExecutionOperationUrl(operation, item.ID);
+        }
+        private static string GetExecutionOperationUrl(ItemOperation operation, int itemId)
+        {
+            ApplicationConfig appconfig = IOHelper.LoadIsolatedData();
 
+            string url = string.Empty;
+            switch (operation)
+            {
+                case ItemOperation.View:
+                    url = string.Format(appconfig.ViewExecutionUrl, itemId);
+                    break;
+                //case ItemOperation.Edit:
+                //    url = string.Format(appconfig.EditProjectUrl, itemId);
+                //    break;
+                default:
+                    break;
+            }
+
+            return url;
+        }
 
 
 

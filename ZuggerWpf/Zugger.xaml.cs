@@ -205,6 +205,7 @@ namespace ZuggerWpf
             lbUnclosedTaskCount.Visibility = appconfig.ShowUnclosedTask ? Visibility.Visible : Visibility.Collapsed;
             lbUnclosedBugCount.Visibility = appconfig.ShowUnclosedBug ? Visibility.Visible : Visibility.Collapsed;
             lbUnclosedToDoCount.Visibility = appconfig.ShowUnclosedToDo ? Visibility.Visible : Visibility.Collapsed;
+            lbUndoneExecutionCount.Visibility = appconfig.ShowUndoneExecution ? Visibility.Visible : Visibility.Collapsed;
 
             //对于之前的版本因为已经存在配置了，所以默认的三个bool值都为false
             if (!appconfig.ShowOpendByMe
@@ -216,6 +217,7 @@ namespace ZuggerWpf
                 && !appconfig.ShowUnclosedTask
                 && !appconfig.ShowUnclosedBug
                 && !appconfig.ShowUnclosedToDo
+                && !appconfig.ShowUndoneExecution
                 )
             {
                 lbBugCount.Visibility = Visibility.Visible;
@@ -317,6 +319,15 @@ namespace ZuggerWpf
                 lbStoryCount.DataContext = storyCollection;
                 gs.OnNewItemArrive += new NewItemArrive(NewItem_OnNewItemArrive);
                 ActionList.Add(gs);
+            }
+            #endregion
+            #region 未完成的执行迭代
+            if (appconfig.ShowUndoneExecution)
+            {
+                ZuggerObservableCollection<ExecutionItem> UndoneExecutionCollection = new ZuggerObservableCollection<ExecutionItem>();
+                GetUndoneExecution goup2 = new GetUndoneExecution(UndoneExecutionCollection);
+                lbUndoneExecutionCount.DataContext = UndoneExecutionCollection;
+                ActionList.Add(goup2);
             }
             #endregion
         }
@@ -509,6 +520,15 @@ namespace ZuggerWpf
         private void lbUnclosedProjectCount_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             DoubleClickFloatFrame(lbUnclosedProjectCount, unclosedProjectList);
+        }
+        /// <summary>
+        /// 展开全部未关闭的UndoneExecutiont list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void lbUndoneExecutionCount_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DoubleClickFloatFrame(lbUndoneExecutionCount, undoneExecutionList);
         }
         /// <summary>
         /// 展开全部未关闭的ToDo list

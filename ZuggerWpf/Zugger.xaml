@@ -70,10 +70,16 @@
         </Grid.ColumnDefinitions>
         <StackPanel Name="pnItems" Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
             <StackPanel Orientation="Vertical">
-                <Label Name="lbUnclosedProjectCount" Content="{Binding Count}" Background="goldenrod" 
+                <Label Name="lbUnclosedProjectCount" Content="{Binding Count}" Background="Orange" 
                    FontSize="18" FontWeight="Bold" ToolTip="全部未关闭项目数" MouseDoubleClick="lbUnclosedProjectCount_MouseDoubleClick"/>
                 <Line X1="0" Y1="0" X2="{Binding ElementName=lbUnclosedProjectCount, Path=ActualWidth}" Y2="0" StrokeThickness="3" 
                       Stroke="OrangeRed" Visibility="{Binding ElementName=unclosedProjectList, Path=Visibility}"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <Label Name="lbUndoneExecutionCount" Content="{Binding Count}" Background="goldenrod" 
+                   FontSize="18" FontWeight="Bold" ToolTip="全部未关闭执行数" MouseDoubleClick="lbUndoneExecutionCount_MouseDoubleClick"/>
+                <Line X1="0" Y1="0" X2="{Binding ElementName=lbUndoneExecutionCount, Path=ActualWidth}" Y2="0" StrokeThickness="3" 
+                      Stroke="OrangeRed" Visibility="{Binding ElementName=undoneExecutionList, Path=Visibility}"/>
             </StackPanel>
             <StackPanel Orientation="Vertical">
                 <Label Name="lbUnclosedStoryCount" Content="{Binding Count}" Background="Orange" 
@@ -176,6 +182,81 @@
                             <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="4" 
                                    MouseDoubleClick="Label_MouseDoubleClick"  
                                    ToolTip="标题"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+            <!--UndoneExecutionList列表-->
+            <ListBox Name="undoneExecutionList" ItemsSource="{Binding}" ItemContainerStyle="{StaticResource listBoxItemMouseOver}" Background="#fbfbfb"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto" MaxHeight="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Height, Converter={StaticResource heightconvert}, ConverterParameter=0.7}"
+                     Visibility="{Binding Converter={StaticResource datasource2Visible}}" KeyUp="ListBox_KeyUp">
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="编辑" Click="ItemEdit_Click"/>
+                        <MenuItem Header="复制" Click="CopyItem_Click"/>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+                <ListBox.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="Black" BorderThickness="1" Background="#90EE90">
+                                </Border>
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                    </GroupStyle>
+                </ListBox.GroupStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition>
+                                </RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="0" 
+                                   MouseDoubleClick="Label_MouseDoubleClick" 
+                                   ToolTip="ID"/>
+                            <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="1"  
+                                   MouseDoubleClick="Label_MouseDoubleClick"
+                                   ToolTip="执行名称"/>
+                            <Label Content="{Binding Project}" Grid.Row="0" Grid.Column="2"  
+                                   MouseDoubleClick="Label_MouseDoubleClick" 
+                                   ToolTip="所属项目"/>
+                            <Label Content="{Binding Status}" Grid.Row="0" Grid.Column="3"  
+                                   MouseDoubleClick="Label_MouseDoubleClick" 
+                                   ToolTip="状态"/>
+                            <Label Content="{Binding Progress}" Grid.Row="0" Grid.Column="4"  
+                                   MouseDoubleClick="Label_MouseDoubleClick" 
+                                   ToolTip="进度"/>
+
+                            <Label Content="{Binding Begin}" Grid.Row="0" Grid.Column="5" 
+                                   MouseDoubleClick="Label_MouseDoubleClick"  
+                                   ToolTip="计划开始时间"/>
+                            <Label Content="{Binding End}" Grid.Row="0" Grid.Column="6" 
+                                   MouseDoubleClick="Label_MouseDoubleClick"  
+                                   ToolTip="计划完成日期"/>
+                            <Label Content="{Binding Estimate}" Grid.Row="0" Grid.Column="7" 
+                                   MouseDoubleClick="Label_MouseDoubleClick"  
+                                   ToolTip="预计工时"/>
+                            <Label Content="{Binding Consumed}" Grid.Row="0" Grid.Column="8" 
+                                   MouseDoubleClick="Label_MouseDoubleClick"  
+                                   ToolTip="消耗工时"/>
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -604,11 +685,11 @@
                                    MouseDoubleClick="Label_MouseDoubleClick" 
                                    ToolTip="任务状态" Foreground="{Binding Progress, Converter={StaticResource taskProgress2Color}}"/>
 
-                            <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="5" 
+                            <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="4" 
                                    MouseDoubleClick="Label_MouseDoubleClick" 
                                    ToolTip="任务ID" Foreground="{Binding Progress, Converter={StaticResource taskProgress2Color}}"/>
 
-                            <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="6" 
+                            <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="5" 
                                    MouseDoubleClick="Label_MouseDoubleClick"  
                                    ToolTip="任务标题" Foreground="{Binding Progress, Converter={StaticResource taskProgress2Color}}"/>
 

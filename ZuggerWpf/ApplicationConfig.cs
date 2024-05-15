@@ -113,18 +113,7 @@ namespace ZuggerWpf
                 return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "product-browse.json?a=1" : "?m=bug&f=browse&browseType=openedByMe&t=json");
             }
         }
-  
-        /// <summary>
-        /// 取所有项目集列表
-        /// </summary>
-        public string GetAllProgramUrl
-        {
-            get
-            {
-                //GET  /zentao/program-browse-[status]-[orderBy]-[recTotal]-[recPerPage]-[pageID]-[param].json
-                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "program-browse.json?a=1" : "?m=program&f=browse&t=json");
-            }
-        }
+
         /// <summary>
         /// 取项目列表  
         /// </summary>
@@ -147,6 +136,7 @@ namespace ZuggerWpf
                 return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "project-browse-0-doing.json?a=1" : "?m=project&f=browse&t=json");
             }
         }
+
         /// <summary>
         /// 取所有ToDo列表  
         /// </summary>
@@ -267,7 +257,16 @@ namespace ZuggerWpf
                 return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "projectstory-story-{0}.html" : "?m=projectstory&f=story");
             }
         }
-
+        /// <summary>
+        /// 查看执行的url
+        /// </summary>
+        public string ViewExecutionUrl
+        {
+            get
+            {
+                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "execution-story-{0}-story-order_desc-unclosed.html" : "?m=execution&f=story");
+            }
+        }
         /// <summary>
         /// 解决bug
         /// </summary>
@@ -442,16 +441,25 @@ namespace ZuggerWpf
         }
         private bool showUnclosedProject = false;
         /// <summary>
-        ///是否显示全部未关闭的需求
+        ///是否显示全部未关闭的项目
         /// </summary>
         public bool ShowUnclosedProject
         {
             get { return showUnclosedProject; }
             set { showUnclosedProject = value; }
         }
+        private bool showUndoneExecution = true;
+        /// <summary>
+        ///是否显示全部未关闭的执行
+        /// </summary>
+        public bool ShowUndoneExecution
+        {
+            get { return showUndoneExecution; }
+            set { showUndoneExecution = value; }
+        }
         private bool showUnclosedToDo = false;
         /// <summary>
-        ///是否显示全部未关闭的需求
+        ///是否显示全部未关闭的待办
         /// </summary>
         public bool ShowUnclosedToDo
         {

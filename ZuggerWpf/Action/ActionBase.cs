@@ -258,6 +258,67 @@ namespace ZuggerWpf
 
     }
     #endregion
+    #region Execution 项目
+    class ExecutionItem : ItemBase
+    {
+        #region ItemBase 成员
+
+        public int ID { get; set; }
+        /// <summary>
+        /// 标题
+        /// </summary>
+        public string Title { get; set; }
+        /// <summary>
+        /// 所属项目
+        /// </summary>
+        public string Project { get; set; }
+        /// <summary>
+        /// 执行状态
+        /// </summary>
+        public string Status { get; set; }
+        /// <summary>
+        /// 计划开始日期
+        /// </summary>
+        public string Begin { get; set; }
+        /// <summary>
+        /// 计划完成日期
+        /// </summary>
+        public string End { get; set; }
+        #endregion
+        /// <summary>
+        /// 预计工时 
+        /// </summary>
+        public string Estimate { get; set; }
+        /// <summary>
+        /// 消耗工时 
+        /// </summary>
+        public string Consumed { get; set; }
+        /// <summary>
+        /// 剩余工时 
+        /// </summary>
+        public string Left { get; set; }
+
+        private string tip;
+        public string Tip
+        {
+            get
+            {
+                return string.IsNullOrEmpty(tip) ? "Execution" : tip;
+            }
+            set
+            {
+                tip = value;
+            }
+        }
+
+        /// <summary>
+        /// 项目进度百分比值
+        /// </summary>
+        public string Progress { get; set; }
+
+
+    }
+    #endregion
     #region ToDo 待办
     class ToDoItem : ItemBase
     {

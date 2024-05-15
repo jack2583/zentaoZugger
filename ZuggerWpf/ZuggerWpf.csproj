@@ -131,6 +131,7 @@
     <Compile Include="Action\GetUnclosedBug.cs" />
     <Compile Include="Action\GetUnclosedStory.cs" />
     <Compile Include="Action\GetUnclosedTask.cs" />
+    <Compile Include="Action\GetUndoneExecution.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
