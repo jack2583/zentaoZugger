@@ -180,6 +180,32 @@ namespace ZuggerWpf
         }
     }
     /// <summary>
+    /// 执行状态颜色
+    /// </summary>
+    public class ExecutionProgress2Color : IValueConverter
+    {
+        // 在转换器类中
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            // 假设您要根据 LastEdit 属性的值来返回不同的背景色
+            switch (value.ToString())
+            {
+                case "0":
+                    return new SolidColorBrush(Color.FromArgb(255, 0, 82, 204)); // 蓝色
+
+                default:
+                    return new SolidColorBrush(Color.FromArgb(255, 255, 87, 51)); // 红色
+                    break;
+            }
+
+            return Brushes.Black; // 默认黑色
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    /// <summary>
     /// 根据需求状态改颜色
     /// </summary>
     public class StoryStage2Color : IValueConverter

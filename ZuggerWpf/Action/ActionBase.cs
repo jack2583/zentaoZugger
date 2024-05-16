@@ -268,6 +268,7 @@ namespace ZuggerWpf
         /// 标题
         /// </summary>
         public string Title { get; set; }
+        #endregion
         /// <summary>
         /// 所属项目
         /// </summary>
@@ -284,7 +285,50 @@ namespace ZuggerWpf
         /// 计划完成日期
         /// </summary>
         public string End { get; set; }
-        #endregion
+
+        /// <summary>
+        /// 延期天数
+        /// </summary>
+        public int CurrentDate 
+        {
+            get
+            {
+                // 将字符串转换为DateTime对象
+                DateTime endDate = DateTime.ParseExact(End, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+                DateTime currentDate = DateTime.Now;
+
+                // 判断是否延期
+                if (currentDate > endDate)
+                {
+                   // Console.WriteLine("计划已经延期。");
+
+                    // 计算延期天数
+                    int delayDays = (currentDate - endDate).Days;
+                    return delayDays;
+                   // Console.WriteLine($"延期了 {delayDays} 天。");
+                }
+                else
+                {
+                    return 0;
+                    //Console.WriteLine("计划尚未延期。");
+                }
+            }
+        }
+   
+        public string PlanTime
+        {
+            get
+            {
+                if(CurrentDate==0)
+                {
+                    return Begin + "～" + End;
+                }
+                else
+                {
+                    return Begin + "～" + End + "(已延期：" + CurrentDate.ToString()+"天)";
+                }
+            }
+        }
         /// <summary>
         /// 预计工时 
         /// </summary>

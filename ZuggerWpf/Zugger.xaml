@@ -19,6 +19,7 @@
         <local:BugConfirmed2Color x:Key="bugConfirmed2Color"/>
         <local:Bug2Color x:Key="bug2color"/>
         <local:TaskProgress2Color x:Key="taskProgress2Color"/>
+        <local:ExecutionProgress2Color x:Key="executionProgress2Color"/>
         <local:StoryStage2Color x:Key="storyStage2color"/>
         <local:Datasource2Visible x:Key="datasource2Visible"/>
         <local:HeightConverter x:Key="heightconvert"/>
@@ -227,36 +228,32 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
-                                <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Label Content="{Binding ID}" Grid.Row="0" Grid.Column="0" 
                                    MouseDoubleClick="Label_MouseDoubleClick" 
-                                   ToolTip="ID"/>
+                                   ToolTip="ID" Foreground="{Binding CurrentDate, Converter={StaticResource executionProgress2Color}}"/>
                             <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="1"  
                                    MouseDoubleClick="Label_MouseDoubleClick"
-                                   ToolTip="执行名称"/>
+                                   ToolTip="执行名称" Foreground="{Binding CurrentDate, Converter={StaticResource executionProgress2Color}}"/>
                             <Label Content="{Binding Project}" Grid.Row="0" Grid.Column="2"  
                                    MouseDoubleClick="Label_MouseDoubleClick" 
-                                   ToolTip="所属项目"/>
+                                   ToolTip="所属项目" Foreground="{Binding CurrentDate, Converter={StaticResource executionProgress2Color}}"/>
                             <Label Content="{Binding Status}" Grid.Row="0" Grid.Column="3"  
                                    MouseDoubleClick="Label_MouseDoubleClick" 
-                                   ToolTip="状态"/>
+                                   ToolTip="状态" Foreground="{Binding CurrentDate, Converter={StaticResource executionProgress2Color}}"/>
                             <Label Content="{Binding Progress}" Grid.Row="0" Grid.Column="4"  
                                    MouseDoubleClick="Label_MouseDoubleClick" 
-                                   ToolTip="进度"/>
+                                   ToolTip="进度" Foreground="{Binding CurrentDate, Converter={StaticResource executionProgress2Color}}"/>
 
-                            <Label Content="{Binding Begin}" Grid.Row="0" Grid.Column="5" 
+                            <Label Content="{Binding PlanTime}" Grid.Row="0" Grid.Column="5" 
                                    MouseDoubleClick="Label_MouseDoubleClick"  
-                                   ToolTip="计划开始时间"/>
-                            <Label Content="{Binding End}" Grid.Row="0" Grid.Column="6" 
+                                   ToolTip="计划起止时间" Foreground="{Binding CurrentDate, Converter={StaticResource executionProgress2Color}}"/>
+                            <Label Content="{Binding Estimate}" Grid.Row="0" Grid.Column="6" 
                                    MouseDoubleClick="Label_MouseDoubleClick"  
-                                   ToolTip="计划完成日期"/>
-                            <Label Content="{Binding Estimate}" Grid.Row="0" Grid.Column="7" 
+                                   ToolTip="预计工时" Foreground="{Binding CurrentDate, Converter={StaticResource executionProgress2Color}}"/>
+                            <Label Content="{Binding Consumed}" Grid.Row="0" Grid.Column="7" 
                                    MouseDoubleClick="Label_MouseDoubleClick"  
-                                   ToolTip="预计工时"/>
-                            <Label Content="{Binding Consumed}" Grid.Row="0" Grid.Column="8" 
-                                   MouseDoubleClick="Label_MouseDoubleClick"  
-                                   ToolTip="消耗工时"/>
+                                   ToolTip="消耗工时" Foreground="{Binding CurrentDate, Converter={StaticResource executionProgress2Color}}"/>
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
