@@ -71,6 +71,8 @@ namespace ZuggerWpf
                                         Progress = task["progress"].Value<string>()
                                         ,
                                         ProjectName= task["executionName"].Value<string>()
+                                        ,
+                                        ClosedReason = task["closedReason"].Value<string>()
                                     };
 
                                     if (!ItemCollectionBackup.Contains(taskItem.ID))

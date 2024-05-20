@@ -801,5 +801,18 @@ namespace ZuggerWpf
             about.Owner = this;
             about.ShowDialog();
         }
+        private void frmzugger_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (!(string.IsNullOrEmpty(appconfig.PMSHost) || string.IsNullOrEmpty(appconfig.UserName) || string.IsNullOrEmpty(appconfig.Password)))
+                Properties.Settings.Default.f_Opacity = 0.01;
+        }
+        private void MenuItemRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, checkAction);
+        }
+        private void frmzugger_MouseEnter(object sender, MouseEventArgs e)
+        {
+            Properties.Settings.Default.f_Opacity = 1;
+        }
     }
 }

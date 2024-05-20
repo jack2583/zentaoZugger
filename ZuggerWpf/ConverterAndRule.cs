@@ -256,6 +256,217 @@ namespace ZuggerWpf
             throw new NotImplementedException();
         }
     }
+    public class TasksBugsOfStoryList : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter,
+            CultureInfo culture)
+        {
+            List<string> lit = new List<string>();
+            try
+            {
+
+                StoryItem storyItem = (StoryItem)value;
+                Dict.StoryID = storyItem.ID;
+                //Dict.ProjectID = storyItem.ProjectID;
+
+                ZuggerObservableCollection<TaskItem> getTaskOfStory = new ZuggerObservableCollection<TaskItem>();
+                GetTaskOfSory gout = new GetTaskOfSory(getTaskOfStory);
+                gout.Action();
+
+                ZuggerObservableCollection<BugItem> getBugOfStory = new ZuggerObservableCollection<BugItem>();
+                GetBugOfSory goub = new GetBugOfSory(getBugOfStory);
+                goub.Action();
+
+                int i = Dict.TaskOfStoryDict.Count;
+                int j = Dict.BugOfStoryDict.Count;
+
+                if (i == 0)
+                    lit.Add("  未分解出任务！");
+                else
+                {
+                    foreach (KeyValuePair<int, TaskItem> kvp in Dict.TaskOfStoryDict)
+                    {
+                        lit.Add(string.Format("  任务：{0} {1} {2} {3} {4} {5} {6}", kvp.Value.AssignedToName, kvp.Value.Priority,
+                            kvp.Value.Status, kvp.Value.Type, kvp.Value.Progress, kvp.Value.ID, kvp.Value.Title));
+                    }
+                }
+
+                if (j == 0)
+                    lit.Add("  无未解决的bug！");
+                else
+                {
+                    foreach (KeyValuePair<int, BugItem> kvp in Dict.BugOfStoryDict)
+                    {
+                        if (kvp.Value.Resolution == "已解决")
+                            continue;
+
+                        lit.Add(string.Format("  BUG:{0} {1} {2} {3} {4} {5}", kvp.Value.Severity, kvp.Value.AssignedToName,
+                            kvp.Value.Confirmed, kvp.Value.Resolution, kvp.Value.ID, kvp.Value.Title));
+                    }
+                }
+
+
+            }
+            catch { }
+            return lit;
+        }
+        public object ConvertBack(object value, Type targetType, object parameter,
+            CultureInfo culture)
+        {
+            throw new NotSupportedException();
+        }
+    }
+    public class TasksBugsOfStory : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter,
+            CultureInfo culture)
+        {
+            if (value == null)
+                return null;
+            StringBuilder stringBuilder = new StringBuilder();
+
+            StoryItem storyItem = value as StoryItem;
+            Dict.StoryID = storyItem.ID;
+            //Dict.ProjectID = storyItem.ProjectID;
+
+            ZuggerObservableCollection<TaskItem> getTaskOfStory = new ZuggerObservableCollection<TaskItem>();
+            GetTaskOfSory gout = new GetTaskOfSory(getTaskOfStory);
+            gout.Action();
+
+            ZuggerObservableCollection<BugItem> getBugOfStory = new ZuggerObservableCollection<BugItem>();
+            GetBugOfSory goub = new GetBugOfSory(getBugOfStory);
+            goub.Action();
+
+            int i = Dict.TaskOfStoryDict.Count;
+            int j = Dict.BugOfStoryDict.Count;
+
+            stringBuilder.AppendLine(string.Format("【需求名：{0}】", storyItem.Title));
+            stringBuilder.AppendLine(string.Format("\n【相关任务有{0}个】", i));
+            if (i == 0)
+                stringBuilder.AppendLine("  未分解出任务！");
+            else
+            {
+                foreach (KeyValuePair<int, TaskItem> kvp in Dict.TaskOfStoryDict)
+                {
+                    stringBuilder.AppendLine(string.Format("  {0}  {1}  {2}  {3}{4}  {5}  {6}", kvp.Value.ProjectName, kvp.Value.Type,
+                        kvp.Value.AssignedToName, kvp.Value.Status, kvp.Value.ClosedReason, kvp.Value.Progress, kvp.Value.Title));
+
+                    stringBuilder.AppendLine("------------------------------------------------------");
+                }
+            }
+            stringBuilder.AppendLine(string.Format("\n【相关BUG有{0}个】", j));
+            if (j == 0)
+                stringBuilder.AppendLine("  无未解决的bug！");
+            else
+            {
+                foreach (KeyValuePair<int, BugItem> kvp in Dict.BugOfStoryDict)
+                {
+                    //if (kvp.Value.AssignedTo == "Closed")
+                    //    continue;
+
+                    stringBuilder.AppendLine(string.Format("  {0}  {1}  {2}  {3}  {4} ", kvp.Value.AssignedToName,
+                        kvp.Value.Confirmed, kvp.Value.Severity, kvp.Value.Resolution,  kvp.Value.Title));
+
+                    stringBuilder.AppendLine("------------------------------------------------------");
+                }
+            }
+
+            return stringBuilder.ToString();
+        }
+        public object ConvertBack(object value, Type targetType, object parameter,
+            CultureInfo culture)
+        {
+            throw new NotSupportedException();
+        }
+    }
+    public class StoryStage2Tips : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter,
+            CultureInfo culture)
+        {
+            string waitTip = "【未开始】\n  该需求没有关联项目，也没有关联计划\n";
+            string plannedTip = "【已计划】\n  该需求已关联计划，但没有关联项目\n";
+            string projectedTip = "【已立项】\n  该需求已关联项目，但没有分解开发任务，或开发任务未开始\n";
+            string developingTip = "【研发中】\n  该需求至少有一个开发任务进行中，并且所有的测试任务还没有开始\n";
+            string developedTip = "【研发完毕】\n  该需求所有的开发任务已经完成，并且所有的测试任务还没有开始\n";
+            string testingTip = "【测试中】\n  该需求至少有一个测试任务进行中，或者所有的测试任务已经结束，" +
+                               "\n  但还有一些开发任务没有结束\n";
+            string testedTip = "【测试完毕】\n  该需求所有的测试任务已经结束，并且所有的开发任务已经结束\n";
+            string verifiedTip = "【已验收】\n  产品经理已对该需求进行确认验收\n";
+            string releasedTip = "【已发布】\n  已将该需求在［产品-发布］完成关联操作\n";
+            string Tip = "【未开始】→【已计划】/【已立项】→【研发中】→【研发完毕】→\n" +
+                "【测试中】→【测试完毕】→【已验收】→【已发布】";
+
+            string waitTip_en = "【wait】\n  该需求没有关联项目，也没有关联计划\n";
+            string plannedTip_en = "【planned】\n  该需求已关联计划，但没有关联项目\n";
+            string projectedTip_en = "【projected】\n  该需求已关联项目，但没有分解开发任务，或开发任务未开始\n";
+            string developingTip_en = "【developing】\n  该需求至少有一个开发任务进行中，并且所有的测试任务还没有开始\n";
+            string developedTip_en = "【developed】\n  该需求所有的开发任务已经完成，并且所有的测试任务还没有开始\n";
+            string testingTip_en = "【testing】\n  该需求至少有一个测试任务进行中，或者所有的测试任务已经结束，" +
+                               "\n  但还有一些开发任务没有结束\n";
+            string testedTip_en = "【tested】\n  该需求所有的测试任务已经结束，并且所有的开发任务已经结束\n";
+            string verifiedTip_en = "【verified】\n  产品经理已对该需求进行确认验收\n";
+            string releasedTip_en = "【released】\n  已将该需求在［产品-发布］完成关联操作\n";
+            string Tip_en = "【wait】→【planned】/【projected】→【developing】→【developed】→\n" +
+                "【testing】→【tested】→【verified】→【released】";
+
+            switch (value.ToString())
+            {
+                case "wait":
+                    return string.Format("{0}\n{1}", waitTip_en, Tip_en);
+                case "未开始":
+                    return string.Format("{0}\n{1}", waitTip, Tip);
+
+                case "planned":
+                    return string.Format("{0}\n{1}", plannedTip_en, Tip_en);
+                case "已计划":
+                    return string.Format("{0}\n{1}", plannedTip, Tip);
+
+                case "projected":
+                    return string.Format("{0}\n{1}", projectedTip_en, Tip_en);
+                case "已立项":
+                    return string.Format("{0}\n{1}", projectedTip, Tip);
+
+                case "developing":
+                    return string.Format("{0}\n{1}", developingTip_en, Tip_en);
+                case "研发中":
+                    return string.Format("{0}\n{1}", developingTip, Tip);
+
+                case "developed":
+                    return string.Format("{0}\n{1}", developedTip_en, Tip_en);
+                case "研发完毕":
+                    return string.Format("{0}\n{1}", developedTip, Tip);
+
+                case "testing":
+                    return string.Format("{0}\n{1}", testingTip_en, Tip_en);
+                case "测试中":
+                    return string.Format("{0}\n{1}", testingTip, Tip);
+
+                case "tested":
+                    return string.Format("{0}\n{1}", testedTip_en, Tip_en);
+                case "测试完毕":
+                    return string.Format("{0}\n{1}", testedTip, Tip);
+
+                case "verified":
+                    return string.Format("{0}\n{1}", verifiedTip_en, Tip_en);
+                case "已验收":
+                    return string.Format("{0}\n{1}", verifiedTip, Tip);
+
+                case "released":
+                    return string.Format("{0}\n{1}", releasedTip_en, Tip_en);
+                case "已发布":
+                    return string.Format("{0}\n{1}", releasedTip, Tip);
+
+                default:
+                    return string.Format("{0}\n{1}", waitTip, Tip);
+            }
+        }
+        public object ConvertBack(object value, Type targetType, object parameter,
+            CultureInfo culture)
+        {
+            throw new NotSupportedException();
+        }
+    }
     public class LastEditToBackgroundColorConverter : IValueConverter
     {
         // 在转换器类中

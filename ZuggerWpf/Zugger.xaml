@@ -24,6 +24,9 @@
         <local:Datasource2Visible x:Key="datasource2Visible"/>
         <local:HeightConverter x:Key="heightconvert"/>
         <local:Bool2Visible x:Key="bool2vis"/>
+        <local:TasksBugsOfStory x:Key="tasksBugsOfStory"/>
+        <local:StoryStage2Tips x:Key="storyStage2Tips"/>
+
 
         <!-- 定义了一个ListBoxItem的样式，这个样式可以被ListBoxItem控件使用 -->
         <Style x:Key="listBoxItemMouseOver" TargetType="ListBoxItem">
@@ -53,9 +56,29 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <Style x:Key="toolTipStyle" TargetType="ToolTip">
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="HasDropShadow" Value="True" />
+            <Setter Property = "HorizontalOffset" Value="5"/>
+            <Setter Property = "VerticalOffset" Value="5"/>
+            <Setter Property = "FontSize" Value="18"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToolTip">
+                        <Border Background="MistyRose" CornerRadius="5" Margin="20,10,20,10" >
+                            <Border Background="MistyRose" CornerRadius="5" Margin="20,20,10,10">
+                                <ContentPresenter></ContentPresenter>
+                            </Border>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
     <Window.ContextMenu>
         <ContextMenu Name="menu">
+            <MenuItem Header="刷新(F5)" Click="MenuItemRefresh_Click" ToolTip="点击立即刷新;鼠标移到工具条数字上按F5亦可立即刷新" MouseEnter="frmzugger_MouseEnter" MouseLeave="frmzugger_MouseLeave"/>
             <MenuItem Header="选项" Click="MenuItemOption_Click"/>            
             <MenuItem Header="关于" Click="MenuItemAbout_Click"/>
             <MenuItem Header="退出" Click="MenuItemClose_Click"/>
@@ -264,7 +287,9 @@
                 </ListBox.ItemsPanel>
             </ListBox>
             <!--unclosedStoryList列表-->
-            <ListBox Name="unclosedStoryList" ItemsSource="{Binding}" ItemContainerStyle="{StaticResource listBoxItemMouseOver}" Background="#fbfbfb"
+            <StackPanel>
+               
+                <ListBox Name="unclosedStoryList" ItemsSource="{Binding}" ItemContainerStyle="{StaticResource listBoxItemMouseOver}" Background="#fbfbfb"
                      ScrollViewer.VerticalScrollBarVisibility="Auto" MaxHeight="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Height, Converter={StaticResource heightconvert}, ConverterParameter=0.7}"
                      Visibility="{Binding Converter={StaticResource datasource2Visible}}" KeyUp="ListBox_KeyUp">
                 <ListBox.ContextMenu>
@@ -291,12 +316,12 @@
                                 </RowDefinition>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Label Content="{Binding Execution}" Grid.Row="0" Grid.Column="0"  
                                    MouseDoubleClick="Label_MouseDoubleClick"
@@ -314,8 +339,15 @@
                                    MouseDoubleClick="Label_MouseDoubleClick" 
                                    ToolTip="需求ID"  Foreground="{Binding Stage, Converter={StaticResource storyStage2color}}"/>
                             <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="5" 
-                                   MouseDoubleClick="Label_MouseDoubleClick"  
-                                   ToolTip="需求标题"  Foreground="{Binding Stage, Converter={StaticResource storyStage2color}}"/>
+                                   MouseDoubleClick="Label_MouseDoubleClick"> 
+              
+                                   <Label.ToolTip>
+                                <ToolTip Style="{StaticResource toolTipStyle}">
+
+                                        <TextBlock Text="{Binding Converter={StaticResource tasksBugsOfStory}}"/>
+                                </ToolTip>
+                                </Label.ToolTip>
+                            </Label>
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -325,6 +357,7 @@
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
             </ListBox>
+            </StackPanel>    
             <!--unclosedTaskList列表-->
             <ListBox Name="unclosedTaskList" ItemsSource="{Binding}" ItemContainerStyle="{StaticResource listBoxItemMouseOver}" Background="#fbfbfb"
                      ScrollViewer.VerticalScrollBarVisibility="Auto" MaxHeight="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Height, Converter={StaticResource heightconvert}, ConverterParameter=0.7}"
@@ -597,7 +630,7 @@
                             <Label Content="{Binding Product}" Grid.Row="0" Grid.Column="0"
                                    ToolTip="Bug-所属产品"
                                    MouseDoubleClick="Label_MouseDoubleClick" 
-                                   Foreground="{Binding LastEdit, Converter={StaticResource date2color}}"/>
+                                   Foreground="{Binding LastEdit, Converter={StaticResource bug2color}}"/>
                             <Label Content="{Binding Severity}" Grid.Row="0" Grid.Column="1"
                                    ToolTip="Bug-严重程度"
                                    MouseDoubleClick="Label_MouseDoubleClick" 
@@ -747,8 +780,15 @@
                                    MouseDoubleClick="Label_MouseDoubleClick" 
                                    ToolTip="需求ID"  Foreground="{Binding Stage, Converter={StaticResource storyStage2color}}"/>
                             <Label Content="{Binding Title}" Grid.Row="0" Grid.Column="4" 
-                                   MouseDoubleClick="Label_MouseDoubleClick"  
-                                   ToolTip="需求标题"  Foreground="{Binding Stage, Converter={StaticResource storyStage2color}}"/>
+                                   MouseDoubleClick="Label_MouseDoubleClick">
+
+                                <Label.ToolTip>
+                                    <ToolTip Style="{StaticResource toolTipStyle}">
+
+                                        <TextBlock Text="{Binding Converter={StaticResource tasksBugsOfStory}}"/>
+                                    </ToolTip>
+                                </Label.ToolTip>
+                            </Label>
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

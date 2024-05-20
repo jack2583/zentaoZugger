@@ -9,6 +9,17 @@ using System.Text.RegularExpressions;
 
 namespace ZuggerWpf
 {
+    public static class Dict
+    {
+        public static Dictionary<int, StoryItem> StoryDict = new Dictionary<int, StoryItem>();
+        public static Dictionary<int, TaskItem> TaskDict = new Dictionary<int, TaskItem>();
+        public static Dictionary<int, BugItem> BugDict = new Dictionary<int, BugItem>();
+
+        public static int StoryID = 0;
+        public static int ProjectID = 0;
+        public static Dictionary<int, TaskItem> TaskOfStoryDict = new Dictionary<int, TaskItem>();
+        public static Dictionary<int, BugItem> BugOfStoryDict = new Dictionary<int, BugItem>();
+    }
     /// <summary>
     /// 新Item到达
     /// </summary>
@@ -40,7 +51,7 @@ namespace ZuggerWpf
 
 
     #region Bug BUG
-    class BugItem : ItemBase
+    public class BugItem : ItemBase
     {
         #region ItemBase 成员
 
@@ -130,7 +141,7 @@ namespace ZuggerWpf
     #endregion
 
     #region Task 任务
-    class TaskItem : ItemBase
+    public class TaskItem : ItemBase
     {
         #region ItemBase 成员
 
@@ -171,19 +182,23 @@ namespace ZuggerWpf
         public string Progress { get; set; }
 
         public string ProjectName { get; set; }
-       // public float? Estimate { get; set; } // 最初预计工时
-       //// public DateTime? Deadline { get; set; } // 任务截止日期
-       // public DateTime? EstStarted { get; set; } // 预计开始日期
-       // public DateTime? RealStarted { get; set; } // 实际开始日期
-       // public int PlanDuration { get; set; } // 计划持续天数
-       // public int RealDuration { get; set; } // 实际持续天数
-       // public DateTime OpenedDate { get; set; } // 创建日期
+        /// <summary>
+        /// 关闭原因
+        /// </summary>
+        public string ClosedReason { get; set; }
+        // public float? Estimate { get; set; } // 最初预计工时
+        //// public DateTime? Deadline { get; set; } // 任务截止日期
+        // public DateTime? EstStarted { get; set; } // 预计开始日期
+        // public DateTime? RealStarted { get; set; } // 实际开始日期
+        // public int PlanDuration { get; set; } // 计划持续天数
+        // public int RealDuration { get; set; } // 实际持续天数
+        // public DateTime OpenedDate { get; set; } // 创建日期
     }
 
     #endregion
 
     #region Story 需求
-    class StoryItem : ItemBase
+    public class StoryItem : ItemBase
     {
         #region ItemBase 成员
 

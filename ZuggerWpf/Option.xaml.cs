@@ -95,8 +95,15 @@ namespace ZuggerWpf
 
                 IOHelper.SaveIsolatedData(appconfig);
 
-                this.Close();
+                //this.Close();
+                //重启Zugger.exe自身
+                System.Reflection.Assembly.GetEntryAssembly();
+                //string startpath = System.IO.Directory.GetCurrentDirectory();
+                System.Diagnostics.Process.Start(System.IO.Path.Combine(appStartPath, "Zugger.exe"));
+                Application.Current.Shutdown();
             }
+            else
+                IOHelper.SaveIsolatedData(appconfig);
         }
 
         public bool RunWhenStart(bool started, string name, string path)

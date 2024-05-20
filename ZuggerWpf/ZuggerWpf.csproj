@@ -128,6 +128,8 @@
     <Compile Include="About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Action\GetBugOfStory.cs" />
+    <Compile Include="Action\GetTaskOfStory.cs" />
     <Compile Include="Action\GetUnclosedBug.cs" />
     <Compile Include="Action\GetUnclosedStory.cs" />
     <Compile Include="Action\GetUnclosedTask.cs" />

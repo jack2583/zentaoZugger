@@ -202,6 +202,28 @@ namespace ZuggerWpf
             }
         }
         /// <summary>
+        /// 某个需求下的所有bug
+        /// </summary>
+        public string GetStoryBugsUrl
+        {
+            get
+            {
+                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "story-bugs-{0}.json?a=1"
+                   : "?m=story&f=bugs&storyID={0}&t=json");
+            }
+        }
+        /// <summary>
+        /// 某个需求下的所有任务
+        /// </summary>
+        public string GetStoryTasksUrl
+        {
+            get
+            {
+                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "story-tasks-{0}.json?a=1"
+                   : "?m=story&f=tasks&storyID={0}&t=json");
+            }
+        }
+        /// <summary>
         /// 查看bug的url
         /// </summary>
         public string ViewBugUrl
