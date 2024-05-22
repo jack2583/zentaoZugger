@@ -76,7 +76,7 @@ namespace ZuggerWpf
                                             ,
                                         ID = ExecutionJp["id"].Value<int>()
                                             ,
-                                        Title = Util.EscapeXmlTag(ExecutionJp["team"].Value<string>())
+                                        Title = Util.EscapeXmlTag(ExecutionJp["name"].Value<string>())
                                             ,
                                         Tip = "Execution"
                                             ,

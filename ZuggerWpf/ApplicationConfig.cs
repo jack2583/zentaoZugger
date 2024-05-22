@@ -87,7 +87,7 @@ namespace ZuggerWpf
         {
             get
             {
-                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "execution-all-undone-order_asc-0.json?a=1" : "?m=execution&f=all&t=json");
+                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "execution-all-undone-project_asc-0.json?a=1" : "?m=execution&f=all&t=json");
             }
         }
         /// <summary>
@@ -97,7 +97,7 @@ namespace ZuggerWpf
         {
             get
             {
-                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "execution-task-{0}.json?a=1" : "?m=execution&f=task&executionID={0}&t=json");
+                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "execution-task-{0}-unclosed-0-assignedTo_asc.json?a=1" : "?m=execution&f=task&executionID={0}&t=json");
             }
         }
         /// <summary>
@@ -157,7 +157,7 @@ namespace ZuggerWpf
             {
                 //GET  /zentao/bug-browse-[productID]-[branch]-[browseType]-[param]-[orderBy]-[recTotal]-[recPerPage]-[pageID].json
                 //GET  /zentao/bug-browse-[产品id]-[分支固定为0]-[视图类型unclosed或openedByMe]-[param]-[orderBy]-[recTotal]-[recPerPage]-[pageID].json
-                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "bug-browse-{0}-0-openedByMe-id_desc-0-2147483647.json?a=1"
+                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "bug-browse-{0}-0-openedByMe-0-severity_asc.json?a=1"
                     : "?m=bug&f=browse&productID={0}&browseType=openedByMe&param=0&orderBy=id_desc&recTotal=0&recPerPage=2147483647&pageID=1&t=json");
             }          
         }
@@ -170,7 +170,7 @@ namespace ZuggerWpf
             {
                 //GET  /zentao/bug-browse-[productID]-[branch]-[browseType]-[param]-[orderBy]-[recTotal]-[recPerPage]-[pageID].json
                 //GET  /zentao/bug-browse-[产品id]-[分支固定为0]-[视图类型unclosed或openedByMe]-[param]-[orderBy]-[recTotal]-[recPerPage]-[pageID].json
-                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "bug-browse-{0}-0-unclosed-id_desc-0-2147483647.json?a=1"
+                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "bug-browse-{0}-all-unclosed-0-severity_asc.json?a=1"
                     : "?m=bug&f=browse&productID={0}&browseType=unclosed&param=0&orderBy=id_desc&recTotal=0&recPerPage=2147483647&pageID=1&t=json");
             }
         }
@@ -198,7 +198,7 @@ namespace ZuggerWpf
 
                 //return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "bug-browse-{0}-0-unclosed-id_desc-0-2147483647.json?a=1"
                 //   : "?m=bug&f=browse&productID={0}&browseType=unclosed&param=0&orderBy=id_desc&recTotal=0&recPerPage=2147483647&pageID=1&t=json");
-                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "execution-story-{0}-story-order_desc-unclosed.json?a=1" : "?m=execution&f=story&executionID={0}&t=json");
+                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "execution-story-{0}-story-pri_asc-unclosed.json?a=1" : "?m=execution&f=story&executionID={0}&t=json");
             }
         }
         /// <summary>
