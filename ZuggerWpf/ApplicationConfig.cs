@@ -198,7 +198,7 @@ namespace ZuggerWpf
 
                 //return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "bug-browse-{0}-0-unclosed-id_desc-0-2147483647.json?a=1"
                 //   : "?m=bug&f=browse&productID={0}&browseType=unclosed&param=0&orderBy=id_desc&recTotal=0&recPerPage=2147483647&pageID=1&t=json");
-                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "execution-story-{0}-story-pri_asc-unclosed.json?a=1" : "?m=execution&f=story&executionID={0}&t=json");
+                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "execution-story-{0}-story-assignedTo_asc-unclosed-0-10-50.json?a=1" : "?m=execution&f=story&executionID={0}&t=json");
             }
         }
         /// <summary>
