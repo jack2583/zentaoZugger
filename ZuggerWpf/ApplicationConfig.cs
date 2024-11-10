@@ -37,8 +37,23 @@ namespace ZuggerWpf
             set { pmsHost = value; }
         }
 
+        /*
+         * API 接口，参照禅道后台-二次开发-API 查看
+            分为两种访问方式:
+            PATH_INFO方式（伪静态的访问方式）
+            1、访问 http://x.com/api-getsessionid.json 获取禅道session信息
+            2、使用上一步获取的session作为url参数登录禅道 http://x.com/user-login.json?account=admin&password=123456&zentaosid=2bc87e66e25d8e9b0939aff1756f4132
+            3、使用 API 功能操作 http://x.com/project-index-no.json?zentaosid=6v9bl9hp3o5chvdd46u5fg36g4
+
+            GET方式
+            1、http://127.0.0.1/zentao/index.php?m=api&f=getSessionID&t=json
+            2、http://127.0.0.1/zentao/index.php?m=user&f=login&t=json&account=admin&password=123456&zentaosid=k3g0h321bieq07a5ffh4i3q4h2
+            3、http://127.0.0.1/zentao/index.php?m=company&f=browse&t=json&zentaosid=k3g0h321bieq07a5ffh4i3q4h2
+
+            获取的权限与sessionid有关
+         */
         /// <summary>
-        /// 获得session地址
+        /// 获得session地址 1、http://127.0.0.1/zentao/index.php?m=api&f=getSessionID&t=json
         /// </summary>
         public string SessionUrl
         {
@@ -81,13 +96,13 @@ namespace ZuggerWpf
             }
         }
         /// <summary>
-        /// 取全部执行
+        /// 取全部执行 http://xd.xiaojingwl.cn:81/zentao/execution-all-undone.html
         /// </summary>
         public string GetExecutionUrl
         {
             get
             {
-                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "execution-all-undone-project_asc-0.json?a=1" : "?m=execution&f=all&t=json");
+                return Util.URLCombine(pmsHost, IsPATH_INFORequest ? "execution-all-undone.json?" : "?m=execution&f=all&t=json");
             }
         }
         /// <summary>

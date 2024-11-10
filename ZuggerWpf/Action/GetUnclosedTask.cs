@@ -137,7 +137,7 @@ namespace ZuggerWpf
             try
             {
                 ApplicationConfig appconfig = IOHelper.LoadIsolatedData();
-               
+                string s3 = string.Format("{0}&{1}={2}", appconfig.GetExecutionUrl, SessionName, SessionID);
                 string json = WebTools.Download(string.Format("{0}&{1}={2}", appconfig.GetExecutionUrl, SessionName, SessionID));
 
                 if (!string.IsNullOrEmpty(json))

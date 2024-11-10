@@ -68,6 +68,7 @@ namespace ZuggerWpf
                             {
                                 //获取用户字典
                                 Dictionary<string, string> usersDic = new Dictionary<string, string>();
+                                usersDic.Add("", "未指派");
                                 var jsObjUsers = JsonConvert.DeserializeObject(jsObj["users"].ToString()) as JObject;
 
                                 JToken recordUser = jsObjUsers as JToken;
@@ -79,8 +80,56 @@ namespace ZuggerWpf
                                     }
                                 }
 
-                                JArray BugsArray = (JArray)JsonConvert.DeserializeObject(jsObj["bugs"].ToString());
 
+                                var jsObj2 = JsonConvert.DeserializeObject(jsObj["bugs"].ToString()) as JObject;
+                                JToken record = jsObj2 as JToken;
+                                if (record != null)
+                                {
+                                    foreach (JProperty jp in record)
+                                    {
+                                        var bug = jp.First;
+                                        if (bug["status"].Value<string>() != "cancel")
+                                        {
+                                            BugItem bugItem = new BugItem()
+                                            {
+                                                Priority = Convert.Pri(bug["pri"].Value<string>())
+                                        ,
+                                                Severity = Convert.Severity(bug["severity"].Value<string>())
+                                                ,
+                                                ID = bug["id"].Value<int>()
+                                                ,
+                                                Title = Util.EscapeXmlTag(bug["title"].Value<string>())
+                                                ,
+                                                OpenDate = bug["openedDate"].Value<string>()
+                                                ,
+                                                LastEditDate = bug["lastEditedDate"].Value<string>()
+                                                ,
+                                                Tip = "未关闭的Bug"
+                                                ,
+                                                Confirmed = Convert.Confirmed(bug["confirmed"].Value<string>())
+                                                ,
+                                                Resolution = Convert.Resolution(bug["resolution"].Value<string>())
+                                                ,
+                                                AssignedToName = usersDic[bug["assignedTo"].Value<string>()]
+                                            };
+
+                                            if (!ItemCollectionBackup.Contains(bugItem.ID))
+                                            {
+                                                NewItemCount = NewItemCount == 0 ? bugItem.ID : (NewItemCount > 0 ? -2 : NewItemCount - 1);
+                                            }
+                                            bugItem.Product = ProductName;
+                                            itemsList.Add(bugItem);
+                                           // Dict.BugOfStoryDict.Add(bugItem.ID, bugItem);
+                                        }
+                                    }
+                                    if (OnNewItemArrive != null
+                                        && NewItemCount != 0)
+                                    {
+                                        OnNewItemArrive(ItemType.Task, NewItemCount);
+                                    }
+                                }
+                                /*
+                                JArray BugsArray = (JArray)JsonConvert.DeserializeObject(jsObj["bugs"].ToString());
                                 foreach (var bug in BugsArray)
                                 {
                                     //unclosedBug 显示未关闭
@@ -117,6 +166,7 @@ namespace ZuggerWpf
                                         itemsList.Add(bugItem);
                                     }
                                 }
+                            */
                             }
 
                             isSuccess = true;

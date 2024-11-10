@@ -54,7 +54,16 @@ namespace ZuggerWpf
 
             return isSuccess;
         }
-
+        /// <summary>
+        ///  // http://x.com/user-login.json?account=admin&password=123456&zentaosid=2bc87e66e25d8e9b0939aff1756f4132
+        /// </summary>
+        /// <param name="loginurl"></param>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <param name="randomnum"></param>
+        /// <param name="sessoinname"></param>
+        /// <param name="sessonid"></param>
+        /// <returns></returns>
         public static bool DoLogin(string loginurl, string username, string password, string randomnum, string sessoinname, string sessonid)
         {
             bool isSuccess = false;

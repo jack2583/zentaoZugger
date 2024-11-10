@@ -3,28 +3,24 @@
   "WorkspaceRootPath": "C:\\git\\zentaoZugger\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{3F6B4CDB-5074-4F50-B3AB-7A86346FCABF}|ZuggerWpf\\ZuggerWpf.csproj|c:\\git\\zentaozugger\\zuggerwpf\\option.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3F6B4CDB-5074-4F50-B3AB-7A86346FCABF}|ZuggerWpf\\ZuggerWpf.csproj|solutionrelative:zuggerwpf\\option.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{3F6B4CDB-5074-4F50-B3AB-7A86346FCABF}|ZuggerWpf\\ZuggerWpf.csproj|c:\\git\\zentaozugger\\zuggerwpf\\action\\getunclosedbug.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3F6B4CDB-5074-4F50-B3AB-7A86346FCABF}|ZuggerWpf\\ZuggerWpf.csproj|solutionrelative:zuggerwpf\\action\\getunclosedbug.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3F6B4CDB-5074-4F50-B3AB-7A86346FCABF}|ZuggerWpf\\ZuggerWpf.csproj|C:\\git\\zentaoZugger\\zuggerwpf\\zugger.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{3F6B4CDB-5074-4F50-B3AB-7A86346FCABF}|ZuggerWpf\\ZuggerWpf.csproj|solutionrelative:zuggerwpf\\zugger.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{3F6B4CDB-5074-4F50-B3AB-7A86346FCABF}|ZuggerWpf\\ZuggerWpf.csproj|c:\\git\\zentaozugger\\zuggerwpf\\action\\getopenedbymebug.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3F6B4CDB-5074-4F50-B3AB-7A86346FCABF}|ZuggerWpf\\ZuggerWpf.csproj|solutionrelative:zuggerwpf\\action\\getopenedbymebug.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3F6B4CDB-5074-4F50-B3AB-7A86346FCABF}|ZuggerWpf\\ZuggerWpf.csproj|c:\\git\\zentaozugger\\zuggerwpf\\converterandrule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3F6B4CDB-5074-4F50-B3AB-7A86346FCABF}|ZuggerWpf\\ZuggerWpf.csproj|solutionrelative:zuggerwpf\\converterandrule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{3F6B4CDB-5074-4F50-B3AB-7A86346FCABF}|ZuggerWpf\\ZuggerWpf.csproj|c:\\git\\zentaozugger\\zuggerwpf\\action\\gettaskofstory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3F6B4CDB-5074-4F50-B3AB-7A86346FCABF}|ZuggerWpf\\ZuggerWpf.csproj|solutionrelative:zuggerwpf\\action\\gettaskofstory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3F6B4CDB-5074-4F50-B3AB-7A86346FCABF}|ZuggerWpf\\ZuggerWpf.csproj|c:\\git\\zentaozugger\\zuggerwpf\\applicationconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3F6B4CDB-5074-4F50-B3AB-7A86346FCABF}|ZuggerWpf\\ZuggerWpf.csproj|solutionrelative:zuggerwpf\\applicationconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3F6B4CDB-5074-4F50-B3AB-7A86346FCABF}|ZuggerWpf\\ZuggerWpf.csproj|c:\\git\\zentaozugger\\zuggerwpf\\action\\getbugofstory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3F6B4CDB-5074-4F50-B3AB-7A86346FCABF}|ZuggerWpf\\ZuggerWpf.csproj|solutionrelative:zuggerwpf\\action\\getbugofstory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3F6B4CDB-5074-4F50-B3AB-7A86346FCABF}|ZuggerWpf\\ZuggerWpf.csproj|C:\\git\\zentaoZugger\\zuggerwpf\\action\\gettaskofstory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3F6B4CDB-5074-4F50-B3AB-7A86346FCABF}|ZuggerWpf\\ZuggerWpf.csproj|solutionrelative:zuggerwpf\\action\\gettaskofstory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3F6B4CDB-5074-4F50-B3AB-7A86346FCABF}|ZuggerWpf\\ZuggerWpf.csproj|C:\\git\\zentaoZugger\\zuggerwpf\\action\\actionbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3F6B4CDB-5074-4F50-B3AB-7A86346FCABF}|ZuggerWpf\\ZuggerWpf.csproj|solutionrelative:zuggerwpf\\action\\actionbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -39,78 +35,66 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Option.xaml.cs",
-              "DocumentMoniker": "C:\\git\\zentaoZugger\\ZuggerWpf\\Option.xaml.cs",
-              "RelativeDocumentMoniker": "ZuggerWpf\\Option.xaml.cs",
-              "ToolTip": "C:\\git\\zentaoZugger\\ZuggerWpf\\Option.xaml.cs",
-              "RelativeToolTip": "ZuggerWpf\\Option.xaml.cs",
-              "ViewState": "AQIAAMEAAAAAAAAAAAAQwMQAAABCAAAA",
+              "Title": "GetUnclosedBug.cs",
+              "DocumentMoniker": "C:\\git\\zentaoZugger\\ZuggerWpf\\Action\\GetUnclosedBug.cs",
+              "RelativeDocumentMoniker": "ZuggerWpf\\Action\\GetUnclosedBug.cs",
+              "ToolTip": "C:\\git\\zentaoZugger\\ZuggerWpf\\Action\\GetUnclosedBug.cs",
+              "RelativeToolTip": "ZuggerWpf\\Action\\GetUnclosedBug.cs",
+              "ViewState": "AQIAAE8AAAAAAAAAAAAQwJcAAAA7AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-18T10:03:33.267Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "GetBugOfStory.cs",
-              "DocumentMoniker": "C:\\git\\zentaoZugger\\ZuggerWpf\\Action\\GetBugOfStory.cs",
-              "RelativeDocumentMoniker": "ZuggerWpf\\Action\\GetBugOfStory.cs",
-              "ToolTip": "C:\\git\\zentaoZugger\\ZuggerWpf\\Action\\GetBugOfStory.cs",
-              "RelativeToolTip": "ZuggerWpf\\Action\\GetBugOfStory.cs",
-              "ViewState": "AQIAAFEAAAAAAAAAAAAYwAcAAAAOAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-18T08:40:00.216Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "GetTaskOfStory.cs",
-              "DocumentMoniker": "C:\\git\\zentaoZugger\\ZuggerWpf\\Action\\GetTaskOfStory.cs",
-              "RelativeDocumentMoniker": "ZuggerWpf\\Action\\GetTaskOfStory.cs",
-              "ToolTip": "C:\\git\\zentaoZugger\\ZuggerWpf\\Action\\GetTaskOfStory.cs",
-              "RelativeToolTip": "ZuggerWpf\\Action\\GetTaskOfStory.cs",
-              "ViewState": "AQIAAEsAAAAAAAAAAAAhwFQAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-17T15:42:15.938Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ActionBase.cs",
-              "DocumentMoniker": "C:\\git\\zentaoZugger\\ZuggerWpf\\Action\\ActionBase.cs",
-              "RelativeDocumentMoniker": "ZuggerWpf\\Action\\ActionBase.cs",
-              "ToolTip": "C:\\git\\zentaoZugger\\ZuggerWpf\\Action\\ActionBase.cs",
-              "RelativeToolTip": "ZuggerWpf\\Action\\ActionBase.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAoAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-12T12:09:29.148Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Zugger.xaml",
-              "DocumentMoniker": "C:\\git\\zentaoZugger\\ZuggerWpf\\Zugger.xaml",
-              "RelativeDocumentMoniker": "ZuggerWpf\\Zugger.xaml",
-              "ToolTip": "C:\\git\\zentaoZugger\\ZuggerWpf\\Zugger.xaml",
-              "RelativeToolTip": "ZuggerWpf\\Zugger.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-05-12T12:31:45.143Z",
+              "WhenOpened": "2024-11-10T08:10:44.621Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "ConverterAndRule.cs",
-              "DocumentMoniker": "C:\\git\\zentaoZugger\\ZuggerWpf\\ConverterAndRule.cs",
-              "RelativeDocumentMoniker": "ZuggerWpf\\ConverterAndRule.cs",
-              "ToolTip": "C:\\git\\zentaoZugger\\ZuggerWpf\\ConverterAndRule.cs",
-              "RelativeToolTip": "ZuggerWpf\\ConverterAndRule.cs",
-              "ViewState": "AQIAAAYBAAAAAAAAAAAEwEgBAAAQAAAA",
+              "Title": "GetTaskOfStory.cs",
+              "DocumentMoniker": "C:\\git\\zentaoZugger\\ZuggerWpf\\Action\\GetTaskOfStory.cs",
+              "RelativeDocumentMoniker": "ZuggerWpf\\Action\\GetTaskOfStory.cs",
+              "ToolTip": "C:\\git\\zentaoZugger\\ZuggerWpf\\Action\\GetTaskOfStory.cs",
+              "RelativeToolTip": "ZuggerWpf\\Action\\GetTaskOfStory.cs",
+              "ViewState": "AQIAAHIAAAAAAAAAAAAYwHoAAAApAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-11T16:57:37.876Z",
+              "WhenOpened": "2024-11-10T08:02:09.445Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ApplicationConfig.cs",
+              "DocumentMoniker": "C:\\git\\zentaoZugger\\ZuggerWpf\\ApplicationConfig.cs",
+              "RelativeDocumentMoniker": "ZuggerWpf\\ApplicationConfig.cs",
+              "ToolTip": "C:\\git\\zentaoZugger\\ZuggerWpf\\ApplicationConfig.cs",
+              "RelativeToolTip": "ZuggerWpf\\ApplicationConfig.cs",
+              "ViewState": "AQIAAKUAAAAAAAAAAAAkwKwAAACDAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-10T07:56:57.914Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "GetOpenedByMeBug.cs",
+              "DocumentMoniker": "C:\\git\\zentaoZugger\\ZuggerWpf\\Action\\GetOpenedByMeBug.cs",
+              "RelativeDocumentMoniker": "ZuggerWpf\\Action\\GetOpenedByMeBug.cs",
+              "ToolTip": "C:\\git\\zentaoZugger\\ZuggerWpf\\Action\\GetOpenedByMeBug.cs",
+              "RelativeToolTip": "ZuggerWpf\\Action\\GetOpenedByMeBug.cs",
+              "ViewState": "AQIAAGQAAAAAAAAAAAAmwI8AAAAiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-10T07:56:30.553Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "GetBugOfStory.cs",
+              "DocumentMoniker": "C:\\git\\zentaoZugger\\ZuggerWpf\\Action\\GetBugOfStory.cs",
+              "RelativeDocumentMoniker": "ZuggerWpf\\Action\\GetBugOfStory.cs",
+              "ToolTip": "C:\\git\\zentaoZugger\\ZuggerWpf\\Action\\GetBugOfStory.cs",
+              "RelativeToolTip": "ZuggerWpf\\Action\\GetBugOfStory.cs",
+              "ViewState": "AQIAAEsAAAAAAAAAAAAgwFEAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-10T07:55:12.179Z",
               "EditorCaption": ""
             }
           ]

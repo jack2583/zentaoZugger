@@ -66,6 +66,7 @@ namespace ZuggerWpf
                             {
                                 //获取用户字典
                                 Dictionary<string, string> usersDic = new Dictionary<string, string>();
+                                usersDic.Add("", "未指派");
                                 var jsObjUsers = JsonConvert.DeserializeObject(jsObj["users"].ToString()) as JObject;
 
                                 JToken recordUser = jsObjUsers as JToken;

@@ -21,7 +21,7 @@ namespace ZuggerWpf
             {
                 //请求得到session
                 isSuccess = PMSUtil.GetSession(appconfig.SessionUrl, ref SessionName, ref SessionID, ref RandomNumber);
-
+          
                 if (isSuccess
                     && !string.IsNullOrEmpty(appconfig.UserName)
                     && !string.IsNullOrEmpty(appconfig.Password))
